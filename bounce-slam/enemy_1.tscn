@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://w60ssiy5ynav"]
+
+[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_mbxyh"]
+[ext_resource type="Script" uid="uid://by72jppku7od7" path="res://enemy_1.gd" id="1_pjquw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pjquw"]
+radius = 80.399
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_663o1"]
+radius = 464.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ovk8a"]
+radius = 88.362885
+
+[node name="enemy_1" type="StaticBody2D"]
+script = ExtResource("1_pjquw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_mbxyh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pjquw")
+disabled = true
+
+[node name="detection_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+shape = SubResource("CircleShape2D_663o1")
+
+[node name="attack_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area"]
+shape = SubResource("CircleShape2D_ovk8a")

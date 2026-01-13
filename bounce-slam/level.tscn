@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=3 uid="uid://q54ofarvs22k"]
+
+[ext_resource type="Script" uid="uid://sp16ct1wecq3" path="res://level.gd" id="1_oi3di"]
+[ext_resource type="PackedScene" uid="uid://cksdc6x5vi4iv" path="res://player.tscn" id="2_oi3di"]
+[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="3_0b4ue"]
+[ext_resource type="Script" uid="uid://j5bqgv3rr8xu" path="res://touch_screen_button.gd" id="4_f2txt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f2txt"]
+size = Vector2(307, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ainy"]
+size = Vector2(50, 744)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1ainy"]
+radius = 88.02
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
+size = Vector2(618, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0b4ue"]
+radius = 88.0
+
+[node name="level" type="Node2D"]
+script = ExtResource("1_oi3di")
+
+[node name="outer_bounds" type="StaticBody2D" parent="."]
+position = Vector2(407, 167)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="outer_bounds"]
+position = Vector2(473, 113)
+shape = SubResource("RectangleShape2D_f2txt")
+disabled = true
+
+[node name="left_bound" type="Area2D" parent="outer_bounds"]
+position = Vector2(-407, -167)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="outer_bounds/left_bound"]
+position = Vector2(15, 348)
+shape = SubResource("RectangleShape2D_1ainy")
+
+[node name="right_bound" type="Area2D" parent="outer_bounds"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="outer_bounds/right_bound"]
+position = Vector2(329, 177)
+shape = SubResource("RectangleShape2D_1ainy")
+
+[node name="player" parent="." instance=ExtResource("2_oi3di")]
+position = Vector2(407, 167)
+
+[node name="left_barrier_spawner" type="Marker2D" parent="."]
+position = Vector2(64, 712)
+
+[node name="right_barrier_spawner" type="Marker2D" parent="."]
+position = Vector2(688, 704)
+
+[node name="player_vert_control" type="TouchScreenButton" parent="."]
+position = Vector2(500, 331)
+texture_normal = ExtResource("3_0b4ue")
+shape = SubResource("CircleShape2D_1ainy")
+action = "ui_select"
+script = ExtResource("4_f2txt")
+
+[node name="borders" type="StaticBody2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="up_border" type="CollisionShape2D" parent="borders"]
+position = Vector2(359, -15)
+shape = SubResource("RectangleShape2D_0b4ue")
+
+[node name="down_border" type="CollisionShape2D" parent="borders"]
+position = Vector2(384, 656)
+shape = SubResource("RectangleShape2D_0b4ue")
+
+[node name="obstacle_spawnpoint_1" type="Marker2D" parent="."]
+position = Vector2(256, 705)
+
+[node name="obstacle_spawnpoint_2" type="Marker2D" parent="."]
+position = Vector2(384, 704)
+
+[node name="obstacle_spawnpoint_3" type="Marker2D" parent="."]
+position = Vector2(512, 704)
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
+position = Vector2(504, 184)
+texture_normal = ExtResource("3_0b4ue")
+shape = SubResource("CircleShape2D_0b4ue")
+
+[connection signal="body_entered" from="outer_bounds/left_bound" to="." method="_on_left_bound_body_entered"]
+[connection signal="body_entered" from="outer_bounds/right_bound" to="." method="_on_right_bound_body_entered"]
+[connection signal="pressed" from="player_vert_control" to="." method="_on_player_vert_control_pressed"]
+[connection signal="released" from="player_vert_control" to="." method="_on_player_vert_control_released"]
