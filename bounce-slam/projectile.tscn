@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://2qrlxgrqv1is"]
+
+[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_a85iw"]
+[ext_resource type="Script" uid="uid://dndr2dcoff0q7" path="res://projectile.gd" id="1_qxf0c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jiowd"]
+atlas = ExtResource("1_a85iw")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2x7xp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jiowd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_80516"]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jqaj3"]
+radius = 24.0
+
+[node name="projectile" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_qxf0c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1.4305115e-06, 1.4305115e-06)
+scale = Vector2(2.9999998, 2.9999998)
+sprite_frames = SubResource("SpriteFrames_2x7xp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_80516")
+disabled = true
+
+[node name="detection_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+shape = SubResource("CircleShape2D_jqaj3")
+
+[connection signal="area_entered" from="detection_area" to="." method="_on_detection_area_area_entered"]
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

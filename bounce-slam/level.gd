@@ -1,20 +1,30 @@
 extends Node2D
+var main_scroll_speed = 50
+var background_sprites = []
+var background_start_pos
+var bg_height 
 var	object_spawn_point_1 
 var	object_spawn_point_2  
 var	object_spawn_point_3  
+var upgrade_crate : PackedScene = load("res://upgrade_crate.tscn")
+var base_upgrade_crate : PackedScene = load("res://base_upgrade_crate.tscn")
+var trash : PackedScene = load("res://trash.tscn")
 var enemy_1 : PackedScene = load("res://enemy_1.tscn")
 var enemy_2 : PackedScene = load("res://enemy_2.tscn")
 var enemy_3 : PackedScene = load("res://enemy_3.tscn")
+var enemy_4 : PackedScene = load("res://enemy_4.tscn")
 var object_spawn_points = []
-var possible_objects = [enemy_1, enemy_2, enemy_3]
+var possible_objects = [enemy_1, enemy_2, enemy_3, enemy_4, upgrade_crate, base_upgrade_crate, trash]
 var spawned_objects = []
 var barrier_1 : PackedScene = load("res://barrier_1.tscn")
 var barrier_2 : PackedScene = load("res://barrier_2.tscn")
+var barrier_3 : PackedScene = load("res://barrier_3.tscn")
+var barrier_4 : PackedScene = load("res://barrier_4.tscn")
 var none : PackedScene = load("res://barrier_1.tscn")
-var barriers = [barrier_1, barrier_2]
+var barriers = [barrier_1, barrier_2, barrier_3, barrier_4]
 var left_barriers = []
 var right_barriers = []
-var difficulty = 10.0
+var difficulty = 5.0
 var left_create : bool
 var right_create : bool
 var barrier_space = 200
@@ -25,11 +35,34 @@ var vert_control_hold = false
 var vert_direction : String
 var player_vert_speed = 10 
 var object_speed = 5
-var screen 
+var screen_size
+var screen_y
 var side_delayed : String
+var initial_camera
+var create = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	background_sprites = [$background/main_bg]
+	bg_height = $background/main_bg.texture.get_height()
+	background_start_pos = $background/main_bg.position.y
+	
+	
+#	$ParallaxBackground. = Vector2(0,-50)
+	var door_timer = Timer.new()
+	door_timer.wait_time = 0.39
+	door_timer.one_shot = true
+	door_timer.timeout.connect(door_timeout)	
+	add_child(door_timer)
+	door_timer.start()
+	$player.modulate = 0
+	$AnimationPlayer.play("start_game")
+	global.immunity_time(3.0)
+	
+	initial_camera = $Camera2D.position
+	screen_size = get_viewport().get_visible_rect().size
+	
 	left_create = bool(randi() % 2)
 	right_create = not left_create
 	
@@ -40,18 +73,33 @@ func _ready() -> void:
 	object_spawn_points.append(object_spawn_point_2)
 	object_spawn_point_3 = $obstacle_spawnpoint_3
 	object_spawn_points.append(object_spawn_point_3)
-	create_objects()
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	
+		
+	object_deletion()
+	barrier_deletion()
+	for sprite in background_sprites:
+		sprite.position.y -= main_scroll_speed * delta
+		if sprite.position.y <= bg_height:
+			sprite.position.y += bg_height
+#	$ParallaxBackground.scroll_offset += speed * delta
 	for object in spawned_objects:
-		if "enemy" not in object.name:
-			object.position.y -= object_speed
-		else:
-			if object.special_action == false:
+		if is_instance_valid(object):
+			if "enemy" not in object.name:
 				object.position.y -= object_speed
+				if object.has_method("magnetic"):
+					if object.fire == true:
+						object.position.y -=0
+					
+			else:
+				if object.special_action == false:
+					object.position.y -= object_speed
+				else:
+					object.velocity = Vector2.ZERO
+		else:
+			spawned_objects.erase(object)
 				
 	for barrier in left_barriers:
 		barrier.position.y -= 80 * delta
@@ -91,16 +139,15 @@ func left_barrier_spawn(difficulty):
 		left_barrier.name = "left_barrier"
 		left_barriers.append(left_barrier)
 		add_child(left_barrier)
-		var left_height = left_barrier.get_node("Sprite2D").texture.get_height()
+		var left_height = left_barrier.get_node("CollisionShape2D").shape.size.y
 		if last_left_difference == 0:
 			left_barrier.position = $left_barrier_spawner.position
-
 		else:
 			left_barrier.position = $left_barrier_spawner.position 
 			left_barrier.position.y += last_left_difference
 			left_barrier.position.y += barrier_space
-			
-			
+				
+				
 		last_left_difference = left_height
 	if right_create == true:
 		var left_timer = Timer.new()
@@ -109,8 +156,7 @@ func left_barrier_spawn(difficulty):
 		left_timer.timeout.connect(left_timer_timeout)
 		add_child(left_timer)
 		left_timer.start()
-	else:
-		
+	else:	
 		side_delayed = "left"
 		delay(difficulty)
 
@@ -123,12 +169,11 @@ func right_barrier_spawn(difficulty):
 	var right_barrier = barriers[randi() % barriers.size()].instantiate()
 	right_barrier.name = "right_barrier"
 	right_barriers.append(right_barrier)
-	right_barrier.get_node("Sprite2D").flip_h = true
+	right_barrier.get_node("AnimatedSprite2D").flip_h = true
 	add_child(right_barrier)
-	var right_height = right_barrier.get_node("Sprite2D").texture.get_height()
+	var right_height = right_barrier.get_node("CollisionShape2D").shape.size.y
 	if last_right_difference == 0:
 		right_barrier.position = $right_barrier_spawner.position
-
 	else:
 		right_barrier.position = $right_barrier_spawner.position 
 		right_barrier.position.y += last_right_difference
@@ -157,19 +202,21 @@ func _on_player_vert_control_pressed() -> void:
 func _on_player_vert_control_released() -> void:
 	$player_vert_control.position = initial_vert_control_position
 func create_objects():
-	var object = possible_objects[randi() % possible_objects.size()].instantiate()
-	var spawn_point = object_spawn_points.pick_random()
-	object.position = spawn_point.position
+	if create:
+		var object = possible_objects[randi() % possible_objects.size()].instantiate()
+		var spawn_point = object_spawn_points.pick_random()
+		object.position = spawn_point.position
 
-	spawned_objects.append(object)
-	add_child(object)
-	var creation_cooldown_time = randi_range(2.0, 10.0)
-	var creation_cooldown = Timer.new()
-	creation_cooldown.one_shot = true
-	creation_cooldown.wait_time = creation_cooldown_time
-	creation_cooldown.timeout.connect(creation_cooldown_timeout)
-	add_child(creation_cooldown)
-	creation_cooldown.start()
+		spawned_objects.append(object)
+		add_child(object)
+		print("crate created")
+		var creation_cooldown_time = randi_range(2.0, 10.0)
+		var creation_cooldown = Timer.new()
+		creation_cooldown.one_shot = true
+		creation_cooldown.wait_time = creation_cooldown_time
+		creation_cooldown.timeout.connect(creation_cooldown_timeout)
+		add_child(creation_cooldown)
+		creation_cooldown.start()
 func creation_cooldown_timeout():
 	create_objects()
 func delay(difficulty):
@@ -180,6 +227,7 @@ func delay(difficulty):
 	add_child(delay_timer)
 	delay_timer.start()
 func delay_timeout():
+	
 	match side_delayed:
 		"left":
 			right_create = true
@@ -192,14 +240,40 @@ func delay_timeout():
 	
 	
 	
-	
 
 
 func _on_left_bound_body_entered(body: Node2D) -> void:
 	if body.has_method("player"):
 		global.health = 0
-
-
 func _on_right_bound_body_entered(body: Node2D) -> void:
 	if body.has_method("player"):
 		global.health = 0
+func object_deletion():
+	
+	for body in $enemy_border.get_overlapping_bodies():
+		if "enemy" in body.name and body in spawned_objects:
+			spawned_objects.erase(body)
+		body.queue_free()
+func barrier_deletion():
+	for barrier in left_barriers:
+		if barrier.position.y < $left_barrier_spawner.position.y - screen_size.y - barrier.get_node("CollisionShape2D").shape.size.y:
+			barrier.queue_free()
+			left_barriers.erase(barrier)
+			print("barrier deleted")
+	for barrier in right_barriers:
+		if barrier.position.y < $right_barrier_spawner.position.y - screen_size.y - barrier.get_node("CollisionShape2D").shape.size.y:
+			barrier.queue_free()
+			right_barriers.erase(barrier)
+			print("barrier deleted")
+
+
+func _on_animation_player_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "start_game":
+		$Node2D/facility_door.queue_free()
+		global.start_motion = true
+		create = true
+		create_objects()
+		
+func door_timeout():
+	$Node2D/facility_door.play("open")
+	

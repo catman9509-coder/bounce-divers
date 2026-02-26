@@ -8,6 +8,7 @@ const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
 func _ready() -> void:
+	
 	pass
 func _physics_process(delta: float) -> void:
 	for body in $detection_area.get_overlapping_bodies():
@@ -44,8 +45,8 @@ func normalize():
 		$body.play("default")
 		for CollisionShape2D in $attack_area.get_children():
 			CollisionShape2D.disabled = true
-
-
+func enemy():
+	pass			
 func _on_body_animation_finished() -> void:
 	if $body.animation == "attack":
 		attacking = false

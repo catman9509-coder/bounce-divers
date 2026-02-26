@@ -73,39 +73,38 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v15ab"]
-radius = 72.0
+radius = 24.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_60q65"]
-radius = 193.49419
+radius = 64.0
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_h2kam"]
-b = Vector2(104, -96)
+b = Vector2(48, -40)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_c1bkt"]
-b = Vector2(-88, -104)
+b = Vector2(-40, -40)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_3tot4"]
-b = Vector2(104, 96)
+b = Vector2(48, 40)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_j66hg"]
-b = Vector2(-96, 96)
+b = Vector2(-40, 40)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dxyk6"]
-radius = 71.55418
+radius = 48.0
 
 [node name="enemy_3" type="CharacterBody2D"]
 script = ExtResource("1_dxyk6")
 
 [node name="body" type="AnimatedSprite2D" parent="."]
-position = Vector2(2.861023e-06, -6.198883e-06)
-scale = Vector2(4.5, 4)
+position = Vector2(0, 4.7683716e-07)
+scale = Vector2(1.5000001, 1.5)
 sprite_frames = SubResource("SpriteFrames_4c84r")
 animation = &"attack"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_v15ab")
-disabled = true
 
 [node name="detection_area" type="Area2D" parent="."]
 
@@ -113,8 +112,8 @@ disabled = true
 shape = SubResource("CircleShape2D_60q65")
 
 [node name="eyes" type="Sprite2D" parent="."]
-position = Vector2(3.8146973e-06, 1.9073486e-06)
-scale = Vector2(0.6875, 0.625)
+position = Vector2(-7.1525574e-07, 4.7683716e-07)
+scale = Vector2(0.25, 0.24999999)
 texture = ExtResource("2_no5mw")
 
 [node name="attack_area" type="Area2D" parent="."]

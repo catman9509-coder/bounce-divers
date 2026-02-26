@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://c41h3w35u6i7q"]
+
+[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_06t4h"]
+[ext_resource type="Script" uid="uid://cmf7rgou4x46j" path="res://main_menu.gd" id="1_7vrkn"]
+
+[node name="main_menu" type="Node2D"]
+script = ExtResource("1_7vrkn")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 360.0
+offset_bottom = 640.0
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 300
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/CenterContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="play" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_06t4h")
+
+[node name="shop" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_06t4h")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="settings" type="TextureButton" parent="CanvasLayer/Control/HBoxContainer/MarginContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_06t4h")
+
+[node name="play_label" type="Label" parent="CanvasLayer"]
+offset_left = 160.0
+offset_top = 344.0
+offset_right = 200.0
+offset_bottom = 393.0
+text = "play
+"
+
+[node name="settings_label" type="Label" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 50.0
+offset_bottom = 33.0
+text = "settings
+"
+
+[node name="shop_label" type="Label" parent="CanvasLayer"]
+offset_left = 144.0
+offset_top = 480.0
+offset_right = 184.0
+offset_bottom = 529.0
+text = "shop
+"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/VBoxContainer/shop" to="." method="_on_shop_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/MarginContainer/settings" to="." method="_on_settings_pressed"]

@@ -1,0 +1,83 @@
+[gd_scene load_steps=10 format=3 uid="uid://bsdat5a32wx3k"]
+
+[ext_resource type="Script" uid="uid://gbgappt8g6qo" path="res://trash.gd" id="1_43he1"]
+[ext_resource type="Texture2D" uid="uid://bw16aaxcto4t0" path="res://oak_woods_v1.0/character/char_blue.png" id="2_76yqg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jixxp"]
+atlas = ExtResource("2_76yqg")
+region = Rect2(0, 0, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c82h1"]
+atlas = ExtResource("2_76yqg")
+region = Rect2(0, 336, 56, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aet8u"]
+atlas = ExtResource("2_76yqg")
+region = Rect2(168, 56, 56, 56)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pavn5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jixxp")
+}],
+"loop": true,
+"name": &"barrel",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c82h1")
+}],
+"loop": true,
+"name": &"box",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aet8u")
+}],
+"loop": true,
+"name": &"food",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_twpq8"]
+size = Vector2(48, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_43he1"]
+size = Vector2(238.00002, 336)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76yqg"]
+size = Vector2(48, 48)
+
+[node name="trash" type="CharacterBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_43he1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(1.1428571, 1)
+sprite_frames = SubResource("SpriteFrames_pavn5")
+animation = &"box"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_twpq8")
+one_way_collision = true
+
+[node name="detection_area" type="Area2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(1.1428571, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+position = Vector2(-5.0067906e-06, 4)
+shape = SubResource("RectangleShape2D_43he1")
+
+[node name="attack_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area"]
+shape = SubResource("RectangleShape2D_76yqg")
+
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_entered" from="attack_area" to="." method="_on_attack_area_body_entered"]

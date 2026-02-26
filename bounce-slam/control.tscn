@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bon8xap10d7f1"]
+
+[ext_resource type="PackedScene" uid="uid://dj3m6ra011ldq" path="res://death_menu.tscn" id="1_0fbet"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="death_menu" parent="." instance=ExtResource("1_0fbet")]

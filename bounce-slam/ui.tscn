@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://cedbbbfjxhq1r"]
+
+[ext_resource type="Script" uid="uid://cqbdlfmqxnu52" path="res://ui.gd" id="1_fyqef"]
+[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_m6e0p"]
+
+[node name="ui" type="CanvasLayer"]
+script = ExtResource("1_fyqef")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -62.0
+offset_right = 40.0
+offset_bottom = -22.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="money" type="Label" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "money: "
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 200
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="menu_button" type="TouchScreenButton" parent="Control/HBoxContainer/MarginContainer/HBoxContainer"]
+position = Vector2(-62, 8)
+scale = Vector2(0.375, 0.3125)
+texture_normal = ExtResource("2_m6e0p")
+
+[connection signal="pressed" from="Control/HBoxContainer/MarginContainer/HBoxContainer/menu_button" to="." method="_on_menu_button_pressed"]
+[connection signal="released" from="Control/HBoxContainer/MarginContainer/HBoxContainer/menu_button" to="." method="_on_menu_button_released"]
