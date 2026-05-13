@@ -35,6 +35,10 @@ texture_normal = ExtResource("1_06t4h")
 layout_mode = 2
 texture_normal = ExtResource("1_06t4h")
 
+[node name="owned_items" type="TextureButton" parent="CanvasLayer/Control/CenterContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_06t4h")
+
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_right = 40.0
@@ -48,6 +52,14 @@ theme_override_constants/margin_top = 10
 [node name="settings" type="TextureButton" parent="CanvasLayer/Control/HBoxContainer/MarginContainer"]
 layout_mode = 2
 texture_normal = ExtResource("1_06t4h")
+
+[node name="owned_items_label" type="Label" parent="CanvasLayer"]
+offset_left = 32.0
+offset_top = 576.0
+offset_right = 135.0
+offset_bottom = 625.0
+text = "owned_items
+"
 
 [node name="play_label" type="Label" parent="CanvasLayer"]
 offset_left = 160.0
@@ -77,4 +89,5 @@ text = "shop
 
 [connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/VBoxContainer/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/VBoxContainer/shop" to="." method="_on_shop_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/CenterContainer/MarginContainer/VBoxContainer/owned_items" to="." method="_on_owned_items_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/HBoxContainer/MarginContainer/settings" to="." method="_on_settings_pressed"]

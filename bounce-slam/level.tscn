@@ -176,13 +176,14 @@ position = Vector2(9, -197)
 shape = SubResource("RectangleShape2D_1ainy")
 
 [node name="left_barrier_spawner" type="Marker2D" parent="."]
-position = Vector2(-32, 528)
+position = Vector2(-32, 703)
 
 [node name="right_barrier_spawner" type="Marker2D" parent="."]
-position = Vector2(368, 528)
+position = Vector2(368, 703)
 
 [node name="player_vert_control" type="TouchScreenButton" parent="."]
-position = Vector2(500, 331)
+position = Vector2(280, 408)
+scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("3_0b4ue")
 shape = SubResource("CircleShape2D_1ainy")
 action = "ui_select"
@@ -211,8 +212,9 @@ position = Vector2(176, 704)
 [node name="obstacle_spawnpoint_3" type="Marker2D" parent="."]
 position = Vector2(296, 713)
 
-[node name="TouchScreenButton" type="TouchScreenButton" parent="."]
-position = Vector2(504, 184)
+[node name="player_attack_button" type="TouchScreenButton" parent="."]
+position = Vector2(192, 408)
+scale = Vector2(0.5625, 0.5)
 texture_normal = ExtResource("3_0b4ue")
 shape = SubResource("CircleShape2D_0b4ue")
 
@@ -237,4 +239,7 @@ libraries = {
 [connection signal="body_entered" from="outer_bounds/right_bound" to="." method="_on_right_bound_body_entered"]
 [connection signal="pressed" from="player_vert_control" to="." method="_on_player_vert_control_pressed"]
 [connection signal="released" from="player_vert_control" to="." method="_on_player_vert_control_released"]
+[connection signal="pressed" from="player_attack_button" to="." method="_on_touch_screen_button_pressed"]
+[connection signal="pressed" from="player_attack_button" to="." method="_on_player_attack_button_pressed"]
+[connection signal="released" from="player_attack_button" to="." method="_on_player_attack_button_released"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

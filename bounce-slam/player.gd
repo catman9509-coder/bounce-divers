@@ -19,6 +19,7 @@ var health
 var can_move = true
 var speed_limit = 100
 var motion_attack = false
+var can_horizontal_shift = true
 
 # interaction variables
 var cleaned
@@ -30,6 +31,8 @@ var can_attack = true
 #var attacking = false
 
 func _ready():
+	can_horizontal_shift = true
+	
 	global.state = global.states[0]
 	global.base_state = global.base_upgrades[1]
 	
@@ -37,21 +40,33 @@ func player():
 	pass
 func _physics_process(delta: float) -> void:
 	global.player_position = position
+	for upgrades in global.owned_purchaseable_upgrades:
+		if upgrades == "extra life":
+			global.extra_life = true
 	
 	health = global.health
 	#death
 	if global.player_attacked:
 		$AnimationPlayer.play("attacked")
 	if health <= 0:
-		self.visible = false
-		if global.death_screen:
-			if create_screen:
-				death_screen()
-				create_screen = false
-		else:
-			get_tree().reload_current_scene()
-			global.start_game = false
+		if global.extra_life == true:
+			global.immunity_time(2.0)
+			revival()
+			var index = global.owned_purchaseable_upgrades.find("extra life")
+			global.owned_purchaseable_upgrades.pop_at(index)
 			global.health = 2
+			global.purchaseable_upgrades[0]["owned"] = false
+			global.extra_life = false
+		else:
+			self.visible = false
+			if global.death_screen:
+				if create_screen:
+					death_screen()
+					create_screen = false
+			else:
+				get_tree().reload_current_scene()
+				global.start_game = false
+				global.health = 2
 	else:
 		create_screen = true
 # start motion to begin game
@@ -69,20 +84,27 @@ func _physics_process(delta: float) -> void:
 			global.start_game = true
 		
 	if can_move:
-		if Input.is_action_pressed("ui_down"):
+		if Input.is_action_pressed("ui_down") or global.go_down:
 			if velocity.y < speed_limit:
 				velocity.y += 5
-		if Input.is_action_pressed("ui_up"):
+		if Input.is_action_pressed("ui_up") or global.go_up:
 			if velocity.y > -(speed_limit):
 				velocity.y -= 5
 
-		if Input.is_action_pressed("ui_left"):
+		if Input.is_action_pressed("ui_left") or global.player_attack:
 			if can_attack:
 				player_attack(global.state)
 			can_attack = false
+			global.player_attack = false
+		if Input.is_action_pressed("ui_right") or global.shift:
+			hori_shift()
+
+			
+			
 			#if velocity.y > 0:
 			#	velocity.y -= 50
 	# detects the position of coming enemie's y positions
+	
 	for body in $horizontal_detector.get_overlapping_bodies():
 		if body.position.y > position.y:
 			global.enemy_down = true
@@ -106,7 +128,6 @@ func _physics_process(delta: float) -> void:
 		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
 	move_and_slide()
 	var collision = move_and_collide(velocity * delta)
 	for body in $detection_area.get_overlapping_bodies():
@@ -116,9 +137,19 @@ func _physics_process(delta: float) -> void:
 		if body.position.x > position.x:
 			velocity.x = left_speed
 			hori_direction = "left"
-			
-			
+func hori_shift():
+	if can_horizontal_shift == true:
+		match hori_direction:
+			"right":
+				hori_direction = "left"
+				can_horizontal_shift = false
+			"left":
+				hori_direction = "right"
+				can_horizontal_shift = false
+			_:
+				can_horizontal_shift = false
 				
+		
 func directional_speed(direction):
 	if direction == "right":
 		velocity.x = right_speed
@@ -209,32 +240,39 @@ func clean_barriers():
 			pass
 			#body.get_node("AnimatedSprite2D").play("clean")
 func death_screen():
+	global.death = true
+	save_manager.save()
 	var death_background = death_background.instantiate()
 	get_parent().add_child(death_background)
 	death_background.get_node("AnimationPlayer").play("appear")
 	var death_screen = death_menu.instantiate()
+	death_screen.get_node("score").text = "distance: " + str(global.score) +" parsecs"
 	death_screen.position = Vector2(get_viewport_rect().size.x/2, get_viewport_rect().size.y/2)
 	get_parent().add_child(death_screen)
 	death_screen.get_node("AnimationPlayer").play("appear")
+func revival():
+	position = Vector2(get_viewport_rect().size.x/2, get_viewport_rect().size.y/2)
+	var death_background = death_background.instantiate()
+	get_parent().add_child(death_background)
+	death_background.get_node("AnimationPlayer").play("rocket_burst")
+	
 func change_player():
 	match global.state:
 		"base":
-			$Node2D/AnimatedSprite2D.play("default")
+			$Node2D/AnimatedSprite2D.play(global.current_vehicle_skin)
+			$upgrade_effect.visible = false
 		"immunity_upgrade":
-			$Node2D/AnimatedSprite2D.play("invinncible")
+			$upgrade_effect.visible = true
+			$upgrade_effect.play("invincible")
+			
 		_:
-			pass
+			$upgrade_effect.visible = false
 	if velocity.y > 0 and motion_attack == true:
 		velocity.y -= 0.5
 	if velocity.y < 0:
 		velocity.y += 0.5
 	if velocity.y <= 2 and velocity.y >= -2:
 		velocity.y = 0
-		
-		
-	
-	
-
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "attacked":
@@ -242,9 +280,17 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 		global.player_attacked = false
 		global.game_started = true
 
-
 func _on_horizontal_detector_body_entered(body: Node2D) -> void:
 	if body.has_method("magnetic"):
 		if global.base_state == "magnet":
 			print("got it")
 			held_projectiles.append(body)
+func current_skin(skin):
+	match skin:
+		"default":
+			$Node2D/AnimatedSprite2D.play(global.current_vehicle_skin)
+			
+			
+			
+		
+	

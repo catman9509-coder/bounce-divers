@@ -1,4 +1,5 @@
 extends Node2D
+var ejected_rider : PackedScene = load("res://ejected_rider.tscn")
 var main_scroll_speed = 50
 var background_sprites = []
 var background_start_pos
@@ -13,8 +14,9 @@ var enemy_1 : PackedScene = load("res://enemy_1.tscn")
 var enemy_2 : PackedScene = load("res://enemy_2.tscn")
 var enemy_3 : PackedScene = load("res://enemy_3.tscn")
 var enemy_4 : PackedScene = load("res://enemy_4.tscn")
+var hori_shift_fuel : PackedScene = load("res://hori_shift_fuel.tscn")
 var object_spawn_points = []
-var possible_objects = [enemy_1, enemy_2, enemy_3, enemy_4, upgrade_crate, base_upgrade_crate, trash]
+var possible_objects = [enemy_1, enemy_2, enemy_3, enemy_4, upgrade_crate, base_upgrade_crate, trash, hori_shift_fuel]
 var spawned_objects = []
 var barrier_1 : PackedScene = load("res://barrier_1.tscn")
 var barrier_2 : PackedScene = load("res://barrier_2.tscn")
@@ -22,13 +24,13 @@ var barrier_3 : PackedScene = load("res://barrier_3.tscn")
 var barrier_4 : PackedScene = load("res://barrier_4.tscn")
 var none : PackedScene = load("res://barrier_1.tscn")
 var barriers = [barrier_1, barrier_2, barrier_3, barrier_4]
+var barrier_heights = [636.0,411.0, 230.0, 96.0]
 var left_barriers = []
 var right_barriers = []
-var difficulty = 5.0
 var left_create : bool
 var right_create : bool
-var barrier_space = 200
-var last_left_difference = 0
+var barrier_space = 400
+var last_left_difference=0
 var last_right_difference = 0
 var initial_vert_control_position
 var vert_control_hold = false
@@ -40,10 +42,20 @@ var screen_y
 var side_delayed : String
 var initial_camera
 var create = false
+var difficulty = global.difficulty
+var barrier_speed = 400 / difficulty
 
+# update_score
+var can_update = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	global.stored_coins = 1000
+	global.score = 0
+	global.gathered_coins = 0
+	last_left_difference = 0
+	last_right_difference = 0
+	
 	background_sprites = [$background/main_bg]
 	bg_height = $background/main_bg.texture.get_height()
 	background_start_pos = $background/main_bg.position.y
@@ -65,6 +77,10 @@ func _ready() -> void:
 	
 	left_create = bool(randi() % 2)
 	right_create = not left_create
+	if left_create == true:
+		$player.hori_direction = "left"
+	else:
+		$player.hori_direction = "right"
 	
 	initial_vert_control_position = $player_vert_control.position
 	object_spawn_point_1 = $obstacle_spawnpoint_1
@@ -77,7 +93,21 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-		
+	if global.death:
+		var rider = ejected_rider.instantiate()
+		rider.position = $player.position
+		add_child(rider)
+		global.death = false
+	global.update_difficulty()
+			
+				
+				
+	if $player.can_horizontal_shift == true:
+		$ui/emergency_shift.visible = true
+	else:
+		$ui/emergency_shift.visible = false
+	if global.health > 0 and $player.can_move == true:
+		update_score(difficulty)
 	object_deletion()
 	barrier_deletion()
 	for sprite in background_sprites:
@@ -102,15 +132,18 @@ func _process(delta: float) -> void:
 			spawned_objects.erase(object)
 				
 	for barrier in left_barriers:
-		barrier.position.y -= 80 * delta
+		barrier.position.y -= barrier_speed * delta
 	for barrier in right_barriers:
-		barrier.position.y -= 80 * delta
+		barrier.position.y -= barrier_speed * delta
 	if left_create:
 		left_barrier_spawn(difficulty)
 		left_create = false
-	elif right_create:
+		
+	if right_create:
 		right_barrier_spawn(difficulty)
 		right_create = false
+
+		
 		
 	# button held
 	if $player_vert_control.is_pressed() :
@@ -121,9 +154,15 @@ func _process(delta: float) -> void:
 	if vert_control_hold:
 		$player_vert_control.position.y = get_global_mouse_position().y
 		if $player_vert_control.position.y > initial_vert_control_position.y:
-			vert_direction = "down"
+			global.go_down = true
+			global.go_up = false
 		if $player_vert_control.position.y < initial_vert_control_position.y:
-			vert_direction = "up"
+			global.go_up = true
+			global.go_down = false
+	else:
+		$player_vert_control.position.y = initial_vert_control_position.y
+		
+		
 	player_vert_movement(vert_direction)
 		
 func player_vert_movement(direction):
@@ -131,74 +170,83 @@ func player_vert_movement(direction):
 		$player.position.y += player_vert_speed
 	if direction == "up":
 		$player.position.y -= player_vert_speed
-	
 # left side spawns
 func left_barrier_spawn(difficulty):
-	var left_barrier = barriers[randi() % barriers.size()].instantiate()
-	if left_barrier != none:
+	if left_barriers.size() < 4:
+		var left_barrier = barriers[randi() % barriers.size()].instantiate()
 		left_barrier.name = "left_barrier"
 		left_barriers.append(left_barrier)
 		add_child(left_barrier)
 		var left_height = left_barrier.get_node("CollisionShape2D").shape.size.y
+		var offset = 0
 		if last_left_difference == 0:
-			left_barrier.position = $left_barrier_spawner.position
+			offset = -($left_barrier_spawner.position.y - $player.position.y)/2
 		else:
-			left_barrier.position = $left_barrier_spawner.position 
-			left_barrier.position.y += last_left_difference
-			left_barrier.position.y += barrier_space
+			if left_barriers[0].position.y <= $left_barrier_spawner.position.y-200 and left_barriers[0].position.y >= $left_barrier_spawner.position.y -400:
+				offset = ($left_barrier_spawner.position.y - left_barriers[0].position.y)
+			else:
+				if left_height >= last_left_difference:
+					offset = left_height
+				else:	
+					offset = -left_height/3
 				
-				
+			print(($left_barrier_spawner.position.y - left_barriers[0].position.y) + (left_height))
+			
+		left_barrier.position.x = $left_barrier_spawner.position.x
+		left_barrier.position.y = $left_barrier_spawner.position.y + offset#+ ($left_barrier_spawner.position.y - left_barriers[0].position.y) #- offset + ($left_barrier_spawner.position.y - left_barriers[0].position.y) #offset 
 		last_left_difference = left_height
-	if right_create == true:
-		var left_timer = Timer.new()
-		left_timer.wait_time = difficulty
-		left_timer.one_shot = true
-		left_timer.timeout.connect(left_timer_timeout)
-		add_child(left_timer)
-		left_timer.start()
-	else:	
+		side_delayed = "left"
+		delay(difficulty)
+		print("left")
+		left_create = false
+	else:
 		side_delayed = "left"
 		delay(difficulty)
 
-	
-	
 func left_timer_timeout():
 	left_create = true
 # right side spawns
 func right_barrier_spawn(difficulty):
-	var right_barrier = barriers[randi() % barriers.size()].instantiate()
-	right_barrier.name = "right_barrier"
-	right_barriers.append(right_barrier)
-	right_barrier.get_node("AnimatedSprite2D").flip_h = true
-	add_child(right_barrier)
-	var right_height = right_barrier.get_node("CollisionShape2D").shape.size.y
-	if last_right_difference == 0:
-		right_barrier.position = $right_barrier_spawner.position
-	else:
-		right_barrier.position = $right_barrier_spawner.position 
-		right_barrier.position.y += last_right_difference
-		right_barrier.position.y += barrier_space
-	if left_create == true:
+	if right_barriers.size() < 4:
+		var right_barrier = barriers[randi() % barriers.size()].instantiate()
+		print(right_barrier)
+		right_barrier.name = "right_barrier"
+		right_barrier.get_node("AnimatedSprite2D").flip_h = true
+		right_barriers.append(right_barrier)
+		add_child(right_barrier)
+		var offset = 0
+		var right_height = right_barrier.get_node("CollisionShape2D").shape.size.y
+		if last_right_difference == 0:
+			offset = -($right_barrier_spawner.position.y - $player.position.y)/2
+		else:
+			if right_barriers[0].position.y <= $right_barrier_spawner.position.y-200 and right_barriers[0].position.y >= $right_barrier_spawner.position.y -400:
+					offset = ($right_barrier_spawner.position.y - right_barriers[0].position.y)
+			else:
+				if right_height >= last_right_difference:
+					offset = right_height
+				else:
+					offset = right_height/3
+				
+
+				
+		right_barrier.position.x = $right_barrier_spawner.position.x
+		right_barrier.position.y = $right_barrier_spawner.position.y + offset #+ ($right_barrier_spawner.position.y - right_barriers[0].position.y)# - offset + ($right_barrier_spawner.position.y - right_barriers[0].position.y)
 		last_right_difference = right_height
-		var right_timer = Timer.new()
-		right_timer.wait_time = difficulty
-		right_timer.one_shot = true
-		right_timer.timeout.connect(right_timer_timeout)
-		add_child(right_timer)
-		right_timer.start()
+		side_delayed = "right"
+		delay(difficulty)
+		print("right")
+		right_create = false
 	else:
 		side_delayed = "right"
 		delay(difficulty)
+		
 func right_timer_timeout():
 	right_create = true
-
 
 func _on_player_vert_control_pressed() -> void:
 	pass
 	#$player_vert_control.position.y = get_global_mouse_position().y
 	
-
-
 func _on_player_vert_control_released() -> void:
 	$player_vert_control.position = initial_vert_control_position
 func create_objects():
@@ -237,17 +285,12 @@ func delay_timeout():
 		_:
 			pass
 	
-	
-	
-	
-
-
 func _on_left_bound_body_entered(body: Node2D) -> void:
 	if body.has_method("player"):
 		global.health = 0
 func _on_right_bound_body_entered(body: Node2D) -> void:
 	if body.has_method("player"):
-		global.health = 0
+			global.health = 0
 func object_deletion():
 	
 	for body in $enemy_border.get_overlapping_bodies():
@@ -256,15 +299,33 @@ func object_deletion():
 		body.queue_free()
 func barrier_deletion():
 	for barrier in left_barriers:
-		if barrier.position.y < $left_barrier_spawner.position.y - screen_size.y - barrier.get_node("CollisionShape2D").shape.size.y:
+		if barrier.position.y < $left_barrier_spawner.position.y - screen_size.y - barrier.get_node("CollisionShape2D").shape.size.y*3:
 			barrier.queue_free()
 			left_barriers.erase(barrier)
 			print("barrier deleted")
 	for barrier in right_barriers:
-		if barrier.position.y < $right_barrier_spawner.position.y - screen_size.y - barrier.get_node("CollisionShape2D").shape.size.y:
+		if barrier.position.y < $right_barrier_spawner.position.y - screen_size.y - barrier.get_node("CollisionShape2D").shape.size.y*3:
 			barrier.queue_free()
 			right_barriers.erase(barrier)
 			print("barrier deleted")
+func update_score(difficulty):
+	if can_update:
+		var score_update_rate = Timer.new()
+		score_update_rate.one_shot = true
+		score_update_rate.wait_time = floor(difficulty/2)
+		score_update_rate.timeout.connect(update_score_timeout)
+		add_child(score_update_rate)
+		score_update_rate.start()
+		can_update = false
+func update_score_timeout():
+	global.score += 1
+	if global.score > global.high_score:
+		global.high_score = global.score
+	else:
+		global.high_score = global.high_score
+	can_update = true
+	
+	
 
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
@@ -277,3 +338,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 func door_timeout():
 	$Node2D/facility_door.play("open")
 	
+
+func _on_player_attack_button_pressed() -> void:
+	global.player_attack = true

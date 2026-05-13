@@ -1,7 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://cksdc6x5vi4iv"]
+[gd_scene load_steps=34 format=3 uid="uid://cksdc6x5vi4iv"]
 
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://dxve351i1pl58" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Texture2D" uid="uid://dktsivv6l1mjk" path="res://oak_woods_v1.0/background/background_layer_3.png" id="3_i3pqv"]
+[ext_resource type="Texture2D" uid="uid://5fu6ckyo2xmt" path="res://oak_woods_v1.0/background/background_layer_1.png" id="4_hqtel"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 26.019224
@@ -162,6 +164,10 @@ region = Rect2(0, 0, 32, 32)
 atlas = ExtResource("1_4flbx")
 region = Rect2(0, 32, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivps1"]
+atlas = ExtResource("3_i3pqv")
+region = Rect2(140, 160, 35, 20)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_hqtel"]
 animations = [{
 "frames": [{
@@ -203,10 +209,94 @@ animations = [{
 "loop": true,
 "name": &"invinncible",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivps1")
+}],
+"loop": true,
+"name": &"model 2",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ivps1"]
 size = Vector2(114, 725)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_urp6f"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(210, 160, 35, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwjto"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(175, 0, 35, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_606se"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(210, 160, 35, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1c27"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(210, 0, 35, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op7ga"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(175, 160, 35, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q13i1"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(140, 0, 35, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pylmc"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(140, 160, 35, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbfsw"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(105, 160, 35, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tmop"]
+atlas = ExtResource("4_hqtel")
+region = Rect2(105, 0, 35, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ahtn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_urp6f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwjto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_606se")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1c27")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_op7ga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q13i1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pylmc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbfsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5tmop")
+}],
+"loop": true,
+"name": &"invincible",
+"speed": 5.0
+}]
 
 [node name="player" type="CharacterBody2D"]
 collision_layer = 3
@@ -234,7 +324,7 @@ scale = Vector2(1.6875001, 1.4375)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D"]
 scale = Vector2(1, 0.99999994)
 sprite_frames = SubResource("SpriteFrames_hqtel")
-frame_progress = 0.75332195
+animation = &"new_animation"
 
 [node name="horizontal_detector" type="Area2D" parent="."]
 
@@ -243,6 +333,15 @@ position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_ivps1")
 
 [node name="player_center" type="Marker2D" parent="."]
+
+[node name="upgrade_effect" type="AnimatedSprite2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.5647059)
+position = Vector2(4.7683716e-07, 1.9073486e-06)
+scale = Vector2(1.7714285, 2.8999999)
+sprite_frames = SubResource("SpriteFrames_7ahtn")
+animation = &"invincible"
+frame_progress = 0.97600913
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

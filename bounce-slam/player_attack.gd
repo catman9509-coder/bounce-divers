@@ -24,6 +24,7 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 		body.spawn_upgrade = true
 	if body.has_method("base_crate"):
 		body.spawn_base_upgrade = true
+		
 	
 	if body.has_method("upgrade"):
 		print(body.name)

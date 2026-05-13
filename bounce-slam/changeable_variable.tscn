@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://c0snfj1n3yqc1"]
+
+[node name="changeable_variable" type="HBoxContainer"]
+layout_direction = 2
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 220
+
+[node name="CheckButton" type="CheckButton" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="variable" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "setting"

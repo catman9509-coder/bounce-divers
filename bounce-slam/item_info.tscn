@@ -1,0 +1,61 @@
+[gd_scene load_steps=3 format=3 uid="uid://bn6s42nkn48jf"]
+
+[ext_resource type="Script" uid="uid://pt2t6sl5yi4g" path="res://item_info.gd" id="1_amdui"]
+[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_8pi4m"]
+
+[node name="item_info" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+script = ExtResource("1_amdui")
+
+[node name="item_image" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 104.0
+offset_bottom = 96.0
+texture = ExtResource("2_8pi4m")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 192.0
+offset_bottom = 192.0
+
+[node name="item_description" type="RichTextLabel" parent="."]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 24.0
+offset_top = 104.0
+offset_right = 176.0
+offset_bottom = 144.0
+text = "hrhrhrr"
+
+[node name="item_name" type="Label" parent="."]
+modulate = Color(0, 0, 0, 0.90588236)
+layout_mode = 0
+offset_left = 112.0
+offset_top = 16.0
+offset_right = 152.0
+offset_bottom = 65.0
+text = "poop
+"
+
+[node name="buy_button" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 152.0
+offset_right = 152.0
+offset_bottom = 176.0
+texture_normal = ExtResource("2_8pi4m")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="buy_button" to="." method="_on_buy_button_pressed"]
