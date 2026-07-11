@@ -17,3 +17,7 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body.has_method("player"):
 		global.attacked(1.0)
 		queue_free()
+	if body.has_method("barrier"):
+		if body.cleaned == true and body.infested == not body.cleaned:
+			body.cleaned = false
+			body.infested = not body.cleaned

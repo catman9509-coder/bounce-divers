@@ -4,16 +4,19 @@ var soap_bar_upgrade : PackedScene = load("res://soap_bar_upgrade.tscn")
 var soap_bomb_upgrade: PackedScene = load("res://soap_bomb_upgrade.tscn")
 var immunity_upgrade : PackedScene = load("res://immunity_upgrade.tscn")
 var rocket_burst_upgrade : PackedScene = load("res://rocket_burst.tscn")
-var rotation_rate = randi_range(-3, 3)
+var rotation_rate = randi_range(-3, 2)
 var possible_upgrades = [soap_bar_upgrade, soap_bomb_upgrade, immunity_upgrade, rocket_burst_upgrade]
 var spawn_upgrade = false
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-
-func ready():
-	pass
+var direction_speed = 0
+var type = Spawns.new()
+func _ready() -> void:
+	type.can_travel = true
 	
 func _physics_process(delta: float) -> void:
+	type.travel(self, delta)
+	velocity.x += direction_speed * delta
 	rotation += rotation_rate * delta
 	move_and_slide()
 	if spawn_upgrade == true:
@@ -32,10 +35,15 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 		var collision = collision_effect.instantiate()
 		collision.global_position = body.global_position
 		collision.get_node("AnimationPlayer").play("clean_effect")
+		rotation_rate = 4
 		if body.position.y > self.position.y +50:
 			collision.global_rotation = 90
 		if body.position.y < self.position.y - 50:
 			collision.global_rotation = -90
+		if body.position.x >= self.position.x:
+			direction_speed = -20
+		if body.position.x <= self.position.x:
+			direction_speed = 20
 		get_parent().add_child(collision)
 	if "player_attack" in body.name:
 		spawn_upgrade = true

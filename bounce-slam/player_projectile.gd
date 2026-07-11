@@ -1,6 +1,6 @@
 extends RigidBody2D
 var speed
-
+var death_effect : PackedScene = preload("res://explosion_effect.tscn")
 var mode : String
 var modes = ["soap_bomb", "soap_bar"]
 
@@ -23,14 +23,22 @@ func _process(delta: float) -> void:
 		position.y += delta * 80
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
+	var explosion_effect = death_effect.instantiate()
+	explosion_effect.subject = "enemy_1" 
 	if body.has_method("enemy"):
 		match mode:
 			"soap_bar":
-					body.queue_free()
-					queue_free()
+				explosion_effect.position = body.global_position
+				get_parent().get_parent().add_child(explosion_effect)
+				body.queue_free()
+				queue_free()
+				global.exterminations += 1
 			"soap_bomb":
+				explosion_effect.position = body.global_position
+				get_parent().get_parent().add_child(explosion_effect)
 				$Node2D/AnimatedSprite2D.play("explode")
 				$AnimationPlayer.play("explode")
+				global.exterminations += 1
 			_:
 				pass
 	if body.has_method("crate"):

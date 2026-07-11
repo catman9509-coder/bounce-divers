@@ -3,7 +3,9 @@ var rotation_rate : int
 var animations = ["barrel", "box", "food"]
 var fire = false
 var attached = false
+var type = Spawns.new()
 func _ready() -> void:
+	type.can_travel = true
 	rotation_rate = randi_range(-3, 3)
 	$AnimatedSprite2D.play(animations.pick_random())
 	
@@ -11,9 +13,12 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	type.travel(self, delta)
 	rotation += rotation_rate * delta
 	for body in $detection_area.get_overlapping_bodies():
-		if body.has_method("player") and global.base_state == "magnet":
+		if body.has_method("player") and global.state == "magnet":
+			if self not in body.held_projectiles:
+				body.held_projectiles.append(self)
 			
 			if fire == false:
 				if position.x <= body.position.x+10 and position.x >= body.position.x-10:
@@ -52,6 +57,7 @@ func _on_attack_area_body_entered(body: Node2D) -> void:
 	if fire == true:
 		if body.has_method("enemy"):
 			body.queue_free()
+			global.exterminations += 1
 		if body.has_method("crate"):
 			body.spawn_upgrade = true
 		if body.has_method("base_crate"):

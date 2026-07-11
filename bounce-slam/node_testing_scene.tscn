@@ -1,18 +1,75 @@
-[gd_scene load_steps=4 format=3 uid="uid://bglqjt3tf7snd"]
+[gd_scene load_steps=9 format=3 uid="uid://bglqjt3tf7snd"]
 
+[ext_resource type="Script" uid="uid://dfbguj7ugbfcb" path="res://node_testing_scene.gd" id="1_ol55d"]
 [ext_resource type="PackedScene" uid="uid://cdcwcogo4pn5h" path="res://barrier_1.tscn" id="2_pffsv"]
 [ext_resource type="PackedScene" uid="uid://cksdc6x5vi4iv" path="res://player.tscn" id="2_u1n3i"]
-[ext_resource type="PackedScene" uid="uid://bsdat5a32wx3k" path="res://trash.tscn" id="5_xfyin"]
+[ext_resource type="Texture2D" uid="uid://5fu6ckyo2xmt" path="res://oak_woods_v1.0/background/background_layer_1.png" id="3_u1n3i"]
+[ext_resource type="PackedScene" uid="uid://b6c21u8upl6jd" path="res://barrier_2.tscn" id="5_fqfjf"]
+[ext_resource type="PackedScene" uid="uid://w60ssiy5ynav" path="res://enemy_1.tscn" id="8_3x7lr"]
+[ext_resource type="PackedScene" uid="uid://b0ofo8vubswi5" path="res://enemy_3.tscn" id="8_861si"]
+[ext_resource type="PackedScene" uid="uid://des7waofsk78i" path="res://hori_shift_fuel.tscn" id="8_pwcjx"]
 
 [node name="node_testing_scene" type="Node2D"]
+script = ExtResource("1_ol55d")
+
+[node name="backgrounds" type="Node2D" parent="."]
+
+[node name="layer_1_copy" type="Node2D" parent="backgrounds"]
+
+[node name="lower_point" type="Marker2D" parent="backgrounds/layer_1_copy"]
+position = Vector2(176, 640)
+rotation = -3.1415925
+scale = Vector2(4.020412, 4.020412)
+
+[node name="sprite" type="Sprite2D" parent="backgrounds/layer_1_copy"]
+position = Vector2(179.23541, 320.55948)
+rotation = 1.5707964
+scale = Vector2(1.9965034, 2.0137267)
+texture = ExtResource("3_u1n3i")
+
+[node name="upper_point" type="Marker2D" parent="backgrounds/layer_1_copy"]
+position = Vector2(176, 0)
+rotation = 1.5707964
+scale = Vector2(1.9965034, 2.0137267)
+
+[node name="layer_1" type="Node2D" parent="backgrounds"]
+
+[node name="lower_point" type="Marker2D" parent="backgrounds/layer_1"]
+position = Vector2(176, 640)
+rotation = -3.1415925
+scale = Vector2(4.020412, 4.020412)
+
+[node name="sprite" type="Sprite2D" parent="backgrounds/layer_1"]
+position = Vector2(177.99998, 959)
+rotation = 1.5707964
+scale = Vector2(1.9965034, 2.0137267)
+texture = ExtResource("3_u1n3i")
+
+[node name="upper_point" type="Marker2D" parent="backgrounds/layer_1"]
+position = Vector2(176, 0)
+rotation = 1.5707964
+scale = Vector2(1.9965034, 2.0137267)
 
 [node name="barrier_1" parent="." instance=ExtResource("2_pffsv")]
-position = Vector2(-34, 232)
+position = Vector2(354, 317)
 
-[node name="barrier_2" parent="." instance=ExtResource("2_pffsv")]
-position = Vector2(392, 240)
+[node name="barrier_1" parent="barrier_1" instance=ExtResource("2_pffsv")]
+position = Vector2(-388, 288)
 
-[node name="trash" parent="." instance=ExtResource("5_xfyin")]
-position = Vector2(152, 504)
+[node name="barrier_2" parent="." instance=ExtResource("5_fqfjf")]
+position = Vector2(-26, 231)
+
+[node name="barrier_2" parent="barrier_2" instance=ExtResource("5_fqfjf")]
+position = Vector2(389, 441)
+
+[node name="hori_shift_fuel3" parent="." instance=ExtResource("8_pwcjx")]
+position = Vector2(431, 92)
 
 [node name="player" parent="." instance=ExtResource("2_u1n3i")]
+position = Vector2(885, -428)
+
+[node name="enemy_1" parent="." instance=ExtResource("8_3x7lr")]
+position = Vector2(177, 762)
+
+[node name="enemy_3" parent="." instance=ExtResource("8_861si")]
+position = Vector2(183, 595)

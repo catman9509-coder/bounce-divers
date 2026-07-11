@@ -7,22 +7,4 @@ script = ExtResource("1_q3ir7")
 
 [node name="http" type="HTTPRequest" parent="."]
 
-[node name="http_request_verify_username" type="HTTPRequest" parent="."]
-
-[node name="http_request_login" type="HTTPRequest" parent="."]
-
-[node name="http_request_register" type="HTTPRequest" parent="."]
-
-[node name="http_request_user" type="HTTPRequest" parent="."]
-
-[node name="http_request_inventory" type="HTTPRequest" parent="."]
-
-[node name="http_request_create_inventory" type="HTTPRequest" parent="."]
-
 [connection signal="request_completed" from="http" to="." method="_on_http_request_completed"]
-[connection signal="request_completed" from="http_request_verify_username" to="." method="_on_http_request_verify_username_request_completed"]
-[connection signal="request_completed" from="http_request_login" to="." method="_on_http_request_login_request_completed"]
-[connection signal="request_completed" from="http_request_register" to="." method="_on_http_request_register_request_completed"]
-[connection signal="request_completed" from="http_request_user" to="." method="_on_http_request_user_request_completed"]
-[connection signal="request_completed" from="http_request_inventory" to="." method="_on_http_request_inventory_request_completed"]
-[connection signal="request_completed" from="http_request_create_inventory" to="." method="_on_http_request_create_inventory_request_completed"]

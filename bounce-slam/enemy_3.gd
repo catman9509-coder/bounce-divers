@@ -6,25 +6,38 @@ var special_action = false
 #other variables
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-
+var hori_speed = 40
+var can_infect = randf_range(true, false)
+var type = Spawns.new()
 func _ready() -> void:
-	
-	pass
+	type.can_travel = true
 func _physics_process(delta: float) -> void:
-	for body in $detection_area.get_overlapping_bodies():
-		if body.has_method("player"):
-			$eyes.look_at(body.global_position)
-			if can_attack:
-				special_action = true
-				attack()
-				can_attack = false
-	if special_action == false:
-		normalize()
-	for body in $attack_area.get_overlapping_bodies():
-		if body.has_method("player"):
-			if attacking:
-				global.attacked(1.0)
-	move_and_slide()
+	if global.game_started:
+		type.travel(self, delta)
+		if special_action:
+			type.can_travel = false
+		else:
+			type.can_travel = true
+		for body in $detection_area.get_overlapping_bodies():
+			if body.has_method("barrier") and can_infect:
+				if body.cleaned == true and body.can_create_enemy == true: #and body.infested == not body.cleaned:
+					if body.position.x > position.x:
+						position.x += hori_speed * delta
+					if body.position.x < position.x:
+						position.x -= hori_speed * delta
+			if body.has_method("player"):
+				if can_attack:
+					special_action = true
+					attack()
+					can_attack = false
+								
+		if special_action == false:
+			normalize()
+		for body in $attack_area.get_overlapping_bodies():
+			if body.has_method("player"):
+				if attacking:
+					global.attacked(1.0)
+		move_and_slide()
 func attack():
 	if special_action:
 		attacking = true

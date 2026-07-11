@@ -30,6 +30,8 @@ radius = 24.0
 radius = 24.0
 
 [node name="projectile" type="RigidBody2D"]
+collision_layer = 3
+collision_mask = 3
 gravity_scale = 0.0
 script = ExtResource("1_qxf0c")
 
@@ -43,6 +45,8 @@ shape = SubResource("CircleShape2D_80516")
 disabled = true
 
 [node name="detection_area" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
 shape = SubResource("CircleShape2D_jqaj3")

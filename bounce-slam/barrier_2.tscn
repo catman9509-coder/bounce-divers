@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://b6c21u8upl6jd"]
 
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_cmibp"]
-[ext_resource type="Script" uid="uid://bl54ioj2he7q" path="res://barrier_2.gd" id="1_kflrx"]
+[ext_resource type="Script" uid="uid://ppep6s1rds4s" path="res://barrier_1.gd" id="1_kflrx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8i77o"]
 size = Vector2(110.000015, 230)
@@ -95,6 +95,10 @@ position = Vector2(-0.50000453, -7.867813e-06)
 scale = Vector2(3.40625, 7.1875)
 sprite_frames = SubResource("SpriteFrames_kflrx")
 animation = &"infested"
+
+[node name="spawn_point" type="Marker2D" parent="AnimatedSprite2D"]
+position = Vector2(30.091742, 1.0946524e-06)
+scale = Vector2(0.29357797, 0.13913044)
 
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

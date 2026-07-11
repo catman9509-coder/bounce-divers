@@ -50,7 +50,7 @@ func _on_pressed() -> void:
 	info_popup.item_name = item_name
 	info_popup.description = description
 	info_popup.price = price 
-	get_parent().get_parent().get_parent().get_parent().get_parent().add_child(info_popup)
+	get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().add_child(info_popup)
 	info_popup.global_position.x = get_viewport_rect().size.x/4.5
 	info_popup.global_position.y = get_viewport_rect().size.y/4
 	

@@ -5,24 +5,48 @@ var can_attack = true
 var attacking = false
 var shot_speed = 200
 var velocity
+var can_infect = randf_range(true, false)
+var type = Spawns.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	type.can_travel = true
+	$Node2D/body.play("default")
+	$Node2D/barrel.play("default")
 
 func enemy():
 	pass
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	for body in $detection_area.get_overlapping_bodies():
-		if body.has_method("player"):
-			$eyes.look_at(body.global_position)
-			if can_attack:
-				special_action = true
-				shoot(body)
-				can_attack = false
+	if global.game_started:
+		type.travel(self, delta)
+		if special_action:
+			type.can_travel = false
+		else:
+			type.can_travel = true
+		
+		for body in $detection_area.get_overlapping_bodies():
+			if body.has_method("player"):
+				
+				look_at(body.global_position)
+				$Node2D.rotation = PI/2
+				if can_attack:
+					
+					special_action = true
+					shoot(body)
+					can_attack = false
+			if body.has_method("barrier") and can_infect:
+				if body.cleaned == true and body.infested == not body.cleaned and body.can_create_enemy == true:
+					$Node2D.rotation = PI/2
+					if can_attack:
+						special_action = true
+						shoot(body)
+						can_attack = false
+					
+			
 				
 				
 func shoot(target):
+	$Node2D/barrel.play("attack")
 	if special_action:
 		velocity = Vector2.ZERO
 		var shot = projectile.instantiate()
@@ -46,9 +70,12 @@ func shoot(target):
 	
 func special_action_timeout():
 	special_action = false
-	
+	$Node2D/barrel.play("default")
+
 	
 func cooldown_timeout():
 	can_attack = true
+	
+
 	
 	

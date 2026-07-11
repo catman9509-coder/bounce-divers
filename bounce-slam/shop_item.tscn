@@ -4,8 +4,9 @@
 [ext_resource type="Script" uid="uid://b710uqwvdd7m0" path="res://shop_item.gd" id="2_wxfep"]
 
 [node name="shop_item" type="TextureButton"]
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 128.0
+offset_bottom = 128.0
+scale = Vector2(0.5, 0.5)
 texture_normal = ExtResource("1_wxfep")
 script = ExtResource("2_wxfep")
 

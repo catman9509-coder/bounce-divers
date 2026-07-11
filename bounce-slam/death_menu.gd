@@ -13,7 +13,7 @@ func _process(delta: float) -> void:
 func _on_play_again_pressed() -> void:
 	if get_tree().paused == true:
 		get_tree().paused = false
-	get_tree().change_scene_to_file("res://level.tscn")
+	global.transition_animation("res://main_menu.tscn")
 	global.start_game = false
 	global.health = 2
 		
@@ -22,7 +22,7 @@ func _on_play_again_pressed() -> void:
 func _on_main_menu_pressed() -> void:
 	if get_tree().paused == true:
 		get_tree().paused = false
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+	global.transition_animation("res://main_menu.tscn")
 
 
 func _on_resume_pressed() -> void:

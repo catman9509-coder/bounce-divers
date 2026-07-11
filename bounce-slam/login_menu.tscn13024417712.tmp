@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://b53aa31s0ldja"]
+
+[ext_resource type="Script" uid="uid://614a8yf7glhj" path="res://login_menu.gd" id="1_vkvku"]
+[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_4n733"]
+
+[node name="login_menu" type="Popup"]
+oversampling_override = 1.0
+mode = 2
+title = "cygv"
+initial_position = 1
+size = Vector2i(300, 300)
+visible = true
+keep_title_visible = true
+script = ExtResource("1_vkvku")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_right = 304.0
+offset_bottom = 304.0
+texture = ExtResource("2_4n733")
+
+[node name="username_input" type="LineEdit" parent="."]
+offset_left = 56.0
+offset_top = 80.0
+offset_right = 248.0
+offset_bottom = 111.0
+text = "username"
+placeholder_text = "username"
+
+[node name="password_input" type="LineEdit" parent="."]
+offset_left = 60.0
+offset_top = 195.0
+offset_right = 244.0
+offset_bottom = 226.0
+text = "password"
+placeholder_text = "password"
+
+[node name="submit" type="TextureButton" parent="."]
+offset_left = 64.0
+offset_top = 248.0
+offset_right = 232.0
+offset_bottom = 288.0
+texture_normal = ExtResource("2_4n733")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="login" type="TextureButton" parent="."]
+modulate = Color(0.26060423, 0.90134925, 0.8553767, 1)
+offset_left = 42.0
+offset_top = 14.0
+offset_right = 124.0
+offset_bottom = 52.0
+texture_normal = ExtResource("2_4n733")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="register" type="TextureButton" parent="."]
+modulate = Color(1, 0.798228, 0.754901, 1)
+offset_left = 162.0
+offset_top = 14.0
+offset_right = 244.0
+offset_bottom = 52.0
+texture_normal = ExtResource("2_4n733")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="popup_hide" from="." to="." method="_on_popup_hide"]
+[connection signal="text_changed" from="username_input" to="." method="_on_username_input_text_changed"]
+[connection signal="text_submitted" from="username_input" to="." method="_on_username_input_text_submitted"]
+[connection signal="text_changed" from="password_input" to="." method="_on_password_input_text_changed"]
+[connection signal="text_submitted" from="password_input" to="." method="_on_password_input_text_submitted"]
+[connection signal="pressed" from="submit" to="." method="_on_submit_pressed"]
+[connection signal="pressed" from="login" to="." method="_on_login_pressed"]
+[connection signal="pressed" from="register" to="." method="_on_register_pressed"]

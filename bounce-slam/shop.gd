@@ -30,7 +30,4 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	$Control/MarginContainer/HBoxContainer/balance.text = str(global.stored_coins)
-
-func _on_back_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+	$Control/MarginContainer/HBoxContainer/balance.text = ("current credits : " + str(global.stored_coins))

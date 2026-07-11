@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://y1romielbvc4"]
+[gd_scene load_steps=2 format=3 uid="uid://y1romielbvc4"]
 
 [ext_resource type="Script" uid="uid://cbmk3h5pdsv1f" path="res://shop.gd" id="1_e7rdd"]
-[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_e7rdd"]
 
 [node name="shop" type="CanvasLayer"]
 script = ExtResource("1_e7rdd")
@@ -21,6 +20,7 @@ offset_left = 9.0
 offset_top = 35.0
 offset_right = 49.0
 offset_bottom = 75.0
+scale = Vector2(0.7, 0.7)
 theme_override_constants/separation = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="Control"]
@@ -35,16 +35,6 @@ theme_override_constants/margin_top = 10
 layout_mode = 2
 theme_override_constants/separation = 250
 
-[node name="back_button" type="TextureButton" parent="Control/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-texture_normal = ExtResource("2_e7rdd")
-ignore_texture_size = true
-stretch_mode = 0
-
 [node name="balance" type="Label" parent="Control/MarginContainer/HBoxContainer"]
 layout_mode = 2
 text = "0"
-
-[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/back_button" to="." method="_on_texture_button_pressed"]
-[connection signal="pressed" from="Control/MarginContainer/HBoxContainer/back_button" to="." method="_on_back_button_pressed"]

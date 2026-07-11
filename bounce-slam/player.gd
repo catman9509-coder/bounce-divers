@@ -5,8 +5,8 @@ var death_background : PackedScene = load("res://death_background.tscn")
 var create_screen = false
 
 #
-var base_attack : PackedScene = load("res://player_attack.tscn")
-var projectile_attack : PackedScene = load("res://player_projectile.tscn")
+var base_attack : PackedScene = preload("res://player_attack.tscn")
+var projectile_attack : PackedScene = preload("res://player_projectile.tscn")
 var possible_directions = ["left", "right"]
 var held_projectiles = []
 const left_speed = -100.0
@@ -17,9 +17,13 @@ var start_motion = false
 var hori_direction
 var health
 var can_move = true
-var speed_limit = 100
+var speed_limit = 150
 var motion_attack = false
 var can_horizontal_shift = true
+var shift_fuel_count = 1
+var vertical_direction = " "
+var current_collision_count = 0
+
 
 # interaction variables
 var cleaned
@@ -31,15 +35,15 @@ var can_attack = true
 #var attacking = false
 
 func _ready():
-	can_horizontal_shift = true
-	
+	can_move = false
+	change_player()
 	global.state = global.states[0]
-	global.base_state = global.base_upgrades[1]
+	hori_direction = possible_directions[randi() % possible_directions.size()]
 	
 func player():
 	pass
 func _physics_process(delta: float) -> void:
-	global.player_position = position
+				
 	for upgrades in global.owned_purchaseable_upgrades:
 		if upgrades == "extra life":
 			global.extra_life = true
@@ -70,34 +74,42 @@ func _physics_process(delta: float) -> void:
 	else:
 		create_screen = true
 # start motion to begin game
-
 	if global.start_motion:
 		can_move = true
-		hori_direction = possible_directions[randi() % possible_directions.size()]
 		global.start_motion = false
 	directional_speed(hori_direction)
-	# Add the gravity.
-	#if not is_on_floor():
-	#	velocity += get_gravity() * delta
-	# Handle jump.
+
+	global.shift = can_horizontal_shift
+	global.shift_fuel_count = shift_fuel_count
 	if global.start_game == false:
 			global.start_game = true
-		
-	if can_move:
-		if Input.is_action_pressed("ui_down") or global.go_down:
-			if velocity.y < speed_limit:
-				velocity.y += 5
-		if Input.is_action_pressed("ui_up") or global.go_up:
-			if velocity.y > -(speed_limit):
-				velocity.y -= 5
-
-		if Input.is_action_pressed("ui_left") or global.player_attack:
 			if can_attack:
 				player_attack(global.state)
 			can_attack = false
 			global.player_attack = false
-		if Input.is_action_pressed("ui_right") or global.shift:
+		
+	if can_move:
+		
+		if Input.is_action_pressed("ui_down") or global.go_down:
+			$Node2D/body.play(global.current_vehicle_skin + " forward")
+			vertical_direction = "forward"
+			if velocity.y < speed_limit:
+				velocity.y += 5
+		if Input.is_action_pressed("ui_up") or global.go_up:
+			$Node2D/body.play(global.current_vehicle_skin + " back")
+			vertical_direction = "back"
+			if velocity.y > -(speed_limit):
+				velocity.y -= 5
+			
+
+		if Input.is_action_just_pressed("ui_left") or global.player_attack:
+			if can_attack:
+				player_attack(global.state)
+			can_attack = false
+			global.player_attack = false
+		if Input.is_action_pressed("ui_right") or global.shift_pressed:
 			hori_shift()
+			global.shift_pressed = false
 
 			
 			
@@ -107,6 +119,7 @@ func _physics_process(delta: float) -> void:
 	
 	for body in $horizontal_detector.get_overlapping_bodies():
 		if body.position.y > position.y:
+			
 			global.enemy_down = true
 			global.enemy_up = false
 		if body.position.y < position.y:
@@ -115,7 +128,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			global.enemy_up = false
 			global.enemy_down = false
-	change_player()
+	#change_player()
 	if global.normalize == true:
 		if velocity.y > 0:
 			velocity.y -= 10
@@ -124,30 +137,54 @@ func _physics_process(delta: float) -> void:
 		if velocity.y == 0:
 			motion_attack = false
 			global.normalize = false
+			change_player()
 				
 		
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	move_and_slide()
 	var collision = move_and_collide(velocity * delta)
+	for body in $bumper_detection_area.get_overlapping_bodies():
+		if body.position.x < position.x:
+			$Node2D/bumpers.play(global.current_vehicle_skin + " left")
+		if body.position.x > position.x:
+			$Node2D/bumpers.play(global.current_vehicle_skin + " right")
 	for body in $detection_area.get_overlapping_bodies():
+		if body.name.contains("fuel"):
+			shift_fuel_count += 1
 		if body.position.x < position.x:
 			velocity.x = right_speed
 			hori_direction = "right"
 		if body.position.x > position.x:
 			velocity.x = left_speed
 			hori_direction = "left"
+				
 func hori_shift():
-	if can_horizontal_shift == true:
+	var shift_timer = Timer.new()
+	shift_timer.one_shot = true
+	shift_timer.wait_time = 1.0
+	shift_timer.timeout.connect(shift_timer_timeout)
+	add_child(shift_timer)
+	if shift_fuel_count > 0:
 		match hori_direction:
 			"right":
-				hori_direction = "left"
+				if can_horizontal_shift:
+					hori_direction = "left"
 				can_horizontal_shift = false
 			"left":
-				hori_direction = "right"
+				if can_horizontal_shift:
+					hori_direction = "right"
 				can_horizontal_shift = false
 			_:
 				can_horizontal_shift = false
+	shift_timer.start()
+func shift_timer_timeout():
+	if can_horizontal_shift == false and shift_fuel_count > 0:
+		shift_fuel_count -= 1
+		can_horizontal_shift = true
+	if shift_fuel_count < 1:
+		can_horizontal_shift = false
+		
 				
 		
 func directional_speed(direction):
@@ -161,53 +198,43 @@ func directional_speed(direction):
 		if velocity.x == 0 and global.start_game == true:
 			velocity.x = last_speed
 func player_attack(current_state):
-	print(current_state)
-	print(global.base_state)
-	var state = current_state
-	match state:
+	match current_state:
 		"base":
-			match global.base_state:
-				"none":
-					pass
-				"base":
-					global.immunity_time(1.0)
-					var attack = base_attack.instantiate()
-					attack.get_node("Node2D/AnimatedSprite2D2").play("attack")
-					attack.get_node("AnimationPlayer").play("base_attack")
-					attack.position = $player_center.position
-					add_child(attack)
-				"rocket_burst_upgrade":
-					motion_attack = true
-					global.immunity_time(2.0)
-					var flash = death_background.instantiate()
-					flash.get_node("AnimationPlayer").play("rocket_burst")
-					get_parent().add_child(flash)
-					velocity.y = 400
-					var attack = base_attack.instantiate()
-					attack.get_node("Node2D/AnimatedSprite2D").play("rocket_burst")
-					attack.get_node("AnimationPlayer").play("rocket_burst")
-					attack.position = $player_center.position
-					add_child(attack)
-					
-					
-				"magnet":
-					if held_projectiles.is_empty() == false:
-						held_projectiles[0].fire = true
-						#get_parent().add_child(held_projectiles[0])
-						held_projectiles.pop_front()
-						print(held_projectiles)
-					else:
-						pass
-						
-						
-				
-				_:
-					pass
+			global.immunity_time(1.0)
+			var attack = base_attack.instantiate()
+			$Node2D/bumpers.play(global.current_vehicle_skin + " attack")
+			attack.get_node("Node2D/AnimatedSprite2D2").play("attack")
+			attack.get_node("AnimationPlayer").play("base_attack")
+			attack.position = $player_center.position
+			add_child(attack)
 			
-			
-			
+		"rocket_burst_upgrade":
+			motion_attack = true
+			global.immunity_time(2.0)
+			var flash = death_background.instantiate()
+			flash.get_node("AnimationPlayer").play("rocket_burst")
+			get_parent().add_child(flash)
+			velocity.y = 400
+			var attack = base_attack.instantiate()
+			attack.get_node("Node2D/AnimatedSprite2D").play("rocket_burst")
+			attack.get_node("AnimationPlayer").play("rocket_burst")
+			attack.position = $player_center.position
+			add_child(attack)		
+		"magnet":
+			if held_projectiles.is_empty() == false:
+				if is_instance_valid(held_projectiles[0]):
+					held_projectiles[0].fire = true
+					held_projectiles.pop_front()
+					print(held_projectiles)
+			if held_projectiles == []:
+				global.immunity_time(1.0)
+				var attack = base_attack.instantiate()
+				$Node2D/bumpers.play(global.current_vehicle_skin + " attack")
+				attack.get_node("Node2D/AnimatedSprite2D2").play("attack")
+				attack.get_node("AnimationPlayer").play("base_attack")
+				attack.position = $player_center.position
+				add_child(attack)
 		"soap_bar_upgrade":
-			
 			var attack = projectile_attack.instantiate()
 			attack.mode = "soap_bar"
 			attack.global_position = $player_center.global_position
@@ -223,7 +250,9 @@ func player_attack(current_state):
 			attack.get_node("AnimationPlayer").play("base_attack")
 			add_child(attack)
 			attack.position = $player_center.position
-				
+		
+			
+					
 		_:
 			pass
 	var attack_cooldown = Timer.new()
@@ -250,6 +279,7 @@ func death_screen():
 	death_screen.position = Vector2(get_viewport_rect().size.x/2, get_viewport_rect().size.y/2)
 	get_parent().add_child(death_screen)
 	death_screen.get_node("AnimationPlayer").play("appear")
+	
 func revival():
 	position = Vector2(get_viewport_rect().size.x/2, get_viewport_rect().size.y/2)
 	var death_background = death_background.instantiate()
@@ -259,7 +289,8 @@ func revival():
 func change_player():
 	match global.state:
 		"base":
-			$Node2D/AnimatedSprite2D.play(global.current_vehicle_skin)
+			$Node2D/body.play(global.current_vehicle_skin + " default")
+			$Node2D/bumpers.play(global.current_vehicle_skin + " default")
 			$upgrade_effect.visible = false
 		"immunity_upgrade":
 			$upgrade_effect.visible = true
@@ -267,6 +298,7 @@ func change_player():
 			
 		_:
 			$upgrade_effect.visible = false
+			
 	if velocity.y > 0 and motion_attack == true:
 		velocity.y -= 0.5
 	if velocity.y < 0:
@@ -276,21 +308,21 @@ func change_player():
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	if anim_name == "attacked":
-		$Node2D/AnimatedSprite2D.play("default")
+		$Node2D/body.play(global.current_vehicle_skin + " default")
+		$Node2D/bumpers.play(global.current_vehicle_skin + " default")
 		global.player_attacked = false
 		global.game_started = true
-
 func _on_horizontal_detector_body_entered(body: Node2D) -> void:
 	if body.has_method("magnetic"):
-		if global.base_state == "magnet":
-			print("got it")
+		if global.state == "magnet":
 			held_projectiles.append(body)
-func current_skin(skin):
-	match skin:
-		"default":
-			$Node2D/AnimatedSprite2D.play(global.current_vehicle_skin)
-			
-			
-			
-		
+func _on_bumper_detection_area_body_entered(body: Node2D) -> void:
+	if can_move:
+		global.in_game_collisions += 1
+		if $message_timer.wait_time < 0.2:
+			$message_timer.wait_time += 0.1
+		current_collision_count = global.in_game_collisions
+		$message_timer.start()
+func _on_message_timer_timeout() -> void:
+	global.in_game_collisions = 0
 	

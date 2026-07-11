@@ -5,7 +5,7 @@ var infested
 var options = [true, false]
 var collision_effect : PackedScene = load("res://collision_effect.tscn")
 var first_collision = true
-
+var can_shift = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	cleaned = options[randi() % options.size()]
@@ -23,14 +23,19 @@ func _process(delta: float) -> void:
 			if cleaned == false:
 				$AnimatedSprite2D.play("being_cleaned")
 				infested = false
-		
+		if can_shift:
+			if body.name.contains("barrier"):
+				if body.position.y < self.position.y:
+					self.position.y += body.get_node("detection_area/CollisionShape2D").shape.size.y/2
+					can_shift = false
 	if infested:
 		$AnimatedSprite2D.play("infested")
 	if cleaned:
 		$AnimatedSprite2D.play("clean")
 	
 
-
+func barrier():
+	pass
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $AnimatedSprite2D.animation == "being_cleaned":
 		cleaned = true
