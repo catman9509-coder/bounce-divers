@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bc310mywnbh35"]
+
+[ext_resource type="Script" uid="uid://d18r677gsy0og" path="res://soap_bar_upgrade.gd" id="1_oa1ec"]
+[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_opbvb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t1ifn"]
+size = Vector2(48, 48)
+
+[node name="soap_bar_upgrade" type="StaticBody2D"]
+script = ExtResource("1_oa1ec")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.25, 1, 0, 1)
+position = Vector2(-4.7683716e-07, -1.4305115e-06)
+scale = Vector2(0.37499997, 0.37499997)
+texture = ExtResource("2_opbvb")
+
+[node name="detection_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+shape = SubResource("RectangleShape2D_t1ifn")
+
+[node name="CollisionShape" type="CollisionShape2D" parent="."]
+scale = Vector2(0.8, 0.8)
+shape = SubResource("RectangleShape2D_t1ifn")
+
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

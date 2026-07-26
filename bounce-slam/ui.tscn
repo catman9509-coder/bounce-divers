@@ -1,0 +1,249 @@
+[gd_scene load_steps=9 format=3 uid="uid://cedbbbfjxhq1r"]
+
+[ext_resource type="Script" uid="uid://cqbdlfmqxnu52" path="res://ui.gd" id="1_fyqef"]
+[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_m6e0p"]
+[ext_resource type="Texture2D" uid="uid://bw16aaxcto4t0" path="res://oak_woods_v1.0/character/char_blue.png" id="3_27fn8"]
+
+[sub_resource type="Animation" id="Animation_nltto"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("collisions_label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("collisions_label:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Control/money:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("extermination_label:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("extermination_label:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(130, 89)]
+}
+
+[sub_resource type="Animation" id="Animation_27fn8"]
+resource_name = "collision_message_appearance"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("collisions_label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.03333333, 0.6666667, 1.9666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("collisions_label:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2), Vector2(0.7, 0.7)]
+}
+
+[sub_resource type="Animation" id="Animation_ibotj"]
+resource_name = "money_gain"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/money:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.65, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_n5ude"]
+resource_name = "extermination_message_appearance"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("extermination_label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.03333336, 0.3, 0.93333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2.5, 2.5), Vector2(2, 2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("extermination_label:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(130, 89), Vector2(116, 89)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ibotj"]
+_data = {
+&"RESET": SubResource("Animation_nltto"),
+&"collision_message_appearance": SubResource("Animation_27fn8"),
+&"extermination_message_appearance": SubResource("Animation_n5ude"),
+&"money_gain": SubResource("Animation_ibotj")
+}
+
+[node name="ui" type="CanvasLayer"]
+script = ExtResource("1_fyqef")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 24.0
+offset_top = 40.0
+offset_right = 64.0
+offset_bottom = 80.0
+
+[node name="money" type="Label" parent="Control"]
+layout_mode = 0
+offset_top = 34.0
+offset_right = 62.0
+offset_bottom = 57.0
+text = "money: "
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="score" type="Label" parent="Control/HBoxContainer"]
+layout_mode = 2
+text = "parsecs:"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 150
+
+[node name="menu_button" type="TextureButton" parent="Control/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(50, 40)
+layout_mode = 2
+action_mode = 0
+texture_normal = ExtResource("2_m6e0p")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="stored_upgrade_button" type="TextureButton" parent="."]
+offset_left = 24.0
+offset_top = 102.0
+offset_right = 88.0
+offset_bottom = 158.0
+texture_normal = ExtResource("3_27fn8")
+ignore_texture_size = true
+stretch_mode = 1
+
+[node name="collisions_label" type="Label" parent="."]
+offset_left = 167.0
+offset_top = 88.0
+offset_right = 279.0
+offset_bottom = 111.0
+text = "
+"
+
+[node name="extermination_label" type="Label" parent="."]
+offset_left = 116.0
+offset_top = 89.0
+offset_right = 156.00034
+offset_bottom = 112.0
+metadata/_edit_use_anchors_ = true
+
+[node name="emergency_shift" type="TextureRect" parent="."]
+modulate = Color(1, 0, 0, 1)
+offset_left = 296.0
+offset_top = 118.0
+offset_right = 336.0
+offset_bottom = 158.0
+texture = ExtResource("2_m6e0p")
+expand_mode = 1
+
+[node name="Button" type="Button" parent="emergency_shift"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 46.0
+
+[node name="Label" type="Label" parent="emergency_shift/Button"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "x 0"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ibotj")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ibotj")
+}
+
+[node name="message_timer" type="Timer" parent="."]
+wait_time = 0.2
+
+[connection signal="pressed" from="Control/HBoxContainer/MarginContainer/menu_button" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="stored_upgrade_button" to="." method="_on_stored_upgrade_button_pressed"]
+[connection signal="pressed" from="emergency_shift/Button" to="." method="_on_button_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer2" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="message_timer" to="." method="_on_message_timer_timeout"]

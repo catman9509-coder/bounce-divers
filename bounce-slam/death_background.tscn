@@ -1,0 +1,152 @@
+[gd_scene load_steps=8 format=3 uid="uid://8wmg2bfiwani"]
+
+[ext_resource type="Script" uid="uid://jo24dmjpgwf5" path="res://death_background.gd" id="1_rfgqp"]
+
+[sub_resource type="Animation" id="Animation_rfgqp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.92941177, 0, 0.22352941, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.94, 0.94, 0.94, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_u5wc6"]
+resource_name = "appear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1.4142113),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 0, 0, 0.5647059)]
+}
+
+[sub_resource type="Animation" id="Animation_mj0ac"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_eeusn"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(0, 0, 0, 0.44313726)]
+}
+
+[sub_resource type="Animation" id="Animation_smpsk"]
+resource_name = "rocket_burst"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.06666666, 0.56666666),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.32),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.3372549)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:self_modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.32, 0.6333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.94, 0.94, 0.94, 1), Color(0.94, 0.94, 0.94, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eeusn"]
+_data = {
+&"RESET": SubResource("Animation_rfgqp"),
+&"appear": SubResource("Animation_u5wc6"),
+&"fade_out": SubResource("Animation_mj0ac"),
+&"normal": SubResource("Animation_eeusn"),
+&"rocket_burst": SubResource("Animation_smpsk")
+}
+
+[node name="death_background" type="ColorRect"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(0.94, 0.94, 0.94, 1)
+offset_left = -120.0
+offset_top = -184.0
+offset_right = 456.0
+offset_bottom = 720.0
+color = Color(0.92941177, 0, 0.22352941, 1)
+script = ExtResource("1_rfgqp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_eeusn")
+}
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
