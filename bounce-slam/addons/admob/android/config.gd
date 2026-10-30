@@ -29,7 +29,7 @@ var libraries: Array[Library] = [
 	Library.new("ads", true), # Disable if you don't want to use AdMob.
 	
 	# Supported Mediations
-	Library.new("adcolony", false),
-	Library.new("meta", false),
-	Library.new("vungle", false)
+	Library.new("adcolony", true),
+	Library.new("meta", true),
+	Library.new("vungle", true)
 ]

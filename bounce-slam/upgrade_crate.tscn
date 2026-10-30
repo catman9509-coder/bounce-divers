@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://xuhxmu4mdmlb"]
+[gd_scene format=3 uid="uid://xuhxmu4mdmlb"]
 
 [ext_resource type="Script" uid="uid://8ievw8k7tm33" path="res://upgrade_crate.gd" id="1_g8ab7"]
 [ext_resource type="Texture2D" uid="uid://d27j07bu6p5q3" path="res://Bounce DIvers assets/upgrade_crate_sprites.png" id="2_g8ab7"]
@@ -79,7 +79,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5dbn3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -87,25 +87,25 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjcme"]
 size = Vector2(48, 72)
 
-[node name="base_upgrade_crate" type="CharacterBody2D"]
+[node name="base_upgrade_crate" type="CharacterBody2D" unique_id=1661689467]
 collision_layer = 3
 collision_mask = 0
 script = ExtResource("1_g8ab7")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1359501531]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_s2u3c")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=468564241]
 position = Vector2(-1.4305115e-06, -1.4305115e-06)
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_3e14b")
 autoplay = "default"
 frame_progress = 0.062627956
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." unique_id=1444004374]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=2132193678]
 position = Vector2(0, 4)
 shape = SubResource("RectangleShape2D_pjcme")
 

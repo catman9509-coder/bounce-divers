@@ -1,13 +1,12 @@
-[gd_scene load_steps=38 format=3 uid="uid://q54ofarvs22k"]
+[gd_scene format=3 uid="uid://q54ofarvs22k"]
 
 [ext_resource type="Script" uid="uid://sp16ct1wecq3" path="res://level.gd" id="1_oi3di"]
 [ext_resource type="PackedScene" uid="uid://d2idlpnbgdyfx" path="res://facility_door.tscn" id="2_f2txt"]
 [ext_resource type="Texture2D" uid="uid://boe6c5pcgt8ly" path="res://Bounce DIvers assets/layer_1_sprites.png" id="2_n6hdu"]
 [ext_resource type="PackedScene" uid="uid://cksdc6x5vi4iv" path="res://player.tscn" id="2_oi3di"]
-[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="3_0b4ue"]
 [ext_resource type="Texture2D" uid="uid://cs0xdfuqij5pn" path="res://Bounce_divers_layer_2_spritesheet.png" id="3_km5ld"]
-[ext_resource type="Script" uid="uid://j5bqgv3rr8xu" path="res://touch_screen_button.gd" id="4_f2txt"]
 [ext_resource type="PackedScene" uid="uid://cedbbbfjxhq1r" path="res://ui.tscn" id="5_f2txt"]
+[ext_resource type="PackedScene" uid="uid://b137rcrbp61es" path="res://addons/admob_manager/admob.tscn" id="9_i2t4f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_km5ld"]
 atlas = ExtResource("2_n6hdu")
@@ -68,7 +67,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v5j5c")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 2.0
 }]
@@ -139,7 +138,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_u3yai")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -153,16 +152,10 @@ size = Vector2(307, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1ainy"]
 size = Vector2(41, 664)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_1ainy"]
-radius = 88.02
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0b4ue"]
 size = Vector2(359.99997, 23.916779)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_n6hdu"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_0b4ue"]
-radius = 88.0
 
 [sub_resource type="Animation" id="Animation_n6hdu"]
 length = 0.001
@@ -225,200 +218,160 @@ _data = {
 &"start_game": SubResource("Animation_1ainy")
 }
 
-[node name="level" type="Node2D"]
+[node name="level" type="Node2D" unique_id=702739349]
 script = ExtResource("1_oi3di")
 
-[node name="backgrounds" type="Node2D" parent="."]
+[node name="backgrounds" type="Node2D" parent="." unique_id=1660685360]
 
-[node name="layer_1" type="Node2D" parent="backgrounds"]
+[node name="layer_1" type="Node2D" parent="backgrounds" unique_id=771335332]
 z_index = -1
 
-[node name="upper_point" type="Marker2D" parent="backgrounds/layer_1"]
+[node name="upper_point" type="Marker2D" parent="backgrounds/layer_1" unique_id=1210660224]
 position = Vector2(168, 0)
 rotation = 1.5707964
 scale = Vector2(1.9965032, 2.0137267)
 
-[node name="lower_point" type="Marker2D" parent="backgrounds/layer_1"]
+[node name="lower_point" type="Marker2D" parent="backgrounds/layer_1" unique_id=467684022]
 position = Vector2(192, 640)
 rotation = -3.1415925
 scale = Vector2(4.020412, 4.020412)
 
-[node name="sprite" type="AnimatedSprite2D" parent="backgrounds/layer_1"]
+[node name="sprite" type="AnimatedSprite2D" parent="backgrounds/layer_1" unique_id=986406154]
 position = Vector2(180, 320)
 sprite_frames = SubResource("SpriteFrames_5pxul")
 autoplay = "default"
 frame_progress = 0.4556334
 
-[node name="layer_2" type="Node2D" parent="backgrounds"]
+[node name="layer_2" type="Node2D" parent="backgrounds" unique_id=1922933106]
 
-[node name="upper_point" type="Marker2D" parent="backgrounds/layer_2"]
+[node name="upper_point" type="Marker2D" parent="backgrounds/layer_2" unique_id=349435134]
 position = Vector2(168, 0)
 rotation = 1.5707964
 scale = Vector2(1.9965032, 2.0137267)
 
-[node name="lower_point" type="Marker2D" parent="backgrounds/layer_2"]
+[node name="lower_point" type="Marker2D" parent="backgrounds/layer_2" unique_id=1897790273]
 position = Vector2(192, 640)
 rotation = -3.1415925
 scale = Vector2(4.020412, 4.020412)
 
-[node name="sprite" type="AnimatedSprite2D" parent="backgrounds/layer_2"]
+[node name="sprite" type="AnimatedSprite2D" parent="backgrounds/layer_2" unique_id=754205715]
 position = Vector2(180, 319)
 scale = Vector2(0.25, 0.25)
 sprite_frames = SubResource("SpriteFrames_fj6e6")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=478630917]
 position = Vector2(0, -1.5497208e-05)
 scale = Vector2(1, 0.99999994)
 
-[node name="facility_door" parent="Node2D" instance=ExtResource("2_f2txt")]
+[node name="facility_door" parent="Node2D" unique_id=671883699 instance=ExtResource("2_f2txt")]
 position = Vector2(180, 112.000015)
 scale = Vector2(7.25, 6.500001)
 animation = &"open"
 frame_progress = 0.45445448
 
-[node name="enemy_border" type="Area2D" parent="."]
+[node name="enemy_border" type="Area2D" parent="." unique_id=1190637860]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_border"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_border" unique_id=218925309]
 position = Vector2(928, 128)
 shape = SubResource("RectangleShape2D_n6hdu")
 
-[node name="outer_bounds" type="StaticBody2D" parent="."]
+[node name="outer_bounds" type="StaticBody2D" parent="." unique_id=1600193831]
 position = Vector2(407, 167)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="outer_bounds"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="outer_bounds" unique_id=1760177176]
 position = Vector2(473, 113)
 shape = SubResource("RectangleShape2D_f2txt")
 disabled = true
 
-[node name="left_bound" type="Area2D" parent="outer_bounds"]
+[node name="left_bound" type="Area2D" parent="outer_bounds" unique_id=1456690450]
 position = Vector2(-407, -167)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="outer_bounds/left_bound"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="outer_bounds/left_bound" unique_id=1245655755]
 position = Vector2(-24, 336)
 shape = SubResource("RectangleShape2D_1ainy")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="outer_bounds/left_bound"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="outer_bounds/left_bound" unique_id=2006565951]
 position = Vector2(784, 616)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_1ainy")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="outer_bounds/left_bound"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="outer_bounds/left_bound" unique_id=1863824685]
 position = Vector2(904, -80)
 rotation = 1.5707964
 scale = Vector2(0.99999994, 0.99999994)
 shape = SubResource("RectangleShape2D_1ainy")
 
-[node name="right_bound" type="Area2D" parent="outer_bounds"]
+[node name="right_bound" type="Area2D" parent="outer_bounds" unique_id=1263968123]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="outer_bounds/right_bound"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="outer_bounds/right_bound" unique_id=30803669]
 position = Vector2(-23, 169)
 shape = SubResource("RectangleShape2D_1ainy")
 
-[node name="left_barrier_spawner" type="Marker2D" parent="."]
-position = Vector2(0, 680)
+[node name="left_barrier_spawner" type="Marker2D" parent="." unique_id=853721763]
+position = Vector2(0, 639)
 
-[node name="right_barrier_spawner" type="Marker2D" parent="."]
-position = Vector2(360, 680)
+[node name="right_barrier_spawner" type="Marker2D" parent="." unique_id=496252843]
+position = Vector2(360, 640)
 
-[node name="player_vert_control" type="TouchScreenButton" parent="."]
-position = Vector2(440, 416)
-scale = Vector2(0.5, 0.5)
-texture_normal = ExtResource("3_0b4ue")
-shape = SubResource("CircleShape2D_1ainy")
-action = "ui_select"
-script = ExtResource("4_f2txt")
-
-[node name="borders" type="StaticBody2D" parent="."]
+[node name="borders" type="StaticBody2D" parent="." unique_id=1339947357]
 collision_layer = 2
 collision_mask = 2
 
-[node name="up_border" type="CollisionShape2D" parent="borders"]
+[node name="up_border" type="CollisionShape2D" parent="borders" unique_id=1740187437]
 position = Vector2(180, -12)
 shape = SubResource("RectangleShape2D_0b4ue")
 
-[node name="down_border" type="CollisionShape2D" parent="borders"]
+[node name="down_border" type="CollisionShape2D" parent="borders" unique_id=2042802007]
 position = Vector2(191.99998, 640)
 shape = SubResource("WorldBoundaryShape2D_n6hdu")
 one_way_collision = true
 
-[node name="obstacle_spawnpoint_1" type="Marker2D" parent="."]
+[node name="obstacle_spawnpoint_1" type="Marker2D" parent="." unique_id=1900068128]
 position = Vector2(88, 704)
 
-[node name="obstacle_spawnpoint_2" type="Marker2D" parent="."]
+[node name="obstacle_spawnpoint_2" type="Marker2D" parent="." unique_id=189315482]
 position = Vector2(180, 704)
 
-[node name="obstacle_spawnpoint_3" type="Marker2D" parent="."]
+[node name="obstacle_spawnpoint_3" type="Marker2D" parent="." unique_id=10495981]
 position = Vector2(281, 704)
 
-[node name="player_attack_button" type="TouchScreenButton" parent="."]
-z_index = 1
-position = Vector2(280, 512)
-scale = Vector2(0.5625, 0.5)
-texture_normal = ExtResource("3_0b4ue")
-shape = SubResource("CircleShape2D_0b4ue")
-
-[node name="barrier_border" type="Area2D" parent="."]
+[node name="barrier_border" type="Area2D" parent="." unique_id=1664791556]
 position = Vector2(544, 280)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="barrier_border"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="barrier_border" unique_id=1373344366]
 position = Vector2(408, -280)
 shape = SubResource("RectangleShape2D_n6hdu")
 
-[node name="ui" parent="." instance=ExtResource("5_f2txt")]
+[node name="ui" parent="." unique_id=1023890632 instance=ExtResource("5_f2txt")]
 follow_viewport_enabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_km5ld")
-}
-
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=422100873]
 texture_repeat = 1
 position = Vector2(180, 320)
-limit_enabled = false
+limit_left = 0
+limit_top = 0
+limit_right = 360
+limit_bottom = 640
+limit_smoothed = true
+position_smoothing_enabled = true
+editor_draw_limits = true
 
-[node name="player" parent="." instance=ExtResource("2_oi3di")]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1050023418]
+libraries/ = SubResource("AnimationLibrary_km5ld")
+
+[node name="player" parent="." unique_id=824086126 instance=ExtResource("2_oi3di")]
 position = Vector2(160, 56)
 
-[node name="return_point" type="Marker2D" parent="."]
+[node name="return_point" type="Marker2D" parent="." unique_id=1360133501]
 
-[node name="right" type="Marker2D" parent="."]
+[node name="right" type="Marker2D" parent="." unique_id=1919926405]
 position = Vector2(360, 640)
 
-[node name="left" type="Marker2D" parent="."]
+[node name="left" type="Marker2D" parent="." unique_id=1791370531]
 
-[node name="up_button" type="TouchScreenButton" parent="."]
-z_index = 1
-position = Vector2(288, 376)
-scale = Vector2(0.5, 0.5)
-texture_normal = ExtResource("3_0b4ue")
-
-[node name="down_button" type="TouchScreenButton" parent="."]
-z_index = 1
-position = Vector2(288, 440)
-scale = Vector2(0.5, 0.5)
-texture_normal = ExtResource("3_0b4ue")
-
-[node name="shift_button" type="TouchScreenButton" parent="."]
-z_index = 1
-position = Vector2(296.00003, 584)
-scale = Vector2(0.40625, 0.375)
-texture_normal = ExtResource("3_0b4ue")
-
-[node name="barrier_control_timer" type="Timer" parent="."]
+[node name="admob" parent="." unique_id=1959751130 instance=ExtResource("9_i2t4f")]
 
 [connection signal="body_entered" from="outer_bounds/left_bound" to="." method="_on_left_bound_body_entered"]
 [connection signal="body_entered" from="outer_bounds/right_bound" to="." method="_on_right_bound_body_entered"]
-[connection signal="pressed" from="player_vert_control" to="." method="_on_player_vert_control_pressed"]
-[connection signal="released" from="player_vert_control" to="." method="_on_player_vert_control_released"]
-[connection signal="pressed" from="player_attack_button" to="." method="_on_touch_screen_button_pressed"]
-[connection signal="pressed" from="player_attack_button" to="." method="_on_player_attack_button_pressed"]
-[connection signal="released" from="player_attack_button" to="." method="_on_player_attack_button_released"]
 [connection signal="body_entered" from="barrier_border" to="." method="_on_barrier_border_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
-[connection signal="pressed" from="up_button" to="." method="_on_up_button_pressed"]
-[connection signal="released" from="up_button" to="." method="_on_up_button_released"]
-[connection signal="pressed" from="down_button" to="." method="_on_down_button_pressed"]
-[connection signal="released" from="down_button" to="." method="_on_down_button_released"]
-[connection signal="pressed" from="shift_button" to="." method="_on_shift_button_pressed"]
-[connection signal="timeout" from="barrier_control_timer" to="." method="_on_barrier_control_timer_timeout"]

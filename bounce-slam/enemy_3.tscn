@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://b0ofo8vubswi5"]
+[gd_scene format=3 uid="uid://b0ofo8vubswi5"]
 
 [ext_resource type="Script" uid="uid://dw8q7ywwb6ubi" path="res://enemy_3.gd" id="1_dxyk6"]
 [ext_resource type="Texture2D" uid="uid://bub1gg730tuyu" path="res://Bounce DIvers assets/enemy_3_sprites.png" id="2_dxyk6"]
@@ -108,7 +108,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_tg1tv")
 }],
-"loop": false,
+"loop": 0,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -137,7 +137,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ell60")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -163,40 +163,40 @@ b = Vector2(-40, 40)
 [sub_resource type="CircleShape2D" id="CircleShape2D_dxyk6"]
 radius = 48.0
 
-[node name="enemy_3" type="CharacterBody2D"]
+[node name="enemy_3" type="CharacterBody2D" unique_id=111817245]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_dxyk6")
 
-[node name="body" type="AnimatedSprite2D" parent="."]
+[node name="body" type="AnimatedSprite2D" parent="." unique_id=232404890]
 position = Vector2(0, 4.7683716e-07)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_4c84r")
 autoplay = "default"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=731060154]
 shape = SubResource("CircleShape2D_v15ab")
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." unique_id=1188634325]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=1850212443]
 shape = SubResource("CircleShape2D_60q65")
 
-[node name="attack_area" type="Area2D" parent="."]
+[node name="attack_area" type="Area2D" parent="." unique_id=1389967436]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area" unique_id=128409843]
 shape = SubResource("SegmentShape2D_h2kam")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="attack_area"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="attack_area" unique_id=1232996149]
 shape = SubResource("SegmentShape2D_c1bkt")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="attack_area"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="attack_area" unique_id=1783708085]
 shape = SubResource("SegmentShape2D_3tot4")
 
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="attack_area"]
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="attack_area" unique_id=1938183821]
 shape = SubResource("SegmentShape2D_j66hg")
 
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="attack_area"]
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="attack_area" unique_id=1556169098]
 shape = SubResource("CircleShape2D_dxyk6")
 
 [connection signal="animation_finished" from="body" to="." method="_on_body_animation_finished"]

@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="bounce slam"
-config/features=PackedStringArray("4.5", "Mobile")
+run/main_scene="uid://p5beglkcrwds"
+config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -19,17 +20,20 @@ config/icon="res://icon.svg"
 global="*res://global.gd"
 userdata="*res://userdata.gd"
 save_manager="*res://save_manager.tscn"
+GodotPlayGameServices="*uid://dvox2i2pd7vpf"
 
 [display]
 
 window/size/viewport_width=360
 window/size/viewport_height=640
 window/stretch/mode="viewport"
-window/stretch/aspect="expand"
+window/stretch/aspect="ignore"
+display_server/driver.android="android"
+window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/admob/plugin.cfg")
+enabled=PackedStringArray("res://addons/GodotPlayGameServices/plugin.cfg", "res://addons/admob/plugin.cfg")
 
 [importer_defaults]
 
@@ -37,5 +41,5 @@ image={}
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+textures/vram_compression/import_etc2_astc=true

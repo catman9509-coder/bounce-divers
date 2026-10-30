@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d2idlpnbgdyfx"]
+[gd_scene format=3 uid="uid://d2idlpnbgdyfx"]
 
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_jbnpp"]
 
@@ -28,7 +28,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_txwyv")
 }],
-"loop": true,
+"loop": 1,
 "name": &"closed",
 "speed": 5.0
 }, {
@@ -45,12 +45,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1buhu")
 }],
-"loop": true,
+"loop": 1,
 "name": &"open",
 "speed": 5.0
 }]
 
-[node name="facility_door" type="AnimatedSprite2D"]
+[node name="facility_door" type="AnimatedSprite2D" unique_id=1967366889]
 position = Vector2(0, 7.6293945e-06)
 scale = Vector2(7.25, 6.5)
 sprite_frames = SubResource("SpriteFrames_tbuwq")

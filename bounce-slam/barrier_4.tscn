@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://di5ec1r817qd1"]
+[gd_scene format=3 uid="uid://di5ec1r817qd1"]
 
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_6uq1y"]
 [ext_resource type="Script" uid="uid://ppep6s1rds4s" path="res://barrier_1.gd" id="1_wk82e"]
@@ -7,7 +7,7 @@
 size = Vector2(108, 96)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wk82e"]
-size = Vector2(128, 98.5)
+size = Vector2(128, 153)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w3ucv"]
 atlas = ExtResource("1_6uq1y")
@@ -49,7 +49,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xmsdk")
 }],
-"loop": false,
+"loop": 0,
 "name": &"being_cleaned",
 "speed": 5.0
 }, {
@@ -57,7 +57,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8i77o")
 }],
-"loop": true,
+"loop": 1,
 "name": &"clean",
 "speed": 5.0
 }, {
@@ -71,32 +71,32 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mj22x")
 }],
-"loop": true,
+"loop": 1,
 "name": &"infested",
 "speed": 5.0
 }]
 
-[node name="barrier_4" type="StaticBody2D"]
+[node name="barrier_4" type="StaticBody2D" unique_id=1734734383]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_wk82e")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1299565004]
 shape = SubResource("RectangleShape2D_6uq1y")
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." unique_id=513945700]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
-position = Vector2(0, 0.25)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=1372240730]
+position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_wk82e")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=590191973]
 position = Vector2(-0.50000453, -3.5762787e-07)
 scale = Vector2(3.40625, 3.0625)
 sprite_frames = SubResource("SpriteFrames_7ktv3")
 animation = &"being_cleaned"
 
-[node name="spawn_point" type="Marker2D" parent="AnimatedSprite2D"]
+[node name="spawn_point" type="Marker2D" parent="AnimatedSprite2D" unique_id=45309716]
 position = Vector2(30.091742, 1.1677645e-07)
 scale = Vector2(0.29357797, 0.3265306)
 

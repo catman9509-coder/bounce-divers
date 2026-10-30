@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://db30xqqv0jon1"]
+
+[ext_resource type="Script" uid="uid://beyp6e0ospwko" path="res://main_window.gd" id="1_tyee0"]
+[ext_resource type="Texture2D" uid="uid://dxdyy1qa7qnno" path="res://Bounce DIvers assets/Bounce DIvers assets/main_window_display.png" id="2_sq7ho"]
+[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="3_l06f4"]
+
+[sub_resource type="Animation" id="Animation_tyee0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(180, -371)]
+}
+
+[sub_resource type="Animation" id="Animation_sq7ho"]
+resource_name = "appear"
+length = 1.0333333
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19, 0.7, 0.88, 1.0333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(180, -371), Vector2(180, -251), Vector2(180, 317), Vector2(180, 317), Vector2(180, 320)]
+}
+
+[sub_resource type="Animation" id="Animation_l06f4"]
+resource_name = "disappear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.12, 0.17, 0.97),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(180, 320), Vector2(180, 306), Vector2(180, 281), Vector2(180, -391)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l06f4"]
+_data = {
+&"RESET": SubResource("Animation_tyee0"),
+&"appear": SubResource("Animation_sq7ho"),
+&"disappear": SubResource("Animation_l06f4")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4bi5o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bfu0d"]
+atlas = ExtResource("3_l06f4")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oyf1y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bfu0d")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oyf1y"]
+
+[node name="main_window" type="Node2D" unique_id=1153834780]
+script = ExtResource("1_tyee0")
+
+[node name="description_space" type="Control" parent="." unique_id=968166684]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 169.00002
+offset_top = 159.0
+offset_right = 349.0
+offset_bottom = 452.0
+scale = Vector2(0.87999755, 0.23999941)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1973915618]
+position = Vector2(180, -371)
+texture = ExtResource("2_sq7ho")
+region_rect = Rect2(720, 0, 720, 1328)
+region_filter_clip_enabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1044428613]
+libraries/ = SubResource("AnimationLibrary_l06f4")
+
+[node name="shop_button" type="TouchScreenButton" parent="." unique_id=245309672]
+z_index = 2
+position = Vector2(84.00001, 390)
+scale = Vector2(3.4769, 1.997309)
+shape = SubResource("RectangleShape2D_4bi5o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="shop_button" unique_id=1551914526]
+sprite_frames = SubResource("SpriteFrames_oyf1y")
+
+[node name="play_button" type="TouchScreenButton" parent="." unique_id=2094579872]
+z_index = 2
+position = Vector2(84, 446.99997)
+scale = Vector2(3.4769, 1.997309)
+shape = SubResource("RectangleShape2D_4bi5o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="play_button" unique_id=807242250]
+sprite_frames = SubResource("SpriteFrames_oyf1y")
+
+[node name="strg_button" type="TouchScreenButton" parent="." unique_id=962384430]
+z_index = 2
+position = Vector2(84, 501)
+scale = Vector2(3.4769, 1.997309)
+shape = SubResource("RectangleShape2D_4bi5o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="strg_button" unique_id=1010557559]
+sprite_frames = SubResource("SpriteFrames_oyf1y")
+
+[node name="equip_buy_button" type="TouchScreenButton" parent="." unique_id=1732602255]
+z_index = 2
+position = Vector2(77, 301)
+scale = Vector2(4.24, 1.2)
+shape = SubResource("RectangleShape2D_oyf1y")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="equip_buy_button" unique_id=843706230]
+sprite_frames = SubResource("SpriteFrames_oyf1y")
+
+[node name="item_display_location" type="Marker2D" parent="." unique_id=1244937152]
+position = Vector2(75.00001, 220)
+scale = Vector2(3.4769, 1.997309)
+
+[node name="item_description" type="RichTextLabel" parent="." unique_id=1264022935]
+z_index = 2
+offset_left = 168.0
+offset_top = 159.0
+offset_right = 208.0
+offset_bottom = 199.0
+scale = Vector2(1.8000011, 1.6800013)
+focus_mode = 2
+theme_override_font_sizes/normal_font_size = 10
+text = "yyy"
+selection_enabled = true
+
+[node name="description_location" type="Marker2D" parent="." unique_id=335230063]
+position = Vector2(168, 159)
+
+[node name="balance_location" type="Marker2D" parent="." unique_id=1053461090]
+position = Vector2(75, 74)
+
+[node name="current_balance" type="Label" parent="." unique_id=974099218]
+offset_left = 71.0
+offset_top = 79.0
+offset_right = 144.0
+offset_bottom = 102.0
+text = "CRDTS :"
+
+[node name="sub_window_space" type="Control" parent="." unique_id=1520945146]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 158.0
+offset_top = 268.0
+offset_right = 338.0
+offset_bottom = 561.0
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="pressed" from="shop_button" to="." method="_on_shop_button_pressed"]
+[connection signal="released" from="shop_button" to="." method="_on_shop_button_released"]
+[connection signal="pressed" from="play_button" to="." method="_on_play_button_pressed"]
+[connection signal="released" from="play_button" to="." method="_on_play_button_released"]
+[connection signal="pressed" from="strg_button" to="." method="_on_strg_button_pressed"]
+[connection signal="released" from="strg_button" to="." method="_on_strg_button_released"]
+[connection signal="pressed" from="equip_buy_button" to="." method="_on_equipbuy_button_pressed"]
+[connection signal="pressed" from="equip_buy_button" to="." method="_on_equip_buy_button_pressed"]
+[connection signal="released" from="equip_buy_button" to="." method="_on_equipbuy_button_released"]
+[connection signal="released" from="equip_buy_button" to="." method="_on_equip_buy_button_released"]

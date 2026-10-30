@@ -1,14 +1,17 @@
 extends CanvasLayer
-var fade_out : PackedScene = preload("res://death_background.tscn")
 var message : PackedScene = preload("res://message.tscn")
 
 var can_transition = true
 
 var menu_open = false
+var hideable_items = []
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	hideable_items = [$Control, $Control2, $login_register_button, $player_username]
+	for item in hideable_items:
+		item.visible = true
 	$login_menu.pop = false
 	$player_username.text = "welcome : " + userdata.username
 
@@ -18,13 +21,6 @@ func _process(delta: float) -> void:
 	pass
 
 func _input(event: InputEvent) -> void:
-	
-	var transition_timer = Timer.new()
-	transition_timer.wait_time = 1.0
-	transition_timer.one_shot = true
-	transition_timer.timeout.connect(transition_timeout)
-	add_child(transition_timer)
-	var transition = fade_out.instantiate()
 	if can_transition:
 		if event is InputEventMouseButton and event.pressed:
 			if $login_register_button.get_global_rect().has_point(event.position) and $login_menu.pop == false:
@@ -35,10 +31,10 @@ func _input(event: InputEvent) -> void:
 				if event.position.y > $login_menu.position.y+$login_menu.get_node("TextureRect").size.y or event.position.y < $login_menu.position.y:
 					$login_menu.pop = false
 			else: 
+				for item in hideable_items:
+					item.visible = false
 				$login_menu.pop = false
-				transition_timer.start()
-				add_child(transition)
-				transition.get_node("AnimationPlayer").play("fade_out")
+				global.transition_animation("res://main_menu.tscn")
 				can_transition = false
 			
 		if event is InputEventScreenTouch and event.pressed:
@@ -50,15 +46,12 @@ func _input(event: InputEvent) -> void:
 				if event.position.y > $login_menu.position.y+$login_menu.get_node("TextureRect").size.y or event.position.y < $login_menu.position.y:
 					$login_menu.pop = false
 			else: 
+				for item in hideable_items:
+					item.visible = false
 				$login_menu.pop = false
-				transition_timer.start()
-				add_child(transition)
-				transition.get_node("AnimationPlayer").play("fade_out")
+				global.transition_animation("res://main_menu.tscn")
 				can_transition = false
 		
-func transition_timeout():
-	print("done")
-	get_tree().change_scene_to_file("res://main_menu.tscn")
 	
 	
 

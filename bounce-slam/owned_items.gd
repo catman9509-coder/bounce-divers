@@ -1,9 +1,25 @@
 extends CanvasLayer
 var shop_catagory :PackedScene = preload("res://shop_catageory.tscn")
 var shop_item : PackedScene = preload("res://shop_item.tscn")
+var window_type = Sub_window.new()
+var current_scene
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(global.owned_purchaseable_upgrades)
+	current_scene = get_tree().current_scene
+
+	if current_scene.name == "main_menu":
+		window_type.window_rect = $Control
+		window_type.target_size = current_scene.get_node("main_window").get_node("sub_window_space").size
+		window_type.fix_size()
+		$Control.custom_maximum_size = $Control.size
+		$Control.global_position = current_scene.get_node("main_window").get_node("sub_window_space").global_position
+		
+
+	load_items()
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+
+func load_items():
 	for category in global.shop_catagories:
 		var upgrade
 		var shop_cat = shop_catagory.instantiate()
@@ -37,12 +53,3 @@ func _ready() -> void:
 				shop_cat.get_node("ScrollContainer/HBoxContainer").add_child(new_item)
 			
 		$Control/VBoxContainer.add_child(shop_cat)
-		
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	$Control/MarginContainer/HBoxContainer/balance.text = str(global.stored_coins)
-	
-
-func _on_back_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://main_menu.tscn")

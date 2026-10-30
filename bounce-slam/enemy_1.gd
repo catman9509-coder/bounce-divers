@@ -9,6 +9,7 @@ var can_infect = randf_range(true, false)
 var type = Spawns.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+
 	type.can_travel = true
 	$Node2D/body.play("default")
 	$Node2D/barrel.play("default")

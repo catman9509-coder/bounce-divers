@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsdat5a32wx3k"]
+[gd_scene format=3 uid="uid://bsdat5a32wx3k"]
 
 [ext_resource type="Script" uid="uid://gbgappt8g6qo" path="res://trash.gd" id="1_43he1"]
 [ext_resource type="Texture2D" uid="uid://bw16aaxcto4t0" path="res://oak_woods_v1.0/character/char_blue.png" id="2_76yqg"]
@@ -21,7 +21,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jixxp")
 }],
-"loop": true,
+"loop": 1,
 "name": &"barrel",
 "speed": 5.0
 }, {
@@ -29,7 +29,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_c82h1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"box",
 "speed": 5.0
 }, {
@@ -37,7 +37,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_aet8u")
 }],
-"loop": true,
+"loop": 1,
 "name": &"food",
 "speed": 5.0
 }]
@@ -51,32 +51,32 @@ size = Vector2(238.00002, 336)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_76yqg"]
 size = Vector2(48, 48)
 
-[node name="trash" type="CharacterBody2D"]
+[node name="trash" type="CharacterBody2D" unique_id=1300859161]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_43he1")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=306994260]
 position = Vector2(0, -4)
 scale = Vector2(1.1428571, 1)
 sprite_frames = SubResource("SpriteFrames_pavn5")
 animation = &"box"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=637460777]
 shape = SubResource("RectangleShape2D_twpq8")
 one_way_collision = true
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." unique_id=1115793133]
 position = Vector2(0, -4)
 scale = Vector2(1.1428571, 1)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=1257626054]
 position = Vector2(-5.0067906e-06, 4)
 shape = SubResource("RectangleShape2D_43he1")
 
-[node name="attack_area" type="Area2D" parent="."]
+[node name="attack_area" type="Area2D" parent="." unique_id=545528607]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area" unique_id=1409398867]
 shape = SubResource("RectangleShape2D_76yqg")
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

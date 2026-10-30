@@ -1,14 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://biywag18qxn5"]
+[gd_scene format=3 uid="uid://biywag18qxn5"]
 
 [ext_resource type="Script" uid="uid://c48oicasidabu" path="res://title_screen.gd" id="1_ak2if"]
 [ext_resource type="Texture2D" uid="uid://bhxp16u4wbi1b" path="res://oak_woods_v1.0/decorations/shop.png" id="2_ig5kc"]
 [ext_resource type="Texture2D" uid="uid://5fu6ckyo2xmt" path="res://oak_woods_v1.0/background/background_layer_1.png" id="3_ig5kc"]
 [ext_resource type="PackedScene" uid="uid://b53aa31s0ldja" path="res://login_menu.tscn" id="4_05l2w"]
 
-[node name="title_screen" type="CanvasLayer"]
+[node name="title_screen" type="CanvasLayer" unique_id=754735939]
 script = ExtResource("1_ak2if")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=75593658]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -23,30 +23,30 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 
-[node name="TextureButton" type="TextureButton" parent="Control"]
+[node name="TextureButton" type="TextureButton" parent="Control" unique_id=275114949]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Control2" type="Control" parent="."]
+[node name="Control2" type="Control" parent="." unique_id=1047349779]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control2"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="Control2" unique_id=532530367]
 layout_mode = 1
 offset_right = 118.0
 offset_bottom = 98.0
 alignment_horizontal = 0
 alignment_vertical = 0
 
-[node name="TextureRect" type="TextureRect" parent="Control2/AspectRatioContainer"]
+[node name="TextureRect" type="TextureRect" parent="Control2/AspectRatioContainer" unique_id=1946442637]
 layout_mode = 2
 texture = ExtResource("2_ig5kc")
 expand_mode = 1
 
-[node name="login_register_button" type="TextureButton" parent="."]
+[node name="login_register_button" type="TextureButton" parent="." unique_id=1738568231]
 anchors_preset = -1
 anchor_right = 0.8
 offset_left = 32.0
@@ -57,18 +57,18 @@ texture_normal = ExtResource("3_ig5kc")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="login_menu" parent="." instance=ExtResource("4_05l2w")]
+[node name="login_menu" parent="." unique_id=1712938146 instance=ExtResource("4_05l2w")]
 visible = false
 
-[node name="message_layer" type="CanvasLayer" parent="."]
+[node name="message_layer" type="CanvasLayer" parent="." unique_id=1178410141]
 layer = -1
 scale = Vector2(2, 2)
 transform = Transform2D(2, 0, 0, 2, 0, 0)
 
-[node name="buffering_point" type="Marker2D" parent="."]
+[node name="buffering_point" type="Marker2D" parent="." unique_id=1605658]
 position = Vector2(320, 40)
 
-[node name="player_username" type="Label" parent="."]
+[node name="player_username" type="Label" parent="." unique_id=1456911461]
 offset_right = 40.0
 offset_bottom = 23.0
 

@@ -1,41 +1,132 @@
-[gd_scene load_steps=6 format=3 uid="uid://8l331sukewgy"]
+[gd_scene format=3 uid="uid://8l331sukewgy"]
 
 [ext_resource type="Script" uid="uid://8a3k0hk8pnxm" path="res://ejected_rider.gd" id="1_q50ex"]
-[ext_resource type="Texture2D" uid="uid://dl7fkwmmhxiw6" path="res://oak_woods_v1.0/decorations/lamp.png" id="2_xqltx"]
+[ext_resource type="Texture2D" uid="uid://cxlrm8dhtr2ds" path="res://Bounce DIvers assets/Bounce DIvers assets/ejection_bubble_sprites.png" id="2_q50ex"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4bi5o"]
+radius = 45.573265
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xqltx"]
+atlas = ExtResource("2_q50ex")
+region = Rect2(1893, 0, 631, 631)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yrh1y"]
-atlas = ExtResource("2_xqltx")
-region = Rect2(0, 14, 23, 14)
+atlas = ExtResource("2_q50ex")
+region = Rect2(0, 631, 631, 631)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xpkfw"]
+atlas = ExtResource("2_q50ex")
+region = Rect2(631, 631, 631, 631)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fu8ay"]
+atlas = ExtResource("2_q50ex")
+region = Rect2(1893, 631, 631, 631)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ge3gh"]
+atlas = ExtResource("2_q50ex")
+region = Rect2(1262, 631, 631, 631)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0av0"]
+atlas = ExtResource("2_q50ex")
+region = Rect2(1262, 1262, 631, 631)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oybdc"]
+atlas = ExtResource("2_q50ex")
+region = Rect2(0, 1262, 631, 631)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ycqy"]
+atlas = ExtResource("2_q50ex")
+region = Rect2(631, 1262, 631, 631)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmnhg"]
+atlas = ExtResource("2_q50ex")
+region = Rect2(1262, 0, 631, 631)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kyka"]
+atlas = ExtResource("2_q50ex")
+region = Rect2(0, 0, 631, 631)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yx3x4"]
+atlas = ExtResource("2_q50ex")
+region = Rect2(631, 0, 631, 631)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xpkfw"]
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xqltx")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_yrh1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xpkfw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fu8ay")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ge3gh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0av0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oybdc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ycqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmnhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kyka")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yx3x4")
 }],
-"loop": true,
-"name": &"default",
+"loop": 0,
+"name": &"appear",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
-"name": &"new_animation",
+"loop": 1,
+"name": &"neutral",
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fu8ay"]
-radius = 7.9974074
-height = 31.989645
+[sub_resource type="CircleShape2D" id="CircleShape2D_oyf1y"]
+radius = 59.03389
 
-[node name="ejected_rider" type="CharacterBody2D"]
+[node name="ejected_rider" type="CharacterBody2D" unique_id=1845736827]
+z_index = 10
+collision_layer = 3
+collision_mask = 3
+motion_mode = 1
 script = ExtResource("1_q50ex")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_xpkfw")
-animation = &"new_animation"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=120960329]
 position = Vector2(-7.6293945e-06, -1.9073486e-06)
 rotation = 1.5453708
-scale = Vector2(0.99999994, 0.99999994)
-shape = SubResource("CapsuleShape2D_fu8ay")
+scale = Vector2(1.1199615, 0.99999994)
+shape = SubResource("CircleShape2D_4bi5o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CollisionShape2D" unique_id=340335027]
+position = Vector2(1.8756829e-06, -7.578439e-06)
+rotation = -1.5480932
+scale = Vector2(0.14999999, 0.14999999)
+skew = 0.0057709217
+sprite_frames = SubResource("SpriteFrames_xpkfw")
+animation = &"appear"
+frame = 10
+frame_progress = 1.0
+
+[node name="detection_area" type="Area2D" parent="." unique_id=1394295385]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=2044744345]
+shape = SubResource("CircleShape2D_oyf1y")
+
+[connection signal="area_entered" from="detection_area" to="." method="_on_detection_area_area_entered"]
+[connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]

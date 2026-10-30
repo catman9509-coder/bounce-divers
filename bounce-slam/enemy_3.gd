@@ -44,7 +44,7 @@ func attack():
 		velocity = Vector2.ZERO
 		$body.play("attack")
 		for CollisionShape2D in $attack_area.get_children():
-			CollisionShape2D.disabled = false
+			$CollisionShape2D.disabled = false
 		var cooldown_timer = Timer.new()
 		cooldown_timer.one_shot = true
 		cooldown_timer.wait_time = 3.0
@@ -57,7 +57,7 @@ func cooldown_timeout():
 func normalize():
 		$body.play("default")
 		for CollisionShape2D in $attack_area.get_children():
-			CollisionShape2D.disabled = true
+			$CollisionShape2D.disabled = true
 func enemy():
 	pass			
 func _on_body_animation_finished() -> void:

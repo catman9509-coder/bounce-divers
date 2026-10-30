@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://cksdc6x5vi4iv"]
+[gd_scene format=3 uid="uid://cksdc6x5vi4iv"]
 
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://dxve351i1pl58" path="res://player.gd" id="1_onrkg"]
@@ -190,7 +190,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7ahtn")
 }],
-"loop": false,
+"loop": 0,
 "name": &"model 1 attack",
 "speed": 5.0
 }, {
@@ -198,7 +198,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qtqh7")
 }],
-"loop": false,
+"loop": 0,
 "name": &"model 1 default",
 "speed": 5.0
 }, {
@@ -218,7 +218,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2wuci")
 }],
-"loop": false,
+"loop": 0,
 "name": &"model 1 left",
 "speed": 5.0
 }, {
@@ -238,12 +238,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_efrwb")
 }],
-"loop": false,
+"loop": 0,
 "name": &"model 1 right",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": 1,
 "name": &"new_animation",
 "speed": 5.0
 }]
@@ -366,7 +366,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_nvl01")
 }],
-"loop": true,
+"loop": 1,
 "name": &"invinncible",
 "speed": 5.0
 }, {
@@ -383,7 +383,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_pgbbb")
 }],
-"loop": true,
+"loop": 1,
 "name": &"model 1 back",
 "speed": 5.0
 }, {
@@ -400,7 +400,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3iwfv")
 }],
-"loop": true,
+"loop": 1,
 "name": &"model 1 default",
 "speed": 5.0
 }, {
@@ -417,7 +417,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8gr2b")
 }],
-"loop": true,
+"loop": 1,
 "name": &"model 1 forward",
 "speed": 5.0
 }, {
@@ -425,17 +425,17 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ivps1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"model 2",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": 1,
 "name": &"new_animation",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": 1,
 "name": &"new_animation_1",
 "speed": 5.0
 }]
@@ -509,7 +509,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5tmop")
 }],
-"loop": true,
+"loop": 1,
 "name": &"invincible",
 "speed": 5.0
 }]
@@ -517,31 +517,29 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sweqy"]
 size = Vector2(85.83333, 50)
 
-[node name="player" type="CharacterBody2D"]
+[node name="player" type="CharacterBody2D" unique_id=293494172]
 scale = Vector2(1.2, 1.2)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_onrkg")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=192380635]
 shape = SubResource("CircleShape2D_onrkg")
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." unique_id=1529795996]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=1221349082]
 shape = SubResource("CircleShape2D_sweqy")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1258558084]
 root_node = NodePath("../Node2D/body")
-libraries = {
-&"": SubResource("AnimationLibrary_hqtel")
-}
+libraries/ = SubResource("AnimationLibrary_hqtel")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=1005686568]
 position = Vector2(2.413988e-06, 1.66893e-06)
 scale = Vector2(0.2, 0.2)
 
-[node name="bumpers" type="AnimatedSprite2D" parent="Node2D"]
+[node name="bumpers" type="AnimatedSprite2D" parent="Node2D" unique_id=2032762859]
 scale = Vector2(1, 0.99999994)
 sprite_frames = SubResource("SpriteFrames_7hik5")
 animation = &"model 1 attack"
@@ -549,21 +547,21 @@ autoplay = "model 1 default"
 frame = 5
 frame_progress = 1.0
 
-[node name="body" type="AnimatedSprite2D" parent="Node2D"]
+[node name="body" type="AnimatedSprite2D" parent="Node2D" unique_id=978441478]
 scale = Vector2(1, 0.99999994)
 sprite_frames = SubResource("SpriteFrames_hqtel")
 animation = &"model 1 default"
 autoplay = "model 1 default"
 
-[node name="horizontal_detector" type="Area2D" parent="."]
+[node name="horizontal_detector" type="Area2D" parent="." unique_id=406091948]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="horizontal_detector"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="horizontal_detector" unique_id=789460509]
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_ivps1")
 
-[node name="player_center" type="Marker2D" parent="."]
+[node name="player_center" type="Marker2D" parent="." unique_id=1715919585]
 
-[node name="upgrade_effect" type="AnimatedSprite2D" parent="."]
+[node name="upgrade_effect" type="AnimatedSprite2D" parent="." unique_id=461452688]
 visible = false
 modulate = Color(1, 1, 1, 0.5647059)
 position = Vector2(4.7683716e-07, 1.9073486e-06)
@@ -572,13 +570,13 @@ sprite_frames = SubResource("SpriteFrames_7ahtn")
 animation = &"invincible"
 frame_progress = 0.16980487
 
-[node name="bumper_detection_area" type="Area2D" parent="."]
+[node name="bumper_detection_area" type="Area2D" parent="." unique_id=1465327655]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="bumper_detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bumper_detection_area" unique_id=1905131289]
 position = Vector2(1.2500007, 0)
 shape = SubResource("RectangleShape2D_sweqy")
 
-[node name="message_timer" type="Timer" parent="."]
+[node name="message_timer" type="Timer" parent="." unique_id=26121817]
 wait_time = 0.1
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

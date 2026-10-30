@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bwdpvi2wpiwg"]
+[gd_scene format=3 uid="uid://bwdpvi2wpiwg"]
 
 [ext_resource type="Script" uid="uid://c8tjumj4uj03l" path="res://player_attack.gd" id="1_ybsil"]
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_w3ggp"]
@@ -65,7 +65,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a30q3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -91,7 +91,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qsv40")
 }],
-"loop": true,
+"loop": 1,
 "name": &"rocket_burst",
 "speed": 5.0
 }]
@@ -199,37 +199,35 @@ _data = {
 &"rocket_burst": SubResource("Animation_k172x")
 }
 
-[node name="player_attack" type="Node2D"]
+[node name="player_attack" type="Node2D" unique_id=1017434358]
 script = ExtResource("1_ybsil")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=1250645297]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D" unique_id=706774435]
 position = Vector2(0, 1.9073486e-06)
 scale = Vector2(22.4, 55.999996)
 sprite_frames = SubResource("SpriteFrames_rdl11")
 animation = &"rocket_burst"
 script = ExtResource("3_m35i0")
 
-[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Node2D"]
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Node2D" unique_id=79529550]
 scale = Vector2(9.266667, 8.833332)
 sprite_frames = SubResource("SpriteFrames_rdl11")
 animation = &"attack"
 script = ExtResource("3_m35i0")
 
-[node name="attack_area" type="Area2D" parent="."]
+[node name="attack_area" type="Area2D" parent="." unique_id=1744202032]
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area" unique_id=439726117]
 scale = Vector2(0.5, 0.5)
 shape = SubResource("CircleShape2D_ltk3i")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_1xgik")
-}
-autoplay = "base_attack"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1954719376]
+libraries/ = SubResource("AnimationLibrary_1xgik")
+autoplay = &"base_attack"
 
 [connection signal="body_entered" from="attack_area" to="." method="_on_attack_area_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

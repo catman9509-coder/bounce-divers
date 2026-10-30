@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://p5beglkcrwds"]
+
+[ext_resource type="Script" uid="uid://crpq7x8gtksuj" path="res://penju_screen.gd" id="1_3p22v"]
+[ext_resource type="Texture2D" uid="uid://d27j07bu6p5q3" path="res://Bounce DIvers assets/upgrade_crate_sprites.png" id="2_14lnh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjelu"]
+atlas = ExtResource("2_14lnh")
+region = Rect2(401, 0, 401, 401)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2j8t"]
+atlas = ExtResource("2_14lnh")
+region = Rect2(802, 0, 401, 401)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52lmi"]
+atlas = ExtResource("2_14lnh")
+region = Rect2(1203, 0, 401, 401)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8dhi0"]
+atlas = ExtResource("2_14lnh")
+region = Rect2(0, 401, 401, 401)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0bsm"]
+atlas = ExtResource("2_14lnh")
+region = Rect2(401, 401, 401, 401)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xhdh"]
+atlas = ExtResource("2_14lnh")
+region = Rect2(802, 401, 401, 401)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhhsq"]
+atlas = ExtResource("2_14lnh")
+region = Rect2(1203, 401, 401, 401)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hoad"]
+atlas = ExtResource("2_14lnh")
+region = Rect2(0, 802, 401, 401)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7gef"]
+atlas = ExtResource("2_14lnh")
+region = Rect2(401, 802, 401, 401)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17n7p"]
+atlas = ExtResource("2_14lnh")
+region = Rect2(802, 802, 401, 401)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4bi5o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjelu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2j8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52lmi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8dhi0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0bsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xhdh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhhsq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hoad")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w7gef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17n7p")
+}],
+"loop": 0,
+"name": &"appear",
+"speed": 5.0
+}]
+
+[node name="penju_screen" type="Node2D" unique_id=911612128]
+script = ExtResource("1_3p22v")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=385040907]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D" unique_id=2101072392]
+position = Vector2(182.75, 325)
+scale = Vector2(0.87905234, 1.6059852)
+sprite_frames = SubResource("SpriteFrames_4bi5o")
+animation = &"appear"
+
+[connection signal="animation_finished" from="Node2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

@@ -10,16 +10,11 @@ var can_register = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	print_tree()
-
-	print("SaveManager READY")
-	_wait_for_scene()
+	#if (get_tree().current_scene.name != "Main"):
+	#	_wait_for_scene()
 	load_data()
 	
 	#pass
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 func _wait_for_scene() -> void:
 	await get_tree().process_frame
 
@@ -29,9 +24,10 @@ func _wait_for_scene() -> void:
 
 	# Now the scene exists — do your setup HERE
 	print("Scene loaded:", get_tree().current_scene.name)
-	get_tree().current_scene.add_child($http)
-	$http.request_completed.connect(_on_http_request_completed)
-	_send_test_request()
+	if (get_tree().current_scene.name != "Main"):
+		#get_tree().current_scene.add_child($http_save_load)
+		$http_save_load.request_completed.connect(_on_http_request_completed)
+		_send_test_request()
 
 func _on_registered_response(result, code, headers, body):
 	var text = body.get_string_from_utf8()
@@ -42,7 +38,7 @@ func _on_registered_response(result, code, headers, body):
 	
 func _send_test_request():
 	print("sending request ... ")
-	$http.request("http://127.0.0.1:3000/test")
+	$http_save_load.request("http://127.0.0.1:3000/test")
 func _on_request_completed(result, response_code, headers, body):
 	print("RESULT:", result)
 	print("CODE:", response_code)
@@ -59,7 +55,7 @@ func create_inventory():
 		"owned_purchaseable_upgrades": global.purchaseable_upgrades,
 		"credits": global.stored_coins
 	}
-	$http.request("http://localhost:3000/create_inventory", headers, HTTPClient.METHOD_POST, JSON.stringify(body))
+	$http_save_load.request("http://localhost:3000/create_inventory", headers, HTTPClient.METHOD_POST, JSON.stringify(body))
 	
 
 #http requests for user and inventory
@@ -97,7 +93,7 @@ func save_user_data():
 		"stats": global.stats,
 		"settings": global.settings
 	}
-	$http.request(url, headers,HTTPClient.METHOD_POST,JSON.stringify(body))
+	$http_save_load.request(url, headers,HTTPClient.METHOD_POST,JSON.stringify(body))
 	
 func save_inventory_data():
 	current_request = "save_inventory"
@@ -110,7 +106,7 @@ func save_inventory_data():
 		"owned_purchaseable_upgrades": global.purchaseable_upgrades,
 		"credits": global.stored_coins
 	}
-	$http.request(url, headers,HTTPClient.METHOD_POST,JSON.stringify(body))
+	$http_save_load.request(url, headers,HTTPClient.METHOD_POST,JSON.stringify(body))
 func load_data():
 	if not FileAccess.file_exists(save_path) or FileAccess.open(save_path, FileAccess.READ) == null:
 		print("no save found")
@@ -141,7 +137,7 @@ func load_user_save_data():
 	print("🔥 load_user_save_data() CALLED")
 	var url = "http://localhost:3000/load_user?user_id=%s" % userdata.user_id
 	print("1. Calling request:", url, )
-	var ok = $http.request(url, [], HTTPClient.METHOD_GET)
+	var ok = $http_save_load.request(url, [], HTTPClient.METHOD_GET)
 	print("2. Request returned:", ok)
 	print("3. Node is inside tree:", $http.is_inside_tree())
 	
@@ -150,17 +146,17 @@ func load_user_inventory_data():
 	print("🔥 load_user_inventory_data() CALLED")
 	var url = "http://localhost:3000/load_inventory?user_id=%s" % userdata.user_id
 	print("1. Calling request:", url, )
-	var ok = $http.request(url, [], HTTPClient.METHOD_GET)
+	var ok = $http_save_load.request(url, [], HTTPClient.METHOD_GET)
 	print("2. Request returned:", ok)
-	print("3. Node is inside tree:", $http.is_inside_tree())
+	print("3. Node is inside tree:", $http_save_load.is_inside_tree())
 func verify_user_name():
 	current_request = "verify_username"
 	var headers = ["Content-Type: application/json"]
 	var url = "http://localhost:3000/check_username"
 	var body = {"username" : userdata.username}
 	var text = body
-	$http.request(url, headers,HTTPClient.METHOD_POST,JSON.stringify(body))
-	print("METHOD USED:", $http.get_http_client_status())
+	$http_save_load.request(url, headers,HTTPClient.METHOD_POST,JSON.stringify(body))
+	print("METHOD USED:", $http_save_load.get_http_client_status())
 	print("RAW TEXT:", text)
 	print("SENDING:", JSON.stringify(body))
 func login_user():
@@ -168,8 +164,8 @@ func login_user():
 	var url = "http://localhost:3000/login"
 	var body = {"username" : userdata.username, "password" : userdata.password}	
 	var headers = ["Content-Type: application/json"]
-	$http.request(url, headers, HTTPClient.METHOD_POST,JSON.stringify(body))
-	print("METHOD USED:", $http.get_http_client_status())
+	$http_save_load.request(url, headers, HTTPClient.METHOD_POST,JSON.stringify(body))
+	print("METHOD USED:", $http_save_load.get_http_client_status())
 	print("RAW TEXT:", body)
 	print("SENDING:", JSON.stringify(body))
 func register_user():
@@ -182,7 +178,7 @@ func register_user():
 		"stats": global.stats,
 		"settings": global.settings
 	}
-	$http.request(url, headers,HTTPClient.METHOD_POST,JSON.stringify(body))
+	$http_save_load.request(url, headers,HTTPClient.METHOD_POST,JSON.stringify(body))
 	
 # handle request
 
@@ -268,7 +264,7 @@ func _on_http_request_completed(result: int, response_code: int, headers: Packed
 		"verify_username":
 			var text = body.get_string_from_utf8()
 			var data = JSON.parse_string(text)
-			print("METHOD USED:", $http.get_http_client_status())
+			print("METHOD USED:", $http_save_load.get_http_client_status())
 			print("RAW TEXT:", text)
 			print("SENDING:", JSON.stringify(body))
 			print("RAW TEXT:", text)

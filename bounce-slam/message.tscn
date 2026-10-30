@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dae8qqtihgyhw"]
+[gd_scene format=3 uid="uid://dae8qqtihgyhw"]
 
 [ext_resource type="Script" uid="uid://c2cyhhr18elcs" path="res://message.gd" id="1_d26o2"]
 
@@ -62,24 +62,22 @@ _data = {
 &"faded": SubResource("Animation_06ydw")
 }
 
-[node name="message" type="Node2D"]
+[node name="message" type="Node2D" unique_id=1866212956]
 script = ExtResource("1_d26o2")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=724754811]
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="TextureRect"]
+[node name="Label" type="Label" parent="TextureRect" unique_id=1585135807]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "text"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1725973530]
 process_priority = 1
 root_node = NodePath("../TextureRect/Label")
-libraries = {
-&"": SubResource("AnimationLibrary_5h2ww")
-}
+libraries/ = SubResource("AnimationLibrary_5h2ww")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

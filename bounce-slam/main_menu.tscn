@@ -1,8 +1,17 @@
-[gd_scene load_steps=60 format=3 uid="uid://c41h3w35u6i7q"]
+[gd_scene format=3 uid="uid://c41h3w35u6i7q"]
 
 [ext_resource type="Script" uid="uid://cmf7rgou4x46j" path="res://main_menu.gd" id="1_7vrkn"]
 [ext_resource type="Texture2D" uid="uid://c0172l8qss0wb" path="res://Bounce DIvers assets/preliminary homescreen.png" id="2_fu7sn"]
+[ext_resource type="Texture2D" uid="uid://beoljywxwmhyk" path="res://Bounce DIvers assets/Bounce DIvers assets/model_1_display_sprites.png" id="3_0o4t1"]
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="3_fu7sn"]
+[ext_resource type="Script" uid="uid://dj2alcm3dfu6" path="res://idle_vehicle.gd" id="4_j5v2v"]
+[ext_resource type="Texture2D" uid="uid://dj8edh1wviug2" path="res://freelance_idle.png" id="4_jix8l"]
+[ext_resource type="PackedScene" uid="uid://b137rcrbp61es" path="res://addons/admob_manager/admob.tscn" id="5_glbon"]
+[ext_resource type="PackedScene" uid="uid://sxbmja0qbbjg" path="res://suggest_ad_popup.tscn" id="5_nlkkf"]
+[ext_resource type="PackedScene" uid="uid://y1romielbvc4" path="res://shop.tscn" id="6_8qtwp"]
+[ext_resource type="Script" uid="uid://d1dengql3331s" path="res://idle_rider.gd" id="6_iotk1"]
+[ext_resource type="PackedScene" uid="uid://ca42jhvtil7p0" path="res://owned_items.tscn" id="7_dy7ct"]
+[ext_resource type="PackedScene" uid="uid://db30xqqv0jon1" path="res://main_window.tscn" id="7_iotk1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jix8l"]
 atlas = ExtResource("2_fu7sn")
@@ -63,9 +72,70 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0k4wn")
 }],
-"loop": true,
+"loop": 1,
 "name": &"main",
 "speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l4j1j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_0o4t1")
+}],
+"loop": 1,
+"name": &"model 1",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfeea"]
+atlas = ExtResource("4_jix8l")
+region = Rect2(301, 1002, 301, 501)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kojkm"]
+atlas = ExtResource("4_jix8l")
+region = Rect2(903, 501, 301, 501)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3v73"]
+atlas = ExtResource("4_jix8l")
+region = Rect2(0, 1002, 301, 501)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivaxt"]
+atlas = ExtResource("4_jix8l")
+region = Rect2(602, 501, 301, 501)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ia58x"]
+atlas = ExtResource("4_jix8l")
+region = Rect2(301, 501, 301, 501)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f6p64"]
+atlas = ExtResource("4_jix8l")
+region = Rect2(0, 501, 301, 501)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4bi5o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfeea")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kojkm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3v73")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivaxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ia58x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6p64")
+}],
+"loop": 0,
+"name": &"freelancer",
+"speed": 3.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fu7sn"]
@@ -86,7 +156,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fu7sn")
 }],
-"loop": false,
+"loop": 0,
 "name": &"normal",
 "speed": 5.0
 }, {
@@ -94,7 +164,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_j5v2v")
 }],
-"loop": false,
+"loop": 0,
 "name": &"pressed",
 "speed": 5.0
 }, {
@@ -102,7 +172,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_iotk1")
 }],
-"loop": false,
+"loop": 0,
 "name": &"released",
 "speed": 5.0
 }]
@@ -122,7 +192,7 @@ region = Rect2(401, 1402, 401, 701)
 [sub_resource type="SpriteFrames" id="SpriteFrames_oiatc"]
 animations = [{
 "frames": [],
-"loop": false,
+"loop": 0,
 "name": &"new_animation",
 "speed": 5.0
 }, {
@@ -130,7 +200,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cm266")
 }],
-"loop": false,
+"loop": 0,
 "name": &"normal",
 "speed": 5.0
 }, {
@@ -138,7 +208,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g8g3n")
 }],
-"loop": false,
+"loop": 0,
 "name": &"pressed",
 "speed": 5.0
 }, {
@@ -146,7 +216,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8u0te")
 }],
-"loop": false,
+"loop": 0,
 "name": &"released",
 "speed": 5.0
 }]
@@ -169,7 +239,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mg3m2")
 }],
-"loop": false,
+"loop": 0,
 "name": &"normal",
 "speed": 5.0
 }, {
@@ -177,7 +247,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ojb7r")
 }],
-"loop": false,
+"loop": 0,
 "name": &"pressed",
 "speed": 5.0
 }, {
@@ -185,7 +255,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e5qqf")
 }],
-"loop": false,
+"loop": 0,
 "name": &"released",
 "speed": 5.0
 }]
@@ -274,7 +344,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v2pes")
 }],
-"loop": false,
+"loop": 0,
 "name": &"close",
 "speed": 5.0
 }, {
@@ -282,7 +352,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cy76q")
 }],
-"loop": true,
+"loop": 1,
 "name": &"closed",
 "speed": 5.0
 }, {
@@ -308,7 +378,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_w3tfb")
 }],
-"loop": false,
+"loop": 0,
 "name": &"open",
 "speed": 5.0
 }]
@@ -331,7 +401,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7vrkn")
 }],
-"loop": true,
+"loop": 1,
 "name": &"normal",
 "speed": 5.0
 }, {
@@ -339,7 +409,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_w44g7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"pressed",
 "speed": 5.0
 }, {
@@ -347,245 +417,165 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_oiatc")
 }],
-"loop": true,
+"loop": 1,
 "name": &"released",
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_km3bq"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(2406, 3505, 401, 701)
+[sub_resource type="AtlasTexture" id="AtlasTexture_1gtdl"]
+atlas = ExtResource("3_fu7sn")
+region = Rect2(64, 64, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m2y5l"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(802, 2804, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_swr0i"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(1604, 2103, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2urq5"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(0, 2804, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ix6bv"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(1203, 2103, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_2kjvi"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(1203, 2804, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kvjq3"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(2406, 2103, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h1gbt"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(2005, 2103, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u5051"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(2406, 2103, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v2sba"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(1203, 2103, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ai24q"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(802, 2804, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qby1g"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(1604, 2103, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_04soa"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(0, 2804, 401, 701)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u6vjd"]
-atlas = ExtResource("2_fu7sn")
-region = Rect2(1203, 2804, 401, 701)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_swr0i"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_56m3p"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_km3bq")
-}],
-"loop": true,
+"frames": [],
+"loop": 1,
 "name": &"hidden",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_m2y5l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_swr0i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2urq5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ix6bv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_2kjvi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kvjq3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h1gbt")
+"texture": SubResource("AtlasTexture_1gtdl")
 }],
-"loop": false,
+"loop": 1,
 "name": &"hide",
 "speed": 5.0
 }, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h1gbt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u5051")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v2sba")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ai24q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qby1g")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_04soa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u6vjd")
-}],
-"loop": false,
+"frames": [],
+"loop": 1,
 "name": &"show",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": 1,
 "name": &"shown",
 "speed": 5.0
 }]
 
-[node name="main_menu" type="Node2D"]
+[node name="main_menu" type="Node2D" unique_id=660766752]
 script = ExtResource("1_7vrkn")
 
-[node name="backdop" type="AnimatedSprite2D" parent="."]
+[node name="rider_display_zoom" type="Marker2D" parent="." unique_id=1292170961]
+position = Vector2(363, 638)
+
+[node name="backdop" type="AnimatedSprite2D" parent="." unique_id=1608976893]
 position = Vector2(200, 352)
 scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_j5v2v")
 animation = &"main"
 autoplay = "main"
 
-[node name="screen_point" type="Marker2D" parent="."]
+[node name="idle_vehicle" type="AnimatedSprite2D" parent="." unique_id=1377814329]
+position = Vector2(205, 213)
+sprite_frames = SubResource("SpriteFrames_l4j1j")
+animation = &"model 1"
+script = ExtResource("4_j5v2v")
+
+[node name="idle_rider" type="AnimatedSprite2D" parent="." unique_id=2035743309]
+position = Vector2(192, 344)
+sprite_frames = SubResource("SpriteFrames_4bi5o")
+animation = &"freelancer"
+script = ExtResource("6_iotk1")
+
+[node name="main_window" parent="." unique_id=1153834780 instance=ExtResource("7_iotk1")]
+
+[node name="screen_point" type="Marker2D" parent="." unique_id=1595356528]
 position = Vector2(119.00001, 211)
 scale = Vector2(-12.784386, 59.333008)
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1750652337]
 position = Vector2(180, 320)
 position_smoothing_enabled = true
 rotation_smoothing_enabled = true
 
-[node name="button_console" type="Sprite2D" parent="Camera2D"]
+[node name="button_console" type="Sprite2D" parent="Camera2D" unique_id=926760753]
 position = Vector2(20, 32)
 texture = ExtResource("2_fu7sn")
 hframes = 7
 vframes = 6
 frame = 14
 
-[node name="play_button_sprite" type="AnimatedSprite2D" parent="Camera2D/button_console"]
+[node name="play_button_sprite" type="AnimatedSprite2D" parent="Camera2D/button_console" unique_id=1476426158]
 position = Vector2(0, -1.0000305)
 scale = Vector2(0.9999999, 0.99999994)
 sprite_frames = SubResource("SpriteFrames_w44g7")
 animation = &"released"
 autoplay = "normal"
 
-[node name="strg_button_sprite" type="AnimatedSprite2D" parent="Camera2D/button_console"]
+[node name="strg_button_sprite" type="AnimatedSprite2D" parent="Camera2D/button_console" unique_id=1410244404]
 position = Vector2(0, 1.0001221)
 scale = Vector2(1, 0.99999994)
 sprite_frames = SubResource("SpriteFrames_oiatc")
 animation = &"normal"
 autoplay = "normal"
 
-[node name="shop_button_sprite" type="AnimatedSprite2D" parent="Camera2D/button_console"]
+[node name="shop_button_sprite" type="AnimatedSprite2D" parent="Camera2D/button_console" unique_id=43200793]
 scale = Vector2(1, 0.99999994)
 sprite_frames = SubResource("SpriteFrames_7bbuq")
-animation = &"released"
+animation = &"normal"
 autoplay = "normal"
 
-[node name="profile_window_sprite" type="AnimatedSprite2D" parent="Camera2D/button_console"]
+[node name="profile_window_sprite" type="AnimatedSprite2D" parent="Camera2D/button_console" unique_id=881365108]
 sprite_frames = SubResource("SpriteFrames_m2y5l")
 animation = &"open"
 frame = 6
 frame_progress = 1.0
 
-[node name="profile_button_sprite" type="AnimatedSprite2D" parent="Camera2D/button_console"]
+[node name="profile_button_sprite" type="AnimatedSprite2D" parent="Camera2D/button_console" unique_id=1784242441]
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_mg3m2")
 animation = &"normal"
 frame_progress = 0.077566355
 
-[node name="main_window_sprite" type="AnimatedSprite2D" parent="Camera2D/button_console"]
-position = Vector2(1, 0)
-sprite_frames = SubResource("SpriteFrames_swr0i")
-animation = &"show"
-frame = 6
-frame_progress = 1.0
+[node name="item_display_window" type="AnimatedSprite2D" parent="Camera2D/button_console" unique_id=1182891656]
+sprite_frames = SubResource("SpriteFrames_56m3p")
+animation = &"shown"
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D"]
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera2D" unique_id=1330282221]
 
-[node name="Control" type="Control" parent="Camera2D/CanvasLayer"]
+[node name="Control" type="Control" parent="Camera2D/CanvasLayer" unique_id=1510782078]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 360.0
 offset_bottom = 640.0
 
-[node name="CenterContainer" type="CenterContainer" parent="Camera2D/CanvasLayer/Control"]
+[node name="CenterContainer" type="CenterContainer" parent="Camera2D/CanvasLayer/Control" unique_id=2065367658]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/Control/CenterContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/Control/CenterContainer" unique_id=291007338]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 300
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/CanvasLayer/Control/CenterContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Camera2D/CanvasLayer/Control/CenterContainer/MarginContainer" unique_id=412617359]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Camera2D/CanvasLayer/Control" unique_id=432635191]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/Control/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Camera2D/CanvasLayer/Control/HBoxContainer" unique_id=1352529821]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 
-[node name="title" type="TextureButton" parent="Camera2D/CanvasLayer"]
+[node name="title" type="TextureButton" parent="Camera2D/CanvasLayer" unique_id=1262051884]
 offset_left = 168.0
 offset_top = 8.0
 offset_right = 296.0
 offset_bottom = 136.0
 
-[node name="profile" type="TextureButton" parent="Camera2D/CanvasLayer"]
+[node name="profile" type="TextureButton" parent="Camera2D/CanvasLayer" unique_id=1492463397]
 offset_left = 24.0
 offset_top = 24.0
 offset_right = 44.0
 offset_bottom = 54.0
 scale = Vector2(3.7765787, 2.462471)
 
-[node name="Control2" type="Control" parent="Camera2D/CanvasLayer"]
+[node name="Control2" type="Control" parent="Camera2D/CanvasLayer" unique_id=31664289]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 612.0
@@ -593,24 +583,7 @@ offset_top = 551.0
 offset_right = 652.0
 offset_bottom = 591.0
 
-[node name="shop" type="TextureButton" parent="Camera2D/CanvasLayer/Control2"]
-layout_mode = 0
-offset_left = -584.0
-offset_top = -103.99994
-offset_right = -456.0
-offset_bottom = 24.000061
-scale = Vector2(0.33783576, 0.50330025)
-button_mask = 7
-
-[node name="owned_items" type="TextureButton" parent="Camera2D/CanvasLayer/Control2"]
-layout_mode = 0
-offset_left = -583.0
-offset_top = 41.00006
-offset_right = -455.0
-offset_bottom = 169.00006
-scale = Vector2(0.33050293, 0.49439558)
-
-[node name="play" type="TextureButton" parent="Camera2D/CanvasLayer/Control2"]
+[node name="play" type="TextureButton" parent="Camera2D/CanvasLayer/Control2" unique_id=1380494148]
 layout_mode = 0
 offset_left = -583.0
 offset_top = -32.00006
@@ -618,7 +591,24 @@ offset_right = -455.0
 offset_bottom = 95.99997
 scale = Vector2(0.32793203, 0.49120945)
 
-[node name="username" type="Label" parent="Camera2D/CanvasLayer"]
+[node name="shop" type="TextureButton" parent="Camera2D/CanvasLayer/Control2" unique_id=1008452425]
+layout_mode = 0
+offset_left = -584.0
+offset_top = -103.99991
+offset_right = -456.0
+offset_bottom = 24.000092
+scale = Vector2(0.33783576, 0.50330025)
+button_mask = 7
+
+[node name="owned_items" type="TextureButton" parent="Camera2D/CanvasLayer/Control2" unique_id=1407523299]
+layout_mode = 0
+offset_left = -583.0
+offset_top = 41.00006
+offset_right = -455.0
+offset_bottom = 169.00006
+scale = Vector2(0.33050293, 0.49439558)
+
+[node name="username" type="Label" parent="Camera2D/CanvasLayer" unique_id=770237616]
 offset_left = 37.0
 offset_top = 36.0
 offset_right = 88.0
@@ -627,8 +617,7 @@ theme_override_font_sizes/font_size = 10
 text = "username
 "
 
-[node name="Control3" type="Control" parent="Camera2D/CanvasLayer"]
-visible = false
+[node name="Control3" type="Control" parent="Camera2D/CanvasLayer" unique_id=2026053661]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 246.0
@@ -636,7 +625,7 @@ offset_top = 21.0
 offset_right = 286.0
 offset_bottom = 61.0
 
-[node name="current_credit_balance" type="Label" parent="Camera2D/CanvasLayer/Control3"]
+[node name="current_credit_balance" type="Label" parent="Camera2D/CanvasLayer/Control3" unique_id=787598434]
 layout_mode = 0
 offset_left = -49.0
 offset_top = 8.0
@@ -646,13 +635,13 @@ theme_override_font_sizes/font_size = 10
 text = "credits :
 "
 
-[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control3/current_credit_balance"]
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control3/current_credit_balance" unique_id=2137484133]
 layout_mode = 0
 offset_left = 54.0
 offset_right = 94.0
 offset_bottom = 23.0
 
-[node name="longest_distance" type="Label" parent="Camera2D/CanvasLayer/Control3"]
+[node name="longest_distance" type="Label" parent="Camera2D/CanvasLayer/Control3" unique_id=76390356]
 layout_mode = 0
 offset_left = -52.0
 offset_top = 30.0
@@ -662,14 +651,14 @@ theme_override_font_sizes/font_size = 10
 text = "longest
 distance:"
 
-[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control3/longest_distance"]
+[node name="Label" type="Label" parent="Camera2D/CanvasLayer/Control3/longest_distance" unique_id=1396726783]
 layout_mode = 0
 offset_left = 54.0
 offset_top = 3.0
 offset_right = 94.0
 offset_bottom = 26.0
 
-[node name="settings_button" type="TextureButton" parent="Camera2D/CanvasLayer/Control3"]
+[node name="settings_button" type="TextureButton" parent="Camera2D/CanvasLayer/Control3" unique_id=1952007885]
 layout_mode = 0
 offset_left = -97.0
 offset_top = 16.0
@@ -679,20 +668,47 @@ texture_normal = ExtResource("3_fu7sn")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="info_display" type="Control" parent="Camera2D/CanvasLayer" unique_id=994852032]
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(1.0908195, 1.3976015)
+
+[node name="image_location" type="Marker2D" parent="Camera2D/CanvasLayer/info_display" unique_id=67008839]
+position = Vector2(26.585516, 143.10231)
+
+[node name="select_button" type="Button" parent="Camera2D/CanvasLayer/info_display" unique_id=2053611455]
+layout_mode = 0
+offset_left = 361.1963
+offset_top = 183.17094
+offset_right = 369.1963
+offset_bottom = 191.17094
+scale = Vector2(7.712131, 7.638525)
+
+[node name="owned_items" parent="." unique_id=346359604 instance=ExtResource("7_dy7ct")]
+
+[node name="suggest_ad_popup" parent="." unique_id=311295370 instance=ExtResource("5_nlkkf")]
+
+[node name="shop" parent="." unique_id=433176672 instance=ExtResource("6_8qtwp")]
+
+[node name="admob" parent="." unique_id=1959751130 instance=ExtResource("5_glbon")]
+
+[connection signal="animation_finished" from="idle_rider" to="." method="_on_idle_rider_animation_finished"]
 [connection signal="animation_finished" from="Camera2D/button_console/profile_window_sprite" to="." method="_on_profile_window_sprite_animation_finished"]
 [connection signal="animation_finished" from="Camera2D/button_console/profile_button_sprite" to="." method="_on_profile_button_sprite_animation_finished"]
-[connection signal="animation_finished" from="Camera2D/button_console/main_window_sprite" to="." method="_on_main_window_sprite_animation_finished"]
+[connection signal="animation_finished" from="Camera2D/button_console/item_display_window" to="." method="_on_item_display_window_animation_finished"]
 [connection signal="pressed" from="Camera2D/CanvasLayer/title" to="." method="_on_title_pressed"]
 [connection signal="button_down" from="Camera2D/CanvasLayer/profile" to="." method="_on_profile_button_down"]
 [connection signal="button_up" from="Camera2D/CanvasLayer/profile" to="." method="_on_profile_button_up"]
 [connection signal="pressed" from="Camera2D/CanvasLayer/profile" to="." method="_on_settings_pressed"]
+[connection signal="button_down" from="Camera2D/CanvasLayer/Control2/play" to="." method="_on_play_button_down"]
+[connection signal="button_up" from="Camera2D/CanvasLayer/Control2/play" to="." method="_on_play_button_up"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/Control2/play" to="." method="_on_play_pressed"]
 [connection signal="button_down" from="Camera2D/CanvasLayer/Control2/shop" to="." method="_on_shop_button_down"]
 [connection signal="button_up" from="Camera2D/CanvasLayer/Control2/shop" to="." method="_on_shop_button_up"]
 [connection signal="pressed" from="Camera2D/CanvasLayer/Control2/shop" to="." method="_on_shop_pressed"]
 [connection signal="button_down" from="Camera2D/CanvasLayer/Control2/owned_items" to="." method="_on_owned_items_button_down"]
 [connection signal="button_up" from="Camera2D/CanvasLayer/Control2/owned_items" to="." method="_on_owned_items_button_up"]
 [connection signal="pressed" from="Camera2D/CanvasLayer/Control2/owned_items" to="." method="_on_owned_items_pressed"]
-[connection signal="button_down" from="Camera2D/CanvasLayer/Control2/play" to="." method="_on_play_button_down"]
-[connection signal="button_up" from="Camera2D/CanvasLayer/Control2/play" to="." method="_on_play_button_up"]
-[connection signal="pressed" from="Camera2D/CanvasLayer/Control2/play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="Camera2D/CanvasLayer/Control3/settings_button" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Camera2D/CanvasLayer/info_display/select_button" to="." method="_on_select_button_pressed"]
+[connection signal="rewarded_interstitial_watched" from="admob" to="." method="_on_admob_rewarded_interstitial_watched"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3odpvl5r3b0l"]
+[gd_scene format=3 uid="uid://c3odpvl5r3b0l"]
 
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_tdr8a"]
 [ext_resource type="Script" uid="uid://d18r677gsy0og" path="res://soap_bar_upgrade.gd" id="1_uho76"]
@@ -9,20 +9,20 @@ size = Vector2(48, 48)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uho76"]
 size = Vector2(48, 48)
 
-[node name="soap_bomb_upgrade" type="StaticBody2D"]
+[node name="soap_bomb_upgrade" type="StaticBody2D" unique_id=725064126]
 script = ExtResource("1_uho76")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=113575389]
 modulate = Color(0, 0.29999995, 1, 1)
 scale = Vector2(0.375, 0.375)
 texture = ExtResource("1_tdr8a")
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." unique_id=351510147]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=1455423228]
 shape = SubResource("RectangleShape2D_t1ifn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1646388442]
 scale = Vector2(0.8, 0.8)
 shape = SubResource("RectangleShape2D_uho76")
 

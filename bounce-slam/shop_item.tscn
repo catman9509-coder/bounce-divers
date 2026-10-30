@@ -1,16 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://x6i6vaf3qss2"]
+[gd_scene format=3 uid="uid://x6i6vaf3qss2"]
 
-[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_wxfep"]
+[ext_resource type="Texture2D" uid="uid://crke3qb4nvxw0" path="res://Bounce DIvers assets/Bounce DIvers assets/shop_item_nuetral.png" id="1_wxfep"]
 [ext_resource type="Script" uid="uid://b710uqwvdd7m0" path="res://shop_item.gd" id="2_wxfep"]
 
-[node name="shop_item" type="TextureButton"]
-offset_right = 128.0
-offset_bottom = 128.0
-scale = Vector2(0.5, 0.5)
+[node name="shop_item" type="TextureButton" unique_id=1645326461]
+clip_contents = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
 texture_normal = ExtResource("1_wxfep")
 script = ExtResource("2_wxfep")
 
-[node name="item_name" type="Label" parent="."]
+[node name="item_name" type="Label" parent="." unique_id=853505183]
 layout_mode = 0
 offset_left = 21.0
 offset_top = 99.0
@@ -18,7 +29,7 @@ offset_right = 105.0
 offset_bottom = 122.0
 text = "item name"
 
-[node name="image_anchor" type="Control" parent="."]
+[node name="image_anchor" type="Control" parent="." unique_id=1246056046]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -28,7 +39,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="item_image" type="TextureRect" parent="image_anchor"]
+[node name="item_image" type="TextureRect" parent="image_anchor" unique_id=1586023045]
 clip_contents = true
 layout_mode = 0
 offset_left = -55.0
@@ -36,10 +47,9 @@ offset_top = -59.0
 offset_right = 55.0
 offset_bottom = 41.0
 mouse_behavior_recursive = 1
-texture = ExtResource("1_wxfep")
 expand_mode = 1
 
-[node name="price" type="RichTextLabel" parent="."]
+[node name="price" type="RichTextLabel" parent="." unique_id=1701220183]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0

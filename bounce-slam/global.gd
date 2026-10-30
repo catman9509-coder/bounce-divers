@@ -27,7 +27,7 @@ var vehicle_skins = [
 ]
 var riders = [
 	{"name" : "tin head", "icon" : "none", "description" : "lorem ipsum", "rarity" : "common", "owned" : false, "equipped" : false},
-	{"name" : "default", "icon" : "none", "description" : "lorem ipsum", "rarity" : "common", "owned" : true, "equipped" : true}
+	{"name" : "freelancer", "icon" : "none", "description" : "lorem ipsum", "rarity" : "common", "owned" : true, "equipped" : true}
 ]
 var purchaseable_upgrades = [
 	{"name" : "extra life", "icon" : "none", "description" : "lorem", "rarity" : "common", "owned" : false, "equipped" : false},
@@ -43,9 +43,14 @@ var shop_catagories = [
 	]
 	#riders, 
 #purchaseable_upgrades
+var purchase_made = ""
+var purchase_category = ""
 
 #shop variables ^
-
+#screen mainpulation
+var actuall_screen = DisplayServer.screen_get_size()
+var screen_scale = DisplayServer.screen_get_scale()
+var screen_pos = DisplayServer.screen_get_position()
 # inventory
 
 
@@ -87,9 +92,11 @@ var current_barriers = []
 var exterminations = 0
 var in_game_collisions = 0
 var payed = false
+
+var finish_transition = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	
 	health = 2
 	score = 0
 	gathered_coins = 0
@@ -99,6 +106,8 @@ func _ready() -> void:
 	for rider in riders:
 		if rider["equipped"] == true:
 			current_rider = rider["name"]
+
+	
 func update_difficulty():
 	match score:
 		50:
@@ -116,8 +125,6 @@ func update_difficulty():
 		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 func attacked(lost_health):
 	if can_be_attacked:
 		player_attacked = true
@@ -136,7 +143,7 @@ func immunity_time(immunity_duration):
 	immunity_timer.start()
 func immunity_timeout():
 	can_be_attacked = true
-		
+	
 func pay_for_cleaning(coins):
 	if health > 0:
 		gathered_coins += coins
@@ -144,8 +151,8 @@ func pay_for_cleaning(coins):
 		payed = true
 func upgrade(upgrade_name):
 	
-	var upgrade : String = upgrade_name
-	match upgrade:
+	var current_upgrade : StringName = upgrade_name
+	match current_upgrade:
 		"soap_bar_upgrade":
 			state = states[1]
 		"soap_bomb_upgrade":
@@ -178,6 +185,8 @@ func buy(price, item_name):
 						owned_purchaseable_upgrades.append(item["name"])
 						item["owned"] = true	
 					item["owned"] = true
+					self.purchase_made = item["name"]
+					self.purchase_category = category["name"]
 					print(item["owned"])
 					
 				else:
@@ -199,5 +208,19 @@ func message(msg, anim, position):
 func transition_animation(scene):
 	var sprite = transition_sprite.instantiate()
 	sprite.scene = scene
-	add_child(sprite)
+	get_tree().current_scene.add_child(sprite)
+	sprite.position.x = 0
 	sprite.get_node("AnimationPlayer").play("normal_transition")
+	finish_transition = true
+			
+func scene_change_transition():
+	if finish_transition == true:
+		var sprite = transition_sprite.instantiate()
+		get_tree().current_scene.add_child(sprite)
+		print("sprite added to current scene")
+		sprite.position.x = 0
+		sprite.get_node("AnimationPlayer").play("scene_changed")
+	finish_transition = false
+		
+	
+	

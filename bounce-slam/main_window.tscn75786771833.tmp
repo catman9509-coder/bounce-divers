@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://db30xqqv0jon1"]
+
+[ext_resource type="Texture2D" uid="uid://c1oqlklbgq51b" path="res://Bounce DIvers assets/Bounce DIvers assets/main_window_display_sprites.png" id="1_n7l54"]
+[ext_resource type="Script" uid="uid://beyp6e0ospwko" path="res://main_window.gd" id="1_tyee0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tyee0"]
+atlas = ExtResource("1_n7l54")
+region = Rect2(721, 0, 721, 1281)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4bi5o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tyee0")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="main_window" type="Node2D" unique_id=1153834780]
+script = ExtResource("1_tyee0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=160458283]
+sprite_frames = SubResource("SpriteFrames_4bi5o")

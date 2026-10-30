@@ -1,10 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://b35b26uost237"]
+[gd_scene format=3 uid="uid://b35b26uost237"]
 
 [ext_resource type="Script" uid="uid://dmna7gce8eit0" path="res://save_manager.gd" id="1_q3ir7"]
 
-[node name="save_manager" type="Node2D"]
+[node name="save_manager" type="Node2D" unique_id=1895915352]
 script = ExtResource("1_q3ir7")
 
-[node name="http" type="HTTPRequest" parent="."]
+[node name="http_save_load" type="HTTPRequest" parent="." unique_id=1754369229]
 
-[connection signal="request_completed" from="http" to="." method="_on_http_request_completed"]
+[connection signal="request_completed" from="http_save_load" to="." method="_on_http_request_completed"]

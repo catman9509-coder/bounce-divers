@@ -17,10 +17,15 @@ var can_create_enemy = true
 var found_group = false
 var starting_spawn_point
 var barrier_speed = 400 / global.difficulty
+var distance
+var side
+var current_scene
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	current_scene = get_tree().current_scene
+	distance = randi_range(10, 300)
 	cleaned = options[randi() % options.size()]
 	if cleaned == false:
 		infested = not cleaned
@@ -47,40 +52,44 @@ func _process(delta: float) -> void:
 			if cleaned == false:
 				$AnimatedSprite2D.play("being_cleaned")
 				infested = false
-		if can_shift:
-			if body.has_method("barrier"): #and body != self:
+
 					
-				var distance = randi_range(10, 300)
-				if self in global.left_barriers:
-					barrier_index = global.left_barriers.find(self)
-					var body_index = global.left_barriers.find(body)
-					
-					if body_index > barrier_index:
-						if body == self or body.global_position == self.global_position:
-							body.queue_free()
-						else:
-							if body.infested == true and self.infested == true:
-								body.can_create_enemy = false
-							if self.cleaned == true:
-								body.cleaned = true
+		
+#		if can_shift:
+#			if body.has_method("barrier"): #and body != self:
+#				if self in global.left_barriers:
+#					barrier_index = global.left_barriers.find(self)
+#					var body_index = global.left_barriers.find(body)
+#					
+#					if body_index > barrier_index:
+#						if body == self or body.global_position == self.global_position:
+#							body.queue_free()
+#						else:
+#							if body.infested == true and self.infested == true:
+#								body.can_create_enemy = false
+#							if self.cleaned == true:
+#								body.cleaned = true
 								
 							
-							body.global_position.y += body.get_node("CollisionShape2D").shape.size.y + distance
+#							body.global_position.y += body.get_node("CollisionShape2D").shape.size.y + distance
+#							self.visible = true
+#			else:
+#				self.visible = true
 						
-				if self in global.right_barriers:
-					barrier_index = global.right_barriers.find(self)
-					var body_index = global.right_barriers.find(body)
-					if body_index > barrier_index:
-						if body == self or body.global_position == self.global_position:
-							body.queue_free()
-						else:
-							if body.infested == true and self.infested == true:
-								body.can_create_enemy = false
-							if self.cleaned == true:
-								body.cleaned = true
-							body.global_position.y += body.get_node("CollisionShape2D").shape.size.y + distance
-		if infested and can_create_enemy and found_group:
-			spawn_enemy()
+#				if self in global.right_barriers:
+#					barrier_index = global.right_barriers.find(self)
+#					var body_index = global.right_barriers.find(body)
+#					if body_index > barrier_index:
+#						if body == self or body.global_position == self.global_position:
+#							body.queue_free()
+#						else:
+#				if body.infested == true and self.infested == true:
+#					body.can_create_enemy = false
+#				if self.cleaned == true:
+#					body.cleaned = true
+		#			body.global_position.y += body.get_node("CollisionShape2D").shape.size.y + distance
+#		if infested and can_create_enemy and found_group:
+#			spawn_enemy()
 			
 	if infested:
 		$AnimatedSprite2D.play("infested")
@@ -150,9 +159,31 @@ func find_group():
 		if self in global.left_barriers:
 			starting_spawn_point = Vector2(global_position.x + $detection_area/CollisionShape2D.shape.size.x/2, global_position.y)
 			found_group = true
+			
 		if self in global.right_barriers:
 			starting_spawn_point = Vector2(global_position.x - $detection_area/CollisionShape2D.shape.size.x/2, global_position.y)
 			found_group = true
 func move(delta):
 	position.y -= barrier_speed * delta
 	
+
+
+
+	
+
+
+func _on_detection_area_body_entered(body: Node2D) -> void:
+		if body.has_method("barrier"):
+			if self in global.left_barriers:
+				if global.left_barriers.find(self) > global.left_barriers.find(body):
+					if current_scene.name == "level":
+						print("erased self")
+						current_scene.can_spawn_barrier = false
+						current_scene.erase_barrier("left", body)
+						
+			if self in global.right_barriers:
+				if global.right_barriers.find(self) > global.right_barriers.find(body):
+					if current_scene.name == "level":
+						print("erased self")
+						current_scene.can_spawn_barrier = false
+						current_scene.erase_barrier("right", body)

@@ -1,12 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://yt27bi2va31i"]
+[gd_scene format=3 uid="uid://yt27bi2va31i"]
 
 [ext_resource type="Script" uid="uid://db5fr6olfc057" path="res://settings.gd" id="1_3ykye"]
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_3ykye"]
 
-[node name="settings" type="CanvasLayer"]
+[node name="settings" type="CanvasLayer" unique_id=1754755955]
 script = ExtResource("1_3ykye")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=531016513]
 custom_minimum_size = Vector2(360, 640)
 layout_mode = 3
 anchors_preset = 15
@@ -15,7 +15,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Control"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control" unique_id=1150942242]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 35.0
@@ -23,32 +23,32 @@ offset_right = 306.0
 offset_bottom = 160.0
 theme_override_constants/separation = 15
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer2" unique_id=675730134]
 layout_mode = 2
 theme_override_constants/margin_left = 200
 
-[node name="death_menu_label" type="Label" parent="Control/VBoxContainer2/MarginContainer"]
+[node name="death_menu_label" type="Label" parent="Control/VBoxContainer2/MarginContainer" unique_id=1108863469]
 layout_mode = 2
 text = "death_menu"
 
-[node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer2"]
+[node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer2" unique_id=611922009]
 layout_mode = 2
 theme_override_constants/margin_left = 200
 
-[node name="variable_2_label" type="Label" parent="Control/VBoxContainer2/MarginContainer2"]
+[node name="variable_2_label" type="Label" parent="Control/VBoxContainer2/MarginContainer2" unique_id=169594535]
 layout_mode = 2
 text = "var 2"
 
-[node name="MarginContainer3" type="MarginContainer" parent="Control/VBoxContainer2"]
+[node name="MarginContainer3" type="MarginContainer" parent="Control/VBoxContainer2" unique_id=983341086]
 layout_mode = 2
 theme_override_constants/margin_left = 200
 
-[node name="variable_3_label" type="Label" parent="Control/VBoxContainer2/MarginContainer3"]
+[node name="variable_3_label" type="Label" parent="Control/VBoxContainer2/MarginContainer3" unique_id=1296043541]
 layout_mode = 2
 text = "var 3
 "
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=1034931963]
 layout_mode = 0
 offset_left = 9.0
 offset_top = 35.0
@@ -56,16 +56,16 @@ offset_right = 49.0
 offset_bottom = 75.0
 theme_override_constants/separation = 15
 
-[node name="death_menu_switch" type="CheckButton" parent="Control/VBoxContainer"]
+[node name="death_menu_switch" type="CheckButton" parent="Control/VBoxContainer" unique_id=781380610]
 layout_mode = 2
 
-[node name="CheckButton2" type="CheckButton" parent="Control/VBoxContainer"]
+[node name="CheckButton2" type="CheckButton" parent="Control/VBoxContainer" unique_id=1498386613]
 layout_mode = 2
 
-[node name="CheckButton3" type="CheckButton" parent="Control/VBoxContainer"]
+[node name="CheckButton3" type="CheckButton" parent="Control/VBoxContainer" unique_id=1939141173]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Control" unique_id=559589987]
 layout_mode = 0
 offset_left = 4.0
 offset_right = 354.0
@@ -73,18 +73,18 @@ offset_bottom = 33.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer" unique_id=317416914]
 layout_mode = 2
 theme_override_constants/separation = 250
 
-[node name="back_button" type="TextureButton" parent="Control/MarginContainer/HBoxContainer"]
+[node name="back_button" type="TextureButton" parent="Control/MarginContainer/HBoxContainer" unique_id=1132492832]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 texture_normal = ExtResource("2_3ykye")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="balance" type="Label" parent="Control/MarginContainer/HBoxContainer"]
+[node name="balance" type="Label" parent="Control/MarginContainer/HBoxContainer" unique_id=1050777586]
 layout_mode = 2
 text = "0"
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://do5ch807pu4d4"]
+[gd_scene format=3 uid="uid://do5ch807pu4d4"]
 
 [ext_resource type="Script" uid="uid://bkhb43komvtih" path="res://explosion_effect.gd" id="1_nejuc"]
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_wupqs"]
@@ -65,7 +65,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ftaob")
 }],
-"loop": false,
+"loop": 0,
 "name": &"enemy_1",
 "speed": 5.0
 }, {
@@ -88,7 +88,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_n5a6k")
 }],
-"loop": true,
+"loop": 1,
 "name": &"player",
 "speed": 5.0
 }]
@@ -169,21 +169,19 @@ _data = {
 &"player": SubResource("Animation_ek6mm")
 }
 
-[node name="explosion_effect" type="Node2D"]
+[node name="explosion_effect" type="Node2D" unique_id=1225483692]
 script = ExtResource("1_nejuc")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=463241155]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D" unique_id=1874346604]
 position = Vector2(3.8146973e-06, 3.8146973e-06)
 scale = Vector2(3.9999998, 3.9999998)
 sprite_frames = SubResource("SpriteFrames_ayhl3")
 animation = &"player"
 autoplay = "enemy_1"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_4i723")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=122169280]
+libraries/ = SubResource("AnimationLibrary_4i723")
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

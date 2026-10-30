@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dx0bbwome35ef"]
+[gd_scene format=3 uid="uid://dx0bbwome35ef"]
 
 [ext_resource type="Script" uid="uid://c6i5v8l4x4b1y" path="res://collision_effect.gd" id="1_jtb6p"]
 [ext_resource type="Texture2D" uid="uid://dxfgta3qbj8lk" path="res://collision_effect_sprites.png" id="2_jtb6p"]
@@ -124,7 +124,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_brvvt")
 }],
-"loop": true,
+"loop": 1,
 "name": &"clean",
 "speed": 5.0
 }, {
@@ -147,27 +147,25 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0pcwu")
 }],
-"loop": true,
+"loop": 1,
 "name": &"infested",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": 1,
 "name": &"new_animation",
 "speed": 5.0
 }]
 
-[node name="collision_effect" type="Node2D"]
+[node name="collision_effect" type="Node2D" unique_id=571929163]
 script = ExtResource("1_jtb6p")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_r2up7")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1310385867]
+libraries/ = SubResource("AnimationLibrary_r2up7")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=291485144]
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Node2D" unique_id=1310638036]
 position = Vector2(0, 4.7683716e-07)
 scale = Vector2(0.3, 0.448)
 sprite_frames = SubResource("SpriteFrames_8437e")

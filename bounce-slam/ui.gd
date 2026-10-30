@@ -3,12 +3,19 @@ var game_menu : PackedScene = load("res://death_menu.tscn")
 var game_menu_background : PackedScene = load("res://death_background.tscn")
 var can_play_collision_animation = true
 var can_play_extermination_animation = true
-
-
+var shift_button_animation_played = false
+var current_scene
+var should_play_ready = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	current_scene = get_tree().current_scene
+	if is_instance_valid(get_parent().get_node("transition_sprites")):
+		self.visible = false
+	else:
+		self.visible = true
+	$direction_control.visible = false
+	$shift_button/AnimatedSprite2D.play("ready")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -26,32 +33,23 @@ func _process(delta: float) -> void:
 		$AnimationPlayer2.play("money_gain")
 	if global.exterminations > 0:
 		check_exterminations()
-		
-		
+	if should_play_ready == true:
+		$shift_button/AnimatedSprite2D.play("ready")
+		should_play_ready = false
 		
 	
 
 
 func _on_menu_button_pressed() -> void:
-	
 	var background = game_menu_background.instantiate()
 	get_parent().add_child(background)
 	background.get_node("AnimationPlayer").play("normal")
 	var menu = game_menu.instantiate()
 	get_parent().add_child(menu)
-	menu.position = Vector2(360/2, 640/2)
+	menu.position = Vector2(get_viewport().get_visible_rect().size.x, 0)
 	menu.get_node("AnimationPlayer").play("appear")
-
-
-
-func _on_menu_button_released() -> void:
-	pass
+	self.visible = false
 	
-	
-	
-	
-
-
 func _on_stored_upgrade_button_pressed() -> void:
 	if global.owned_purchaseable_upgrades.size() > 0:
 		if global.owned_purchaseable_upgrades[0]:
@@ -115,3 +113,57 @@ func check_exterminations():
 func _on_message_timer_timeout() -> void:
 	global.exterminations = 0
 	$message_timer.wait_time = 0.2
+
+func _on_shift_button_pressed() -> void:
+	if global.shift_fuel_count > 0:
+		$shift_button/AnimatedSprite2D.play("press")
+	else:
+		$shift_button/AnimatedSprite2D.play("disabled_neutral") 
+		
+	global.player_attack = false
+	global.shift_pressed = true
+	
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed or event is InputEventScreenTouch and event.pressed:
+		$direction_control.visible = true
+		if event.position.x >= $direction_controll_space.position.x - $direction_controll_space.shape.size.x/2 and event.position.x <= $direction_controll_space.position.x + $direction_controll_space.shape.size.x/2:
+			if event.position.y >= $direction_controll_space.position.y - $direction_controll_space.shape.size.y/2 and event.position.y <= $direction_controll_space.position.y + $direction_controll_space.shape.size.y/2:
+				global.go_up = true
+				global.go_down = false
+				$direction_control/AnimatedSprite2D.play("up")
+			if event.position.y >= $direction_controll_space.position.y and event.position.y <= $direction_controll_space.position.y + $direction_controll_space.shape.size.y/2:
+				global.go_up = false
+				global.go_down = true
+				$direction_control/AnimatedSprite2D.play("down")
+		else:
+			$direction_control.visible = false
+			global.player_attack = true
+	if event is InputEventMouseMotion or event is InputEventScreenDrag:
+		$direction_control.visible = true
+		if event.position.x >= $direction_controll_space.position.x - $direction_controll_space.shape.size.x/2 and event.position.x <= $direction_controll_space.position.x + $direction_controll_space.shape.size.x/2:
+			if event.position.y >= $direction_controll_space.position.y - $direction_controll_space.shape.size.y/2 and event.position.y <= $direction_controll_space.position.y + $direction_controll_space.shape.size.y/2:
+				global.go_up = true
+				global.go_down = false
+				$direction_control.get_node("AnimatedSprite2D").play("up")
+			if event.position.y >= $direction_controll_space.position.y and event.position.y <= $direction_controll_space.position.y + $direction_controll_space.shape.size.y/2:
+				global.go_up = false
+				global.go_down = true
+				$direction_control.get_node("AnimatedSprite2D").play("down")
+	
+	if event is InputEventMouseButton and event.is_released() or event is InputEventScreenTouch and event.is_released():
+		global.go_up = false
+		global.go_down = false
+		$direction_control.visible = false
+			
+	
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	match $shift_button/AnimatedSprite2D.animation:
+		"disabled_press":
+			$shift_button/AnimatedSprite2D.play("disabled")
+		"press":
+			$shift_button/AnimatedSprite2D.play("neutral")
+		"ready":
+			$shift_button/AnimatedSprite2D.play("neutral")

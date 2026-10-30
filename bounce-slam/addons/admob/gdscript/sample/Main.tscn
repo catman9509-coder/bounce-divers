@@ -15,6 +15,8 @@
 [ext_resource type="AudioStream" uid="uid://f3f176vu6pfo" path="res://addons/admob/assets/music.ogg" id="13_music"]
 [ext_resource type="Script" uid="uid://bh53g1jdwb21i" path="res://addons/admob/gdscript/sample/tabs/MobileAds.gd" id="14_mobile_ads_script"]
 [ext_resource type="Theme" uid="uid://cax2scu7f6q4k" path="res://addons/admob/assets/theme_modern.tres" id="15_theme"]
+[ext_resource type="PackedScene" uid="uid://b137rcrbp61es" path="res://addons/admob_manager/admob.tscn" id="16_nvv7w"]
+[ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="17_nusmr"]
 
 [sub_resource type="GDScript" id="GDScript_1vvio"]
 script/source = "extends TextureButton
@@ -236,6 +238,21 @@ bbcode_enabled = true
 text = "--- LOGS START ---"
 scroll_following = true
 
+[node name="admob" parent="." unique_id=1959751130 instance=ExtResource("16_nvv7w")]
+
+[node name="Button" type="Button" parent="admob" unique_id=432437896]
+offset_right = 8.0
+offset_bottom = 8.0
+icon = ExtResource("17_nusmr")
+
+[node name="Button2" type="Button" parent="admob" unique_id=103438772]
+offset_left = -1.0
+offset_top = 146.0
+offset_right = 135.0
+offset_bottom = 282.0
+icon = ExtResource("17_nusmr")
+
+[connection signal="pressed" from="Background/SafeArea/LayoutContainer/HeaderContainer/VBox/SupportCard/VBox/SupportButtons/Patreon" to="." method="_on_patreon_pressed"]
 [connection signal="pressed" from="Background/SafeArea/LayoutContainer/HeaderContainer/VBox/SupportCard/VBox/SupportButtons/Patreon" to="Background/SafeArea/LayoutContainer/HeaderContainer/VBox/SupportCard/VBox/SupportButtons/Patreon" method="_on_pressed"]
 [connection signal="pressed" from="Background/SafeArea/LayoutContainer/HeaderContainer/VBox/SupportCard/VBox/SupportButtons/Ko-fi" to="Background/SafeArea/LayoutContainer/HeaderContainer/VBox/SupportCard/VBox/SupportButtons/Ko-fi" method="_on_pressed"]
 [connection signal="pressed" from="Background/SafeArea/LayoutContainer/HeaderContainer/VBox/SupportCard/VBox/SupportButtons/PayPal" to="Background/SafeArea/LayoutContainer/HeaderContainer/VBox/SupportCard/VBox/SupportButtons/PayPal" method="_on_pressed"]
@@ -244,3 +261,7 @@ scroll_following = true
 [connection signal="pressed" from="Background/SafeArea/LayoutContainer/TabContent/MainTabs/MobileAds/MuteMusic" to="Background/SafeArea/LayoutContainer/TabContent/MainTabs/MobileAds" method="_on_mute_music_pressed"]
 [connection signal="value_changed" from="Background/SafeArea/LayoutContainer/TabContent/MainTabs/MobileAds/AdVolumeContainer/AdVolumeSlider" to="Background/SafeArea/LayoutContainer/TabContent/MainTabs/MobileAds" method="_on_ad_volume_changed"]
 [connection signal="pressed" from="Background/SafeArea/LayoutContainer/TabContent/MainTabs/MobileAds/AdMuted" to="Background/SafeArea/LayoutContainer/TabContent/MainTabs/MobileAds" method="_on_ad_muted_pressed"]
+[connection signal="rewarded_interstitial_watched" from="admob" to="." method="_on_admob_rewarded_interstitial_watched"]
+[connection signal="rewarded_watched" from="admob" to="." method="_on_admob_rewarded_watched"]
+[connection signal="pressed" from="admob/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="admob/Button2" to="." method="_on_button_2_pressed"]

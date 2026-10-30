@@ -12,7 +12,19 @@ var not_owned
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print(category)
+	anchor_left = 0
+	anchor_right = 1
+	anchor_top = 0
+	anchor_bottom = 1
+	offset_left = 0
+	offset_top = 0
+	offset_right = 0
+	offset_bottom = 0
+	size_flags_horizontal = SIZE_EXPAND
+	size_flags_vertical = SIZE_EXPAND
+	custom_minimum_size = Vector2(0, 0)
+	#self.custom_maximum_size = get_parent().get_size()
+#	print(category)
 	if owned:
 		$price.visible = false
 		print("owned")
@@ -39,6 +51,7 @@ func _process(delta: float) -> void:
 
 func _on_pressed() -> void:
 	
+	var current_scene = get_tree().current_scene
 	var info_popup = item_info.instantiate()
 	if owned == true:
 		info_popup.owned = true
@@ -46,12 +59,16 @@ func _on_pressed() -> void:
 	if not_owned == true:
 		info_popup.not_owned = true	
 		info_popup.owned = false
-	info_popup.cat = str(category)
-	info_popup.item_name = item_name
-	info_popup.description = description
-	info_popup.price = price 
-	get_parent().get_parent().get_parent().get_parent().get_parent().get_parent().add_child(info_popup)
-	info_popup.global_position.x = get_viewport_rect().size.x/4.5
-	info_popup.global_position.y = get_viewport_rect().size.y/4
-	
-	
+	if current_scene.name == "main_menu":
+		
+		current_scene.selected_item["name"] = self.item_name
+		current_scene.selected_item["category"] = self.category
+		current_scene.selected_item["price"] = self.price
+		current_scene.selected_item["description"] = self.description
+		
+		if owned:
+			current_scene.selected_item["owned"] = true
+		elif not_owned:
+			current_scene.selected_item["owned"] = false
+		current_scene.update_info_display()
+		

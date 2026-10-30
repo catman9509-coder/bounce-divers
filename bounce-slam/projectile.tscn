@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://2qrlxgrqv1is"]
+[gd_scene format=3 uid="uid://2qrlxgrqv1is"]
 
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_a85iw"]
 [ext_resource type="Script" uid="uid://dndr2dcoff0q7" path="res://projectile.gd" id="1_qxf0c"]
@@ -13,12 +13,12 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jiowd")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }, {
 "frames": [],
-"loop": true,
+"loop": 1,
 "name": &"new_animation",
 "speed": 5.0
 }]
@@ -29,26 +29,26 @@ radius = 24.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_jqaj3"]
 radius = 24.0
 
-[node name="projectile" type="RigidBody2D"]
+[node name="projectile" type="RigidBody2D" unique_id=322406849]
 collision_layer = 3
 collision_mask = 3
 gravity_scale = 0.0
 script = ExtResource("1_qxf0c")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=612805151]
 position = Vector2(1.4305115e-06, 1.4305115e-06)
 scale = Vector2(2.9999998, 2.9999998)
 sprite_frames = SubResource("SpriteFrames_2x7xp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1204377371]
 shape = SubResource("CircleShape2D_80516")
 disabled = true
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." unique_id=350311558]
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=309544826]
 shape = SubResource("CircleShape2D_jqaj3")
 
 [connection signal="area_entered" from="detection_area" to="." method="_on_detection_area_area_entered"]

@@ -1,32 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://xn3uq6oevcbh"]
+[gd_scene format=3 uid="uid://xn3uq6oevcbh"]
 
-[ext_resource type="Texture2D" uid="uid://5fu6ckyo2xmt" path="res://oak_woods_v1.0/background/background_layer_1.png" id="1_q3qby"]
+[ext_resource type="Texture2D" uid="uid://wvrxh7p00jvo" path="res://Bounce DIvers assets/Bounce DIvers assets/shop_category_sprite.png" id="1_q3qby"]
+[ext_resource type="Script" uid="uid://cd2db22mc6f8e" path="res://shop_catageory.gd" id="2_q3qby"]
 
-[node name="shop_catageory" type="TextureRect"]
+[node name="shop_catageory" type="TextureRect" unique_id=1619473915]
 clip_contents = true
-offset_top = -8.0
 offset_right = 320.0
-offset_bottom = 120.0
-scale = Vector2(0.5, 0.5)
+offset_bottom = 180.0
+localize_numeral_system = false
 texture = ExtResource("1_q3qby")
-stretch_mode = 1
+script = ExtResource("2_q3qby")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
-clip_contents = false
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=1222697621]
 custom_minimum_size = Vector2(310, 100)
-layout_mode = 0
-offset_top = 15.0
-offset_right = 310.0
-offset_bottom = 151.0
-scale = Vector2(0.8, 0.8)
-follow_focus = true
-draw_focus_border = true
-vertical_scroll_mode = 0
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer" unique_id=100033645]
 layout_mode = 2
+size_flags_vertical = 6
+theme_override_constants/separation = 4
 
-[node name="category_name" type="Label" parent="."]
+[node name="category_name" type="Label" parent="." unique_id=483316977]
 layout_mode = 0
 offset_left = 3.0
 offset_top = -5.0

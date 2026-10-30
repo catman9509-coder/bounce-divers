@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d4b1wokp4m45v"]
+[gd_scene format=3 uid="uid://d4b1wokp4m45v"]
 
 [ext_resource type="Script" uid="uid://bwyewou3yt32o" path="res://node_2d.gd" id="1_6j344"]
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_368c7"]
@@ -54,33 +54,6 @@ tracks/3/keys = {
 "values": [Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_06ydw"]
-resource_name = "faded"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.16666667, 0.53333336, 0.8, 1),
-"transitions": PackedFloat32Array(50.2134, 1, 1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.03333336, 0.53333336, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_0e48y"]
 resource_name = "fade in"
 tracks/0/type = "value"
@@ -123,6 +96,33 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_06ydw"]
+resource_name = "faded"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.16666667, 0.53333336, 0.8, 1),
+"transitions": PackedFloat32Array(50.2134, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.03333336, 0.53333336, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5h2ww"]
 _data = {
 &"RESET": SubResource("Animation_13d81"),
@@ -131,21 +131,19 @@ _data = {
 &"faded": SubResource("Animation_06ydw")
 }
 
-[node name="loading_icon" type="Node2D"]
+[node name="loading_icon" type="Node2D" unique_id=1080054545]
 rotation = 0.030589504
 script = ExtResource("1_6j344")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1562716727]
 process_priority = 1
-libraries = {
-&"": SubResource("AnimationLibrary_5h2ww")
-}
+libraries/ = SubResource("AnimationLibrary_5h2ww")
 
-[node name="Node2D" type="Node2D" parent="."]
+[node name="Node2D" type="Node2D" parent="." unique_id=1953875596]
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0)
 
-[node name="TextureRect" type="TextureRect" parent="Node2D"]
+[node name="TextureRect" type="TextureRect" parent="Node2D" unique_id=1043351525]
 offset_left = -64.0
 offset_top = -64.0
 offset_right = 64.0

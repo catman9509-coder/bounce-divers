@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b6c21u8upl6jd"]
+[gd_scene format=3 uid="uid://b6c21u8upl6jd"]
 
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="1_cmibp"]
 [ext_resource type="Script" uid="uid://ppep6s1rds4s" path="res://barrier_1.gd" id="1_kflrx"]
@@ -7,7 +7,7 @@
 size = Vector2(110.000015, 230)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cmibp"]
-size = Vector2(142, 230)
+size = Vector2(142, 295)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w3ucv"]
 atlas = ExtResource("1_cmibp")
@@ -49,7 +49,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xmsdk")
 }],
-"loop": false,
+"loop": 0,
 "name": &"being_cleaned",
 "speed": 5.0
 }, {
@@ -57,7 +57,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8i77o")
 }],
-"loop": true,
+"loop": 1,
 "name": &"clean",
 "speed": 5.0
 }, {
@@ -71,32 +71,33 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mj22x")
 }],
-"loop": true,
+"loop": 1,
 "name": &"infested",
 "speed": 5.0
 }]
 
-[node name="barrier_2" type="StaticBody2D"]
+[node name="barrier_2" type="StaticBody2D" unique_id=463228666]
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_kflrx")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1192962395]
 scale = Vector2(0.99999994, 1)
 shape = SubResource("RectangleShape2D_8i77o")
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." unique_id=1089614171]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=1568049368]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_cmibp")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=908604021]
 position = Vector2(-0.50000453, -7.867813e-06)
 scale = Vector2(3.40625, 7.1875)
 sprite_frames = SubResource("SpriteFrames_kflrx")
 animation = &"infested"
 
-[node name="spawn_point" type="Marker2D" parent="AnimatedSprite2D"]
+[node name="spawn_point" type="Marker2D" parent="AnimatedSprite2D" unique_id=318498215]
 position = Vector2(30.091742, 1.0946524e-06)
 scale = Vector2(0.29357797, 0.13913044)
 

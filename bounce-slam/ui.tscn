@@ -1,8 +1,15 @@
-[gd_scene load_steps=9 format=3 uid="uid://cedbbbfjxhq1r"]
+[gd_scene format=3 uid="uid://cedbbbfjxhq1r"]
 
 [ext_resource type="Script" uid="uid://cqbdlfmqxnu52" path="res://ui.gd" id="1_fyqef"]
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_m6e0p"]
+[ext_resource type="Texture2D" uid="uid://cxfqjpad2skfa" path="res://Bounce DIvers assets/Bounce DIvers assets/pause_button_neutral.png" id="2_y4yjw"]
 [ext_resource type="Texture2D" uid="uid://bw16aaxcto4t0" path="res://oak_woods_v1.0/character/char_blue.png" id="3_27fn8"]
+[ext_resource type="Texture2D" uid="uid://cbjuxx6yahntu" path="res://Bounce DIvers assets/Bounce DIvers assets/pause_button_pressed.png" id="3_waa4j"]
+[ext_resource type="PackedScene" uid="uid://b0it6d1q1w826" path="res://direction_control.tscn" id="4_nltto"]
+[ext_resource type="Texture2D" uid="uid://dsk0o3mcaysog" path="res://Bounce DIvers assets/Bounce DIvers assets/shift_button_spritesheet.png" id="6_ok7cu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oyf1y"]
+size = Vector2(121, 336)
 
 [sub_resource type="Animation" id="Animation_nltto"]
 length = 0.001
@@ -66,6 +73,18 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(130, 89)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_27fn8"]
 resource_name = "collision_message_appearance"
@@ -95,21 +114,6 @@ tracks/1/keys = {
 "values": [Vector2(1, 1), Vector2(2, 2), Vector2(0.7, 0.7)]
 }
 
-[sub_resource type="Animation" id="Animation_ibotj"]
-resource_name = "money_gain"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/money:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.65, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1.2, 1.2), Vector2(1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_n5ude"]
 resource_name = "extermination_message_appearance"
 tracks/0/type = "value"
@@ -137,6 +141,21 @@ tracks/1/keys = {
 "values": [Vector2(130, 89), Vector2(116, 89)]
 }
 
+[sub_resource type="Animation" id="Animation_ibotj"]
+resource_name = "money_gain"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/money:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.65, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ibotj"]
 _data = {
 &"RESET": SubResource("Animation_nltto"),
@@ -145,10 +164,177 @@ _data = {
 &"money_gain": SubResource("Animation_ibotj")
 }
 
-[node name="ui" type="CanvasLayer"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x64qg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_irxef"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(602, 0, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2l4f"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(602, 0, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n5rqp"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(903, 0, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gs482"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(1204, 0, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxd00"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(0, 0, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etlur"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(903, 301, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7rqds"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(301, 0, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvb2n"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(0, 301, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_os5c7"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(301, 301, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2p7n"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(602, 301, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkygq"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(903, 602, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sosvr"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(1204, 602, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ndy3v"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(0, 903, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x2s2p"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(0, 602, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v8jk5"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(301, 602, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cka8k"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(1204, 301, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_53buu"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(602, 602, 301, 301)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7w61g"]
+atlas = ExtResource("6_ok7cu")
+region = Rect2(301, 903, 301, 301)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4bi5o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_irxef")
+}],
+"loop": 0,
+"name": &"disabled_neutral",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2l4f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n5rqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gs482")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxd00")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2l4f")
+}],
+"loop": 0,
+"name": &"disabled_press",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etlur")
+}],
+"loop": 0,
+"name": &"neutral",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7rqds")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvb2n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_os5c7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etlur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2p7n")
+}],
+"loop": 0,
+"name": &"press",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkygq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sosvr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ndy3v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x2s2p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v8jk5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cka8k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_53buu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7w61g")
+}],
+"loop": 0,
+"name": &"ready",
+"speed": 10.0
+}]
+
+[node name="ui" type="CanvasLayer" unique_id=661188927]
 script = ExtResource("1_fyqef")
 
-[node name="Control" type="Control" parent="."]
+[node name="direction_controll_space" type="CollisionShape2D" parent="." unique_id=891972031]
+position = Vector2(293.5, 467)
+shape = SubResource("RectangleShape2D_oyf1y")
+disabled = true
+
+[node name="Control" type="Control" parent="." unique_id=1834887311]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 24.0
@@ -156,35 +342,36 @@ offset_top = 40.0
 offset_right = 64.0
 offset_bottom = 80.0
 
-[node name="money" type="Label" parent="Control"]
+[node name="money" type="Label" parent="Control" unique_id=99469330]
 layout_mode = 0
 offset_top = 34.0
 offset_right = 62.0
 offset_bottom = 57.0
 text = "money: "
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1435567035]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="score" type="Label" parent="Control/HBoxContainer"]
+[node name="score" type="Label" parent="Control/HBoxContainer" unique_id=604369624]
 layout_mode = 2
 text = "parsecs:"
 
-[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/HBoxContainer" unique_id=1829079350]
 layout_mode = 2
 theme_override_constants/margin_left = 150
 
-[node name="menu_button" type="TextureButton" parent="Control/HBoxContainer/MarginContainer"]
+[node name="menu_button" type="TextureButton" parent="Control/HBoxContainer/MarginContainer" unique_id=49129861]
 custom_minimum_size = Vector2(50, 40)
 layout_mode = 2
 action_mode = 0
-texture_normal = ExtResource("2_m6e0p")
+texture_normal = ExtResource("2_y4yjw")
+texture_pressed = ExtResource("3_waa4j")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="stored_upgrade_button" type="TextureButton" parent="."]
+[node name="stored_upgrade_button" type="TextureButton" parent="." unique_id=653544109]
 offset_left = 24.0
 offset_top = 102.0
 offset_right = 88.0
@@ -193,7 +380,7 @@ texture_normal = ExtResource("3_27fn8")
 ignore_texture_size = true
 stretch_mode = 1
 
-[node name="collisions_label" type="Label" parent="."]
+[node name="collisions_label" type="Label" parent="." unique_id=1447789056]
 offset_left = 167.0
 offset_top = 88.0
 offset_right = 279.0
@@ -201,14 +388,14 @@ offset_bottom = 111.0
 text = "
 "
 
-[node name="extermination_label" type="Label" parent="."]
-offset_left = 116.0
+[node name="extermination_label" type="Label" parent="." unique_id=2124988681]
+offset_left = 130.0
 offset_top = 89.0
-offset_right = 156.00034
+offset_right = 170.00034
 offset_bottom = 112.0
 metadata/_edit_use_anchors_ = true
 
-[node name="emergency_shift" type="TextureRect" parent="."]
+[node name="emergency_shift" type="TextureRect" parent="." unique_id=673603084]
 modulate = Color(1, 0, 0, 1)
 offset_left = 296.0
 offset_top = 118.0
@@ -217,29 +404,39 @@ offset_bottom = 158.0
 texture = ExtResource("2_m6e0p")
 expand_mode = 1
 
-[node name="Button" type="Button" parent="emergency_shift"]
+[node name="Button" type="Button" parent="emergency_shift" unique_id=1001953566]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 46.0
 
-[node name="Label" type="Label" parent="emergency_shift/Button"]
+[node name="Label" type="Label" parent="emergency_shift/Button" unique_id=1322124462]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "x 0"
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ibotj")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1218094341]
+libraries/ = SubResource("AnimationLibrary_ibotj")
 
-[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_ibotj")
-}
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="." unique_id=2130768732]
+libraries/ = SubResource("AnimationLibrary_ibotj")
 
-[node name="message_timer" type="Timer" parent="."]
+[node name="message_timer" type="Timer" parent="." unique_id=1376496240]
 wait_time = 0.2
+
+[node name="shift_button" type="TouchScreenButton" parent="." unique_id=602834644]
+z_index = 1
+position = Vector2(44, 336.00003)
+scale = Vector2(4.331915, 4.5478296)
+shape = SubResource("RectangleShape2D_x64qg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="shift_button" unique_id=234960669]
+scale = Vector2(0.07662083, 0.07648244)
+sprite_frames = SubResource("SpriteFrames_4bi5o")
+animation = &"neutral"
+
+[node name="direction_control" parent="." unique_id=286445957 instance=ExtResource("4_nltto")]
+position = Vector2(294, 469)
 
 [connection signal="pressed" from="Control/HBoxContainer/MarginContainer/menu_button" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="stored_upgrade_button" to="." method="_on_stored_upgrade_button_pressed"]
@@ -247,3 +444,6 @@ wait_time = 0.2
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer2" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="message_timer" to="." method="_on_message_timer_timeout"]
+[connection signal="pressed" from="shift_button" to="." method="_on_shift_button_pressed"]
+[connection signal="released" from="shift_button" to="." method="_on_shift_button_released"]
+[connection signal="animation_finished" from="shift_button/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

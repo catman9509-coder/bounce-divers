@@ -85,3 +85,11 @@ func _log_adapter_status(status: InitializationStatus) -> void:
 			adapter_status.description
 		]
 		log_message(info)
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://main_menu.tscn")
+
+
+func _on_button_2_pressed() -> void:
+	get_tree().change_scene_to_file("res://transition_sprites.tscn")

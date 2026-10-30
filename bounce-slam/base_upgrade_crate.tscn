@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgsomilbsrtgr"]
+[gd_scene format=3 uid="uid://dgsomilbsrtgr"]
 
 [ext_resource type="Script" uid="uid://dkaikssbqqrqn" path="res://base_upgrade_crate.gd" id="1_dyhjh"]
 [ext_resource type="Texture2D" uid="uid://cnontrv4iu3rj" path="res://icon.svg" id="2_0lein"]
@@ -16,7 +16,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_bhg7h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -24,25 +24,25 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pjcme"]
 size = Vector2(64, 64)
 
-[node name="base_upgrade_crate" type="CharacterBody2D"]
+[node name="base_upgrade_crate" type="CharacterBody2D" unique_id=1819057480]
 collision_layer = 3
 collision_mask = 0
 script = ExtResource("1_dyhjh")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=772750808]
 modulate = Color(1, 0.2901961, 0.7529412, 1)
 self_modulate = Color(0.9, 0.27, 0.28049985, 1)
 shape = SubResource("RectangleShape2D_s2u3c")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=852166397]
 modulate = Color(1, 0.51, 0.9509998, 1)
 position = Vector2(-1.4305115e-06, -1.4305115e-06)
 scale = Vector2(1.4999999, 1.4999999)
 sprite_frames = SubResource("SpriteFrames_3e14b")
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." unique_id=1184932070]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=912982351]
 shape = SubResource("RectangleShape2D_pjcme")
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]

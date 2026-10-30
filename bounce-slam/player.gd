@@ -1,5 +1,6 @@
 extends CharacterBody2D
 #screen variables
+var ejected_rider : PackedScene = load("res://ejected_rider.tscn")
 var death_menu : PackedScene = load("res://death_menu.tscn")
 var death_background : PackedScene = load("res://death_background.tscn")
 var create_screen = false
@@ -17,12 +18,13 @@ var start_motion = false
 var hori_direction
 var health
 var can_move = true
-var speed_limit = 150
+var speed_limit = 190
 var motion_attack = false
 var can_horizontal_shift = true
 var shift_fuel_count = 1
 var vertical_direction = " "
 var current_collision_count = 0
+var rider_has_been_ejected = false
 
 
 # interaction variables
@@ -65,8 +67,10 @@ func _physics_process(delta: float) -> void:
 			self.visible = false
 			if global.death_screen:
 				if create_screen:
-					death_screen()
+					
 					create_screen = false
+					death_screen()
+
 			else:
 				get_tree().reload_current_scene()
 				global.start_game = false
@@ -152,12 +156,17 @@ func _physics_process(delta: float) -> void:
 	for body in $detection_area.get_overlapping_bodies():
 		if body.name.contains("fuel"):
 			shift_fuel_count += 1
+			if get_tree().current_scene.name == "level":
+				var current_scene = get_tree().current_scene
+				current_scene.get_node("ui").should_play_ready = true
+				
 		if body.position.x < position.x:
 			velocity.x = right_speed
 			hori_direction = "right"
 		if body.position.x > position.x:
 			velocity.x = left_speed
 			hori_direction = "left"
+		
 				
 func hori_shift():
 	var shift_timer = Timer.new()
@@ -271,15 +280,26 @@ func clean_barriers():
 func death_screen():
 	global.death = true
 	save_manager.save()
+	if rider_has_been_ejected == false:
+		var ejection_bubble = ejected_rider.instantiate()
+		ejection_bubble.position = self.position
+		get_parent().add_child(ejection_bubble)
+	rider_has_been_ejected = true
+	if get_tree().current_scene.name == "level":
+		var current_scene = get_tree().current_scene
+		current_scene.rider_has_been_ejected = true
 	var death_background = death_background.instantiate()
 	get_parent().add_child(death_background)
 	death_background.get_node("AnimationPlayer").play("appear")
+	death_background.visible = false
 	var death_screen = death_menu.instantiate()
+	death_screen.get_node("ColorRect/MarginContainer/VBoxContainer/resume").visible = false
 	death_screen.get_node("score").text = "distance: " + str(global.score) +" parsecs"
 	death_screen.position = Vector2(get_viewport_rect().size.x/2, get_viewport_rect().size.y/2)
 	get_parent().add_child(death_screen)
 	death_screen.get_node("AnimationPlayer").play("appear")
-	
+	death_screen.visible = false
+
 func revival():
 	position = Vector2(get_viewport_rect().size.x/2, get_viewport_rect().size.y/2)
 	var death_background = death_background.instantiate()

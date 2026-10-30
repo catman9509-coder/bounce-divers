@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://e63eyvf18twb"]
+[gd_scene format=3 uid="uid://e63eyvf18twb"]
 
 [ext_resource type="Script" uid="uid://bya0q3mk0erhq" path="res://enemy_2.gd" id="1_vfv5t"]
 [ext_resource type="Texture2D" uid="uid://bx8uw3xi10bv4" path="res://Bounce DIvers assets/enemy_2_sprites.png" id="2_vfv5t"]
@@ -134,7 +134,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2ucb6")
 }],
-"loop": false,
+"loop": 0,
 "name": &"attack",
 "speed": 5.0
 }, {
@@ -172,7 +172,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_2p3ij")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -250,7 +250,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mpdht")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -264,12 +264,12 @@ radius = 264.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_hv4bk"]
 radius = 17.888544
 
-[node name="enemy_2" type="CharacterBody2D"]
+[node name="enemy_2" type="CharacterBody2D" unique_id=119146107]
 rotation = 3.1415927
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_vfv5t")
 
-[node name="hands" type="AnimatedSprite2D" parent="."]
+[node name="hands" type="AnimatedSprite2D" parent="." unique_id=1538293420]
 position = Vector2(-1.4861872e-08, -0.17)
 rotation = 3.1415927
 scale = Vector2(0.17, 0.17)
@@ -278,23 +278,23 @@ animation = &"attack"
 frame = 11
 frame_progress = 1.0
 
-[node name="body" type="AnimatedSprite2D" parent="hands"]
+[node name="body" type="AnimatedSprite2D" parent="hands" unique_id=1991697842]
 position = Vector2(8.742276e-08, 0.9999999)
 scale = Vector2(0.9999999, 0.9999999)
 sprite_frames = SubResource("SpriteFrames_j5e66")
 frame_progress = 0.52136725
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=46505856]
 shape = SubResource("CircleShape2D_vfv5t")
 
-[node name="detection_area" type="Area2D" parent="."]
+[node name="detection_area" type="Area2D" parent="." unique_id=400990783]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=1448657202]
 shape = SubResource("CircleShape2D_mvvu1")
 
-[node name="attack_area" type="Area2D" parent="."]
+[node name="attack_area" type="Area2D" parent="." unique_id=2048945676]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attack_area" unique_id=1505246108]
 shape = SubResource("CircleShape2D_hv4bk")
 
 [connection signal="body_entered" from="attack_area" to="." method="_on_attack_area_body_entered"]
